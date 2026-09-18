@@ -1,0 +1,219 @@
+---
+title: "Auditing the EcoCommons Production Data Catalogue"
+description: "How we enumerated every dataset in the EcoCommons production environment — 58,424 records — using the data-ingester Elasticsearch endpoint, and what the catalogue actually contains."
+---
+
+![](https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png)
+
+# Auditing the EcoCommons Production Data Catalogue
+
+Author details: Xiang Zhao
+
+Contact details: support\@ecocommons.org.au
+
+Copyright statement: This document is a product of the EcoCommons platform. Please refer to the EcoCommons website for more details: <https://www.ecocommons.org.au/>
+
+Date: September 2026
+
+# Script information
+
+This post documents a data-audit exercise: producing a complete, reproducible inventory of **every dataset that exists in the EcoCommons production environment**, so that the platform's data holdings can be reviewed against the "critical datasets" the science team expects to find.
+
+It is a companion to the earlier curated audit (`EcoCommons_prod_dataset_audit.xlsx`), which spot-checked 43 datasets from a support article. This time we pulled the *whole* catalogue.
+
+# Introduction
+
+A recurring question in any data platform is deceptively simple: **"What data do we actually have?"**
+
+For EcoCommons, the datasets that power species distribution models and spatial analyses live behind the **data-ingester API**. There is a public data explorer, and there are import tools — but neither answers the question in one shot. To audit the platform properly we needed a single, authoritative list of every dataset record in production, with enough metadata to slice it by category, time domain, and collection.
+
+# Objectives
+
+1.  Enumerate every dataset in the EcoCommons **production** environment.
+2.  Capture per-dataset metadata (title, UUID, category, time domain, resolution, collection).
+3.  Summarise the catalogue so it is human-readable, not just a 58k-row dump.
+4.  Make the whole thing **reproducible** — a script anyone can re-run against prod, test, or dev.
+
+------------------------------------------------------------------------
+
+# The problem: there is no "list all datasets" endpoint
+
+The obvious first attempt — asking the API for a list of datasets — fails:
+
+``` bash
+GET https://api.data-ingester.app.ecocommons.org.au/api/dataset      → 404
+GET .../api/datasets                                                 → 404
+GET .../api/data                                                     → 404
+```
+
+The data-ingester API is built around **individual records**, not listings. The endpoints that *do* exist work per-UUID or per-collection:
+
+| Endpoint | Purpose |
+|:---|:---|
+| `GET /api/dataset/{uuid}` | Fetch one dataset (metadata + band manifest) |
+| `GET /api/collection` | List the ~60 collections (but not their member datasets) |
+| `GET /api/collection/{uuid}` | Fetch one collection's details |
+
+The collection list gets us collection *names*, but a collection object does **not** enumerate its member datasets — so it cannot answer "what datasets exist".
+
+# The solution: query Elasticsearch directly
+
+The breakthrough came from the earlier audit spreadsheet, whose notes referenced an `/api/es/search/dataset` endpoint. The data-ingester indexes every dataset into **Elasticsearch**, and exposes a thin search proxy over it.
+
+A plain `GET` returns `405 Method Not Allowed` — the endpoint expects a **POST with an Elasticsearch query body**:
+
+``` python
+import requests, json
+
+api  = "https://api.data-ingester.app.ecocommons.org.au"
+headers = {"Authorization": "Bearer " + token,
+           "Content-Type": "application/json"}
+
+# How many datasets are there, exactly?
+body = {"track_total_hits": True, "size": 0, "query": {"match_all": {}}}
+resp = requests.post(f"{api}/api/es/search/dataset",
+                     headers=headers, data=json.dumps(body), verify=False)
+
+print(resp.json()["hits"]["total"])
+# → {'value': 58424, 'relation': 'eq'}
+```
+
+**58,424 dataset records.** That is the whole production catalogue.
+
+## Authentication
+
+The endpoint requires a bearer token. We use Keycloak **client credentials** (the `data-publish` client), the same secret the import tooling uses:
+
+``` python
+def get_token():
+    r = requests.post(
+        "https://auth.ecocommons.org.au/auth/realms/"
+        "ecocommons-prod/protocol/openid-connect/token",
+        data={"grant_type": "client_credentials",
+              "client_id": "data-publish",
+              "client_secret": SECRET},   # from .secrets.env.prod
+        verify=False, timeout=30)
+    return r.json()["access_token"]
+```
+
+## Paginating past 10,000
+
+Elasticsearch caps a normal query at 10,000 hits, so we page through with `search_after`. That needs a **unique, sortable** field to tie-break on. Two natural candidates both failed on this index:
+
+-   `_id` → *"Fielddata access on the \_id field is disallowed"*
+-   `uuid.keyword` → *"No mapping found for \[uuid.keyword\]"*
+
+The plain **`uuid`** field, however, is sortable and unique — perfect:
+
+``` python
+fields = ["title", "uuid", "data_category", "data_subcategories",
+          "time_domain", "year", "resolution", "spatial_domain",
+          "spatial_data_type", "collection_names", "downloadable", "created"]
+
+rows, after = [], None
+while True:
+    body = {"size": 5000, "query": {"match_all": {}},
+            "sort": [{"uuid": "asc"}], "_source": fields}
+    if after:
+        body["search_after"] = after
+    hits = requests.post(f"{api}/api/es/search/dataset", headers=headers,
+                         data=json.dumps(body), verify=False).json()["hits"]["hits"]
+    if not hits:
+        break
+    rows.extend(h["_source"] for h in hits)
+    after = hits[-1]["sort"]        # cursor for the next page
+```
+
+Twelve pages of 5,000 later, we have all 58,424 records in hand.
+
+------------------------------------------------------------------------
+
+# What is actually in production?
+
+### By category
+
+The catalogue is overwhelmingly **climate** data.
+
+| Category | Records |
+|:---|---:|
+| Climate | 55,485 |
+| Vegetation | 2,099 |
+| Biodiversity | 407 |
+| Marine | 204 |
+| Topography | 129 |
+| Human Activity | 18 |
+| Freshwater | 17 |
+| Soil | 11 |
+| Boundary Data | 9 |
+| *(uncategorised / unknown)* | 45 |
+
+### By time domain
+
+| Time domain | Records |
+|:---|---:|
+| Future | 54,614 |
+| Current | 3,810 |
+
+### By collection (top of ~54)
+
+| Collection | Records |
+|:---|---:|
+| **WorldClim-v2.1** | **52,308** |
+| Australia current and future climate data | 2,594 |
+| MODIS Vegetation Fraction Cover: monthly layers | 1,785 |
+| eBird Range Maps (Status & Trends, 2023) | 401 |
+| Queensland Government Climate Datasets | 239 |
+| Australia fPAR | 219 |
+| Bio-Oracle v3.0 — Marine Environmental Layers | 117 |
+| Australian Water Availability Project | 114 |
+
+# The headline caveat: records ≠ datasets
+
+**58,424 is a layer-level count.** Every individual layer is its own record — one WorldClim future variable, for one GCM, one emissions scenario, one month, is a single row. That single "WorldClim v2.1 future climate" product explodes into **~52,300 records**, roughly **90% of the entire catalogue**.
+
+So the number to quote depends on the audience:
+
+-   *"How many raster layers are stored?"* → **58,424**.
+-   *"How many distinct data products / collections do we offer?"* → **~54 collections**.
+
+For a data audit, the collection-level view is the meaningful "what do we have" answer; the raw record count is dominated by the combinatorial expansion of one climate product.
+
+------------------------------------------------------------------------
+
+# Deliverables
+
+The extraction produces two artefacts, both checked into the audit repository under `prod_dataset_catalogue/`:
+
+| File | Contents |
+|:---|:---|
+| `prod_dataset_list_full.csv` | One row per dataset — the flat, layer-level list (58,424 rows). |
+| `EcoCommons_prod_dataset_catalogue.xlsx` | Grouped workbook: **Summary**, **By Collection**, **By Subcategory**, and the full list. |
+
+A single script, `extract_prod_datasets.py`, regenerates both and works against any environment:
+
+``` bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+cp .secrets.env.prod.example .secrets.env.prod   # add KEYCLOAK_CLIENT_SECRET_KEY
+python extract_prod_datasets.py --env prod        # or --env test / --env dev
+```
+
+# Findings against the earlier audit
+
+The earlier curated audit checked 43 datasets from support article 6000261884 against this same index. Of those:
+
+-   **38 present**, **2 present under a renamed title**, **3 missing**.
+-   The missing items (e.g. an *ANUClim* monthly climate set) returned empty on both title and keyword search — genuinely absent from prod, not merely re-titled.
+
+Cross-referencing that curated list against the full catalogue pulled here lets us confirm which "critical datasets" are truly missing versus simply hard to find in the data explorer.
+
+# Takeaways
+
+-   The data-ingester exposes **no list endpoint** — enumeration goes through `POST /api/es/search/dataset`.
+-   Paginate with `search_after` on **`uuid`**; `_id` and `uuid.keyword` do not work as sort keys on this index.
+-   Prod holds **58,424 layer records across ~54 collections**, and is **~90% WorldClim future-climate layers** — always distinguish "records" from "products" when reporting.
+-   The whole audit is now a one-command, reproducible pull.
+
+------------------------------------------------------------------------
+
+If you have questions or suggestions, please [contact the EcoCommons](mailto:support@ecocommons.org.au) team.

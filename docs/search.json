@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "ecocommons_prod_data_audit.html#authentication",
+    "href": "ecocommons_prod_data_audit.html#authentication",
+    "title": "Auditing the EcoCommons Production Data Catalogue",
+    "section": "Authentication",
+    "text": "Authentication\nThe endpoint requires a bearer token. We use Keycloak client credentials (the data-publish client), the same secret the import tooling uses:\ndef get_token():\n    r = requests.post(\n        \"https://auth.ecocommons.org.au/auth/realms/\"\n        \"ecocommons-prod/protocol/openid-connect/token\",\n        data={\"grant_type\": \"client_credentials\",\n              \"client_id\": \"data-publish\",\n              \"client_secret\": SECRET},   # from .secrets.env.prod\n        verify=False, timeout=30)\n    return r.json()[\"access_token\"]"
+  },
+  {
+    "objectID": "ecocommons_prod_data_audit.html#paginating-past-10000",
+    "href": "ecocommons_prod_data_audit.html#paginating-past-10000",
+    "title": "Auditing the EcoCommons Production Data Catalogue",
+    "section": "Paginating past 10,000",
+    "text": "Paginating past 10,000\nElasticsearch caps a normal query at 10,000 hits, so we page through with search_after. That needs a unique, sortable field to tie-break on. Two natural candidates both failed on this index:\n\n_id → “Fielddata access on the _id field is disallowed”\nuuid.keyword → “No mapping found for [uuid.keyword]”\n\nThe plain uuid field, however, is sortable and unique — perfect:\nfields = [\"title\", \"uuid\", \"data_category\", \"data_subcategories\",\n          \"time_domain\", \"year\", \"resolution\", \"spatial_domain\",\n          \"spatial_data_type\", \"collection_names\", \"downloadable\", \"created\"]\n\nrows, after = [], None\nwhile True:\n    body = {\"size\": 5000, \"query\": {\"match_all\": {}},\n            \"sort\": [{\"uuid\": \"asc\"}], \"_source\": fields}\n    if after:\n        body[\"search_after\"] = after\n    hits = requests.post(f\"{api}/api/es/search/dataset\", headers=headers,\n                         data=json.dumps(body), verify=False).json()[\"hits\"][\"hits\"]\n    if not hits:\n        break\n    rows.extend(h[\"_source\"] for h in hits)\n    after = hits[-1][\"sort\"]        # cursor for the next page\nTwelve pages of 5,000 later, we have all 58,424 records in hand."
+  },
+  {
+    "objectID": "index.html#posts",
+    "href": "index.html#posts",
+    "title": "EcoCommons Data Audit",
+    "section": "Posts",
+    "text": "Posts\n\n1. Auditing the EcoCommons Production Data Catalogue\nAuditing the EcoCommons Production Data Catalogue\nHow we enumerated every dataset in the EcoCommons production environment — 58,424 records across ~54 collections — using the data-ingester Elasticsearch endpoint, and what the catalogue actually contains.\n\nIf you have questions or suggestions, please contact the EcoCommons team."
+  }
+]

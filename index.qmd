@@ -1,0 +1,21 @@
+---
+title: "EcoCommons Data Audit"
+description: "A running log of data-audit work on the EcoCommons and Biosecurity Commons platforms — cataloguing datasets, checking data holdings against requirements, and documenting how it was done."
+---
+
+![](https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png)
+
+# EcoCommons Data Audit
+
+Welcome. This site collects **data-audit** write-ups for the [EcoCommons Australia](https://www.ecocommons.org.au/) and Biosecurity Commons platforms — the behind-the-scenes work of figuring out *what data we actually have*, whether it matches what the science needs, and how the answers were obtained so anyone can reproduce them.
+
+## Posts
+
+### 1. Auditing the EcoCommons Production Data Catalogue
+
+[Auditing the EcoCommons Production Data Catalogue](ecocommons_prod_data_audit.qmd)\
+How we enumerated **every** dataset in the EcoCommons production environment — 58,424 records across ~54 collections — using the data-ingester Elasticsearch endpoint, and what the catalogue actually contains.
+
+------------------------------------------------------------------------
+
+If you have questions or suggestions, please [contact the EcoCommons](mailto:support@ecocommons.org.au) team.

@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "EcoCommons Data Audit"
+  favicon: https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site_materials/main/images/favicon_square.png
+  navbar:
+    left:
+      - href: index.qmd
+        text: "EcoCommons Data Audit"
+      - href: ecocommons_prod_data_audit.qmd
+        text: "Prod Dataset Audit"
+
+format:
+  html:
+    css: styles/ec_html_template.css
+    toc: true
+    toc-depth: 4
+    theme: cosmo
+    code-fold: true
+    code-tools: true
+
+editor: visual
