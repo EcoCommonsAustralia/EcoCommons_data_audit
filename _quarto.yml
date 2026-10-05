@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - data/
 
 website:
   title: "EcoCommons Data Audit"
@@ -11,6 +13,8 @@ website:
         text: "EcoCommons Data Audit"
       - href: ecocommons_prod_data_audit.qmd
         text: "Prod Dataset Audit"
+      - href: prod_dataset_catalogue.qmd
+        text: "Data Catalogue"
       - href: rule_book.qmd
         text: "Rule Book"
 
