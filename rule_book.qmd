@@ -22,7 +22,7 @@ Each rule ties back to the metadata fields exposed by the data-ingester index (t
 `title` · `uuid` · `data_category` · `data_subcategories` · `time_domain` · `year` · `resolution` · `spatial_domain` · `spatial_data_type` · `collection_names` · `downloadable` · `created`
 
 ::: callout-note
-This is a **draft scaffold**. The rules below are worked examples to establish the format — review, replace, and extend them with the agreed EcoCommons / Biosecurity Commons standards.
+This is a **proposed rule set**, grounded in the [production catalogue audit](ecocommons_prod_data_audit.qmd) of all 58,424 records. Obligations, controlled vocabularies, and the **Current status** figures are offered for EcoCommons / Biosecurity Commons review — confirm and ratify them before any rule is enforced.
 :::
 
 ------------------------------------------------------------------------
@@ -52,7 +52,7 @@ We adopt the **DCAT-AP obligation model**, so severity maps directly onto an acc
 | EcoCommons field | DCAT / DCAT-AP property | DCAT-AP obligation | Card. | Notes |
 |------------|------------|------------|------|------------|
 | `title` | `dct:title` | Mandatory | 1..\* | — |
-| `description` | `dct:description` | Mandatory | 1..\* | Not yet enforced as a rule here |
+| `description` | `dct:description` | Mandatory | 1..\* | Enforced by [`MD-004`](#md-004) |
 | `data_category` | `dcat:theme` | Recommended | 0..\* | Bind to an EcoCommons theme vocabulary (local codelist) |
 | `data_subcategories` | `dcat:keyword` | Optional | 0..\* | — |
 | `time_domain` | `dct:temporal` | Optional | 0..\* | Current / Future / Historical is an EcoCommons **extension** of temporal coverage |
@@ -83,9 +83,11 @@ Where a rule is **stricter** than DCAT-AP — e.g. we make *category* **MUST**/m
 >
 > **Rationale.** Category drives filtering and discovery in the data explorer; an uncategorised dataset is effectively invisible to users browsing by theme.
 >
-> **Controlled vocabulary (draft).** `Climate`, `Vegetation`, `Biodiversity`, `Marine`, `Topography`, `Human Activity`, `Freshwater`, `Soil`, `Boundary Data`.
+> **Controlled vocabulary.** `Climate`, `Vegetation`, `Biodiversity`, `Marine`, `Topography`, `Human Activity`, `Freshwater`, `Soil`, `Boundary Data` — the nine categories observed across the production catalogue.
 >
 > **Check.** A dataset fails if its category is missing, empty, "Unknown", or outside the vocabulary.
+>
+> **Current status.** **45 of 58,424** records (≈0.08%) are uncategorised/unknown and fail this rule; the remaining 58,379 carry one of the nine values.
 >
 > ✅ **Pass** — `data_category: "Climate"`\
 > ❌ **Fail** — `data_category: ""` or `data_category: "Unknown"`
@@ -100,6 +102,8 @@ Where a rule is **stricter** than DCAT-AP — e.g. we make *category* **MUST**/m
 >
 > **Check.** `time_domain ∉ {Current, Future, Historical}` → fail.
 >
+> **Current status.** All 58,424 records carry a value — `Future` (54,614) or `Current` (3,810); none are missing. `Historical` is defined in the vocabulary but is **currently unused** in production.
+>
 > ✅ **Pass** — `time_domain: "Future"`\
 > ❌ **Fail** — `time_domain: "2050"` or empty.
 
@@ -113,6 +117,53 @@ Where a rule is **stricter** than DCAT-AP — e.g. we make *category* **MUST**/m
 >
 > ✅ **Pass** — title `"… (2021-2040), HADGEM3-GC31-LL ssp245, 10 arcmin (~20km)"`\
 > ❌ **Fail** — title `"Future minimum temperature August"` (no model, no scenario).
+
+### `MD-004` — Every dataset MUST have a description {#md-004}
+
+> **Statement.** Every dataset **must** populate `description` with a non-empty, human-readable summary of what the layer is.
+>
+> **DCAT-AP.** Obligation **MUST** · cardinality `1..*` · aligns to `dct:description` *(Mandatory in DCAT-AP)*.
+>
+> **Applies to.** All datasets.
+>
+> **Rationale.** A title alone rarely conveys provenance, units, or intended use; the description is the primary free-text field search and users rely on. FAIR *Findable* / *Reusable*.
+>
+> **Check.** A dataset fails if `description` is missing, empty, or merely repeats the title verbatim.
+>
+> ✅ **Pass** — `description: "WorldClim v2.1 downscaled future minimum temperature for August, 2021-2040, GCM HADGEM3-GC31-LL under SSP2-4.5…"`\
+> ❌ **Fail** — `description: ""`
+
+### `MD-005` — Every dataset MUST have a unique identifier {#md-005}
+
+> **Statement.** Every dataset **must** carry a `uuid` that is present and **unique** across the catalogue.
+>
+> **DCAT-AP.** Obligation **MUST** *(stricter than DCAT-AP, which makes `dct:identifier` Optional)* · cardinality `1..1` · aligns to `dct:identifier`.
+>
+> **Applies to.** All datasets.
+>
+> **Rationale.** The `uuid` is the stable key for every per-record API call (`GET /api/dataset/{uuid}`) and is the only field reliable enough to sort/paginate the index on — `_id` and `uuid.keyword` are not. A missing or duplicate `uuid` makes a dataset unaddressable and breaks enumeration.
+>
+> **Check.** `uuid` empty, or any `uuid` value appearing on more than one record → fail.
+>
+> **Current status.** All 58,424 records sorted and paged cleanly on `uuid` during the audit — no gaps or collisions observed.
+>
+> ✅ **Pass** — `uuid: "a3f1c2e4-…"` (unique)\
+> ❌ **Fail** — `uuid: ""`, or two records sharing one `uuid`.
+
+### `MD-006` — Datasets SHOULD record an issued date {#md-006}
+
+> **Statement.** Each dataset **should** record when it was added to the catalogue via `created`.
+>
+> **DCAT-AP.** Obligation **SHOULD** · cardinality `0..1` · aligns to `dct:issued` *(and `dct:modified` on change)*.
+>
+> **Applies to.** All datasets.
+>
+> **Rationale.** An issued date lets users and auditors reason about freshness and change over time, and underpins "what's new since…" views.
+>
+> **Check.** `created` missing or unparseable as a date → fail (SHOULD, so advisory).
+>
+> ✅ **Pass** — `created: "2024-11-03T09:12:00Z"`\
+> ❌ **Fail** — `created: ""`
 
 ------------------------------------------------------------------------
 
@@ -165,8 +216,40 @@ Where a rule is **stricter** than DCAT-AP — e.g. we make *category* **MUST**/m
 >
 > **Check.** `collection_names` empty or `["None"]` → fail.
 >
+> **Current status.** Production holds ~54 collections; the catalogue is heavily skewed — **WorldClim-v2.1 alone accounts for 52,308 records (≈90%)**, so most datasets are well-placed, but orphan checks matter for the long tail.
+>
 > ✅ **Pass** — `collection_names: ["WorldClim-v2.1"]`\
 > ❌ **Fail** — `collection_names: []`
+
+### `DS-003` — Spatial domain SHOULD be declared {#ds-003}
+
+> **Statement.** `spatial_domain` **should** be populated from a places codelist (e.g. `Australia`, `Global`, a state/territory).
+>
+> **DCAT-AP.** Obligation **SHOULD** · cardinality `0..*` · aligns to `dct:spatial`.
+>
+> **Applies to.** All datasets.
+>
+> **Rationale.** Geographic extent is a primary discovery filter; a layer with no declared spatial domain cannot be found by "data for Australia" queries and risks being applied outside its valid footprint.
+>
+> **Check.** `spatial_domain` empty, or a value outside the agreed places codelist → fail (advisory).
+>
+> ✅ **Pass** — `spatial_domain: "Australia"`\
+> ❌ **Fail** — `spatial_domain: ""`
+
+### `DS-004` — Access MUST be declared explicitly {#ds-004}
+
+> **Statement.** `downloadable` **must** be an explicit boolean (`true` / `false`), never absent or blank.
+>
+> **DCAT-AP.** Obligation **MUST** · cardinality `1..1` · aligns to `dcat:Distribution` / `dct:accessRights` *(declared at the dataset level here)*.
+>
+> **Applies to.** All datasets.
+>
+> **Rationale.** Users and tooling need to know up front whether a layer can be exported; an undefined access flag forces a trial-and-error download attempt and breaks automated harvesting.
+>
+> **Check.** `downloadable` missing or non-boolean → fail.
+>
+> ✅ **Pass** — `downloadable: true`\
+> ❌ **Fail** — `downloadable: null` or absent.
 
 ------------------------------------------------------------------------
 
@@ -177,10 +260,15 @@ Where a rule is **stricter** than DCAT-AP — e.g. we make *category* **MUST**/m
 | [`MD-001`](#md-001) | Metadata | MUST (M) \* | 1..\* | `dcat:theme` | Category present & in vocabulary |
 | [`MD-002`](#md-002) | Metadata | MUST (M) | 1..1 | `dct:temporal` † | Time domain is a controlled value |
 | [`MD-003`](#md-003) | Metadata | SHOULD (R) | 0..1 | `dct:temporal` | Future datasets declare scenario & model |
+| [`MD-004`](#md-004) | Metadata | MUST (M) | 1..\* | `dct:description` | Description present & non-empty |
+| [`MD-005`](#md-005) | Metadata | MUST (M) \* | 1..1 | `dct:identifier` | `uuid` present & unique |
+| [`MD-006`](#md-006) | Metadata | SHOULD (R) | 0..1 | `dct:issued` | Issued/created date recorded |
 | [`NM-001`](#nm-001) | Naming | SHOULD (R) | — | `dct:title` | Title follows canonical pattern |
 | [`NM-002`](#nm-002) | Naming | MUST (M) | 0..1 | `geodcat:spatialResolution` | Resolution uses standard notation |
 | [`DS-001`](#ds-001) | Data | MUST (M) | 1..1 | — † | Spatial data type declared |
 | [`DS-002`](#ds-002) | Data | MUST (M) | 0..\* | `dcat:DatasetSeries` | Dataset belongs to a collection |
+| [`DS-003`](#ds-003) | Data | SHOULD (R) | 0..\* | `dct:spatial` | Spatial domain declared |
+| [`DS-004`](#ds-004) | Data | MUST (M) | 1..1 | `dct:accessRights` | Access flag declared explicitly |
 
 \* Stricter than DCAT-AP (which only *recommends* `dcat:theme`).  † EcoCommons extension beyond core DCAT-AP.
 

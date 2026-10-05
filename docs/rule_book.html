@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples.">
 
 <title>Rule Book – EcoCommons Data Audit</title>
 <style>
@@ -20,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -133,6 +98,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Prod Dataset Audit</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./prod_dataset_catalogue.html"> 
+<span class="menu-text">Data Catalogue</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link active" href="./rule_book.html" aria-current="page"> 
 <span class="menu-text">Rule Book</span></a>
   </li>  
@@ -155,11 +124,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#rule-book" id="toc-rule-book" class="nav-link active" data-scroll-target="#rule-book">Rule Book</a></li>
   <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
   <li><a href="#how-to-read-a-rule" id="toc-how-to-read-a-rule" class="nav-link" data-scroll-target="#how-to-read-a-rule">How to read a rule</a></li>
+  <li><a href="#alignment-with-dcat-ap" id="toc-alignment-with-dcat-ap" class="nav-link" data-scroll-target="#alignment-with-dcat-ap">Alignment with DCAT-AP</a></li>
   <li><a href="#metadata-rules" id="toc-metadata-rules" class="nav-link" data-scroll-target="#metadata-rules">1. Metadata rules</a>
   <ul>
   <li><a href="#md-001" id="toc-md-001" class="nav-link" data-scroll-target="#md-001"><code>MD-001</code> — Every dataset MUST have a category</a></li>
   <li><a href="#md-002" id="toc-md-002" class="nav-link" data-scroll-target="#md-002"><code>MD-002</code> — Time domain MUST be a controlled value</a></li>
   <li><a href="#md-003" id="toc-md-003" class="nav-link" data-scroll-target="#md-003"><code>MD-003</code> — Future datasets SHOULD declare scenario and model</a></li>
+  <li><a href="#md-004" id="toc-md-004" class="nav-link" data-scroll-target="#md-004"><code>MD-004</code> — Every dataset MUST have a description</a></li>
+  <li><a href="#md-005" id="toc-md-005" class="nav-link" data-scroll-target="#md-005"><code>MD-005</code> — Every dataset MUST have a unique identifier</a></li>
+  <li><a href="#md-006" id="toc-md-006" class="nav-link" data-scroll-target="#md-006"><code>MD-006</code> — Datasets SHOULD record an issued date</a></li>
   </ul></li>
   <li><a href="#naming-title-standards" id="toc-naming-title-standards" class="nav-link" data-scroll-target="#naming-title-standards">2. Naming &amp; title standards</a>
   <ul>
@@ -170,8 +143,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#ds-001" id="toc-ds-001" class="nav-link" data-scroll-target="#ds-001"><code>DS-001</code> — Spatial data type MUST be declared</a></li>
   <li><a href="#ds-002" id="toc-ds-002" class="nav-link" data-scroll-target="#ds-002"><code>DS-002</code> — Every dataset MUST belong to a collection</a></li>
+  <li><a href="#ds-003" id="toc-ds-003" class="nav-link" data-scroll-target="#ds-003"><code>DS-003</code> — Spatial domain SHOULD be declared</a></li>
+  <li><a href="#ds-004" id="toc-ds-004" class="nav-link" data-scroll-target="#ds-004"><code>DS-004</code> — Access MUST be declared explicitly</a></li>
   </ul></li>
   <li><a href="#rule-index" id="toc-rule-index" class="nav-link" data-scroll-target="#rule-index">Rule index</a></li>
+  <li><a href="#references-prior-art" id="toc-references-prior-art" class="nav-link" data-scroll-target="#references-prior-art">References &amp; prior art</a>
+  <ul>
+  <li><a href="#geospatial-metadata-quality-standards" id="toc-geospatial-metadata-quality-standards" class="nav-link" data-scroll-target="#geospatial-metadata-quality-standards">Geospatial metadata &amp; quality standards</a></li>
+  <li><a href="#catalogue-fair-profiles-closest-to-this-rule-books-format" id="toc-catalogue-fair-profiles-closest-to-this-rule-books-format" class="nav-link" data-scroll-target="#catalogue-fair-profiles-closest-to-this-rule-books-format">Catalogue / FAIR profiles (closest to this Rule Book’s format)</a></li>
+  <li><a href="#ecology-biodiversity-domain-standards-relevant-to-ecocommons" id="toc-ecology-biodiversity-domain-standards-relevant-to-ecocommons" class="nav-link" data-scroll-target="#ecology-biodiversity-domain-standards-relevant-to-ecocommons">Ecology / biodiversity domain standards (relevant to EcoCommons)</a></li>
+  <li><a href="#making-rules-machine-checkable" id="toc-making-rules-machine-checkable" class="nav-link" data-scroll-target="#making-rules-machine-checkable">Making rules machine-checkable</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -180,14 +162,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Rule Book</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Rule Book</h1>
 </div>
 
-<div>
-  <div class="description">
-    The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -210,6 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="purpose" class="level1">
 <h1>Purpose</h1>
+<p><em>The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples.</em></p>
 <p>This page is the <strong>living rule book</strong> for EcoCommons data. It turns loose expectations — “titles should be consistent”, “every dataset needs a category” — into <strong>explicit, checkable rules</strong>, so that a dataset can be audited against them objectively rather than by opinion.</p>
 <p>Each rule ties back to the metadata fields exposed by the data-ingester index (the same fields we pulled in the <a href="./ecocommons_prod_data_audit.html">production catalogue audit</a>):</p>
 <p><code>title</code> · <code>uuid</code> · <code>data_category</code> · <code>data_subcategories</code> · <code>time_domain</code> · <code>year</code> · <code>resolution</code> · <code>spatial_domain</code> · <code>spatial_data_type</code> · <code>collection_names</code> · <code>downloadable</code> · <code>created</code></p>
@@ -223,7 +201,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This is a <strong>draft scaffold</strong>. The rules below are worked examples to establish the format — review, replace, and extend them with the agreed EcoCommons / Biosecurity Commons standards.</p>
+<p>This is a <strong>proposed rule set</strong>, grounded in the <a href="./ecocommons_prod_data_audit.html">production catalogue audit</a> of all 58,424 records. Obligations, controlled vocabularies, and the <strong>Current status</strong> figures are offered for EcoCommons / Biosecurity Commons review — confirm and ratify them before any rule is enforced.</p>
 </div>
 </div>
 <hr>
@@ -232,10 +210,6 @@ Note
 <h1>How to read a rule</h1>
 <p>Every rule follows the same template so it can be applied and, eventually, automated:</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 26%">
-<col style="width: 73%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Field</th>
@@ -252,24 +226,150 @@ Note
 <td>The rule itself, phrased as a requirement (“must”, “should”).</td>
 </tr>
 <tr class="odd">
+<td><strong>DCAT-AP</strong></td>
+<td>Obligation + cardinality + the DCAT / DCAT-AP property it maps onto (see <a href="#alignment-with-dcat-ap">Alignment with DCAT-AP</a>).</td>
+</tr>
+<tr class="even">
 <td><strong>Applies to</strong></td>
 <td>Which datasets / fields the rule governs.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>Rationale</strong></td>
 <td>Why the rule exists (FAIR, discoverability, interoperability…).</td>
 </tr>
-<tr class="odd">
-<td><strong>Check</strong></td>
-<td>How to test compliance — ideally a query or a concrete condition.</td>
-</tr>
 <tr class="even">
+<td><strong>Check</strong></td>
+<td>How to test compliance — a concrete condition.</td>
+</tr>
+<tr class="odd">
 <td><strong>✅ Pass / ❌ Fail</strong></td>
 <td>An example that satisfies the rule and one that violates it.</td>
 </tr>
 </tbody>
 </table>
-<p>Severity is flagged inline: <strong>MUST</strong> (blocking), <strong>SHOULD</strong> (recommended), <strong>MAY</strong> (optional).</p>
+<p>We adopt the <strong>DCAT-AP obligation model</strong>, so severity maps directly onto an accepted standard: <strong>MUST ↔︎ Mandatory (M)</strong>, <strong>SHOULD ↔︎ Recommended (R)</strong>, <strong>MAY ↔︎ Optional (O)</strong>. A property is <em>Mandatory</em> exactly when its minimum cardinality is ≥ 1 (cardinality is written <code>min..max</code>, e.g.&nbsp;<code>1..1</code>, <code>1..*</code>, <code>0..1</code>).</p>
+<hr>
+</section>
+<section id="alignment-with-dcat-ap" class="level1">
+<h1>Alignment with DCAT-AP</h1>
+<p><a href="https://semiceu.github.io/DCAT-AP/releases/3.0.0/">DCAT-AP 3.0</a> describes each dataset property with an <strong>obligation</strong> (Mandatory / Recommended / Optional) and a <strong>cardinality</strong> (<code>min..max</code>). We map the EcoCommons index fields onto DCAT / DCAT-AP properties so these rules inherit an accepted standard rather than inventing one. Geospatial specifics (resolution) follow <strong>GeoDCAT-AP</strong>; two fields have no DCAT equivalent and are flagged as <strong>EcoCommons extensions</strong>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>EcoCommons field</th>
+<th>DCAT / DCAT-AP property</th>
+<th>DCAT-AP obligation</th>
+<th>Card.</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>title</code></td>
+<td><code>dct:title</code></td>
+<td>Mandatory</td>
+<td>1..*</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>description</code></td>
+<td><code>dct:description</code></td>
+<td>Mandatory</td>
+<td>1..*</td>
+<td>Enforced by <a href="#md-004"><code>MD-004</code></a></td>
+</tr>
+<tr class="odd">
+<td><code>data_category</code></td>
+<td><code>dcat:theme</code></td>
+<td>Recommended</td>
+<td>0..*</td>
+<td>Bind to an EcoCommons theme vocabulary (local codelist)</td>
+</tr>
+<tr class="even">
+<td><code>data_subcategories</code></td>
+<td><code>dcat:keyword</code></td>
+<td>Optional</td>
+<td>0..*</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>time_domain</code></td>
+<td><code>dct:temporal</code></td>
+<td>Optional</td>
+<td>0..*</td>
+<td>Current / Future / Historical is an EcoCommons <strong>extension</strong> of temporal coverage</td>
+</tr>
+<tr class="even">
+<td><code>year</code></td>
+<td><code>dct:temporal</code></td>
+<td>Optional</td>
+<td>0..1</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>spatial_domain</code></td>
+<td><code>dct:spatial</code></td>
+<td>Optional</td>
+<td>0..*</td>
+<td>Bind to a places codelist (e.g.&nbsp;Countries NAL)</td>
+</tr>
+<tr class="even">
+<td><code>resolution</code></td>
+<td><code>geodcat:spatialResolution</code></td>
+<td>Optional</td>
+<td>0..1</td>
+<td><strong>GeoDCAT-AP</strong></td>
+</tr>
+<tr class="odd">
+<td><code>spatial_data_type</code></td>
+<td><em>(none)</em></td>
+<td>—</td>
+<td>—</td>
+<td><strong>EcoCommons extension</strong> (Continuous / Categorical)</td>
+</tr>
+<tr class="even">
+<td><code>collection_names</code></td>
+<td><code>dcat:DatasetSeries</code> / catalogue membership</td>
+<td>—</td>
+<td>0..*</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>uuid</code></td>
+<td><code>dct:identifier</code></td>
+<td>Optional</td>
+<td>0..*</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>created</code></td>
+<td><code>dct:issued</code> (+ <code>dct:modified</code>)</td>
+<td>Optional</td>
+<td>0..1</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>downloadable</code></td>
+<td><code>dcat:Distribution</code> / <code>dct:accessRights</code></td>
+<td>Optional</td>
+<td>0..1</td>
+<td>Access handled at distribution level</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Where a rule is <strong>stricter</strong> than DCAT-AP — e.g.&nbsp;we make <em>category</em> <strong>MUST</strong>/mandatory though DCAT-AP only <em>recommends</em> <code>dcat:theme</code> — that is an intentional EcoCommons tightening, and it is noted on the rule.</p>
+</div>
+</div>
 <hr>
 </section>
 <section id="metadata-rules" class="level1">
@@ -278,12 +378,12 @@ Note
 <h3 class="anchored" data-anchor-id="md-001"><code>MD-001</code> — Every dataset MUST have a category</h3>
 <blockquote class="blockquote">
 <p><strong>Statement.</strong> Every dataset <strong>must</strong> populate <code>data_category</code> with a value from the controlled vocabulary.</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>MUST</strong> <em>(stricter than DCAT-AP, which only recommends <code>dcat:theme</code>)</em> · cardinality <code>1..*</code> · aligns to <code>dcat:theme</code>.</p>
 <p><strong>Applies to.</strong> All datasets.</p>
 <p><strong>Rationale.</strong> Category drives filtering and discovery in the data explorer; an uncategorised dataset is effectively invisible to users browsing by theme.</p>
-<p><strong>Controlled vocabulary (draft).</strong> <code>Climate</code>, <code>Vegetation</code>, <code>Biodiversity</code>, <code>Marine</code>, <code>Topography</code>, <code>Human Activity</code>, <code>Freshwater</code>, <code>Soil</code>, <code>Boundary Data</code>.</p>
-<p><strong>Check.</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">"query"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"bool"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"must_not"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"exists"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"field"</span><span class="fu">:</span> <span class="st">"data_category"</span> <span class="fu">}</span> <span class="fu">}</span> <span class="fu">}</span> <span class="fu">}</span> <span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>A dataset fails if <code>data_category</code> is missing, empty, <code>Unknown</code>, or outside the vocabulary.</p>
+<p><strong>Controlled vocabulary.</strong> <code>Climate</code>, <code>Vegetation</code>, <code>Biodiversity</code>, <code>Marine</code>, <code>Topography</code>, <code>Human Activity</code>, <code>Freshwater</code>, <code>Soil</code>, <code>Boundary Data</code> — the nine categories observed across the production catalogue.</p>
+<p><strong>Check.</strong> A dataset fails if its category is missing, empty, “Unknown”, or outside the vocabulary.</p>
+<p><strong>Current status.</strong> <strong>45 of 58,424</strong> records (≈0.08%) are uncategorised/unknown and fail this rule; the remaining 58,379 carry one of the nine values.</p>
 <p>✅ <strong>Pass</strong> — <code>data_category: "Climate"</code><br>
 ❌ <strong>Fail</strong> — <code>data_category: ""</code> or <code>data_category: "Unknown"</code></p>
 </blockquote>
@@ -292,8 +392,10 @@ Note
 <h3 class="anchored" data-anchor-id="md-002"><code>MD-002</code> — Time domain MUST be a controlled value</h3>
 <blockquote class="blockquote">
 <p><strong>Statement.</strong> <code>time_domain</code> <strong>must</strong> be exactly one of <code>Current</code>, <code>Future</code>, or <code>Historical</code>.</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>MUST</strong> · cardinality <code>1..1</code> · aligns to <code>dct:temporal</code> <em>(EcoCommons classification extension)</em>.</p>
 <p><strong>Rationale.</strong> Temporal scope is a primary filter for model inputs; free-text or missing values break the “current vs future climate” split.</p>
 <p><strong>Check.</strong> <code>time_domain ∉ {Current, Future, Historical}</code> → fail.</p>
+<p><strong>Current status.</strong> All 58,424 records carry a value — <code>Future</code> (54,614) or <code>Current</code> (3,810); none are missing. <code>Historical</code> is defined in the vocabulary but is <strong>currently unused</strong> in production.</p>
 <p>✅ <strong>Pass</strong> — <code>time_domain: "Future"</code><br>
 ❌ <strong>Fail</strong> — <code>time_domain: "2050"</code> or empty.</p>
 </blockquote>
@@ -302,9 +404,47 @@ Note
 <h3 class="anchored" data-anchor-id="md-003"><code>MD-003</code> — Future datasets SHOULD declare scenario and model</h3>
 <blockquote class="blockquote">
 <p><strong>Statement.</strong> When <code>time_domain = "Future"</code>, the dataset <strong>should</strong> record its emissions scenario and climate model (e.g.&nbsp;<code>emsc</code>/<code>gcm</code>, or embedded in the title).</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>SHOULD</strong> · cardinality <code>0..1</code> · relates to <code>dct:temporal</code> and <code>dct:title</code>.</p>
 <p><strong>Rationale.</strong> A future-climate layer is not interpretable without knowing the GCM and SSP/RCP it came from.</p>
 <p>✅ <strong>Pass</strong> — title <code>"… (2021-2040), HADGEM3-GC31-LL ssp245, 10 arcmin (~20km)"</code><br>
 ❌ <strong>Fail</strong> — title <code>"Future minimum temperature August"</code> (no model, no scenario).</p>
+</blockquote>
+</section>
+<section id="md-004" class="level3">
+<h3 class="anchored" data-anchor-id="md-004"><code>MD-004</code> — Every dataset MUST have a description</h3>
+<blockquote class="blockquote">
+<p><strong>Statement.</strong> Every dataset <strong>must</strong> populate <code>description</code> with a non-empty, human-readable summary of what the layer is.</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>MUST</strong> · cardinality <code>1..*</code> · aligns to <code>dct:description</code> <em>(Mandatory in DCAT-AP)</em>.</p>
+<p><strong>Applies to.</strong> All datasets.</p>
+<p><strong>Rationale.</strong> A title alone rarely conveys provenance, units, or intended use; the description is the primary free-text field search and users rely on. FAIR <em>Findable</em> / <em>Reusable</em>.</p>
+<p><strong>Check.</strong> A dataset fails if <code>description</code> is missing, empty, or merely repeats the title verbatim.</p>
+<p>✅ <strong>Pass</strong> — <code>description: "WorldClim v2.1 downscaled future minimum temperature for August, 2021-2040, GCM HADGEM3-GC31-LL under SSP2-4.5…"</code><br>
+❌ <strong>Fail</strong> — <code>description: ""</code></p>
+</blockquote>
+</section>
+<section id="md-005" class="level3">
+<h3 class="anchored" data-anchor-id="md-005"><code>MD-005</code> — Every dataset MUST have a unique identifier</h3>
+<blockquote class="blockquote">
+<p><strong>Statement.</strong> Every dataset <strong>must</strong> carry a <code>uuid</code> that is present and <strong>unique</strong> across the catalogue.</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>MUST</strong> <em>(stricter than DCAT-AP, which makes <code>dct:identifier</code> Optional)</em> · cardinality <code>1..1</code> · aligns to <code>dct:identifier</code>.</p>
+<p><strong>Applies to.</strong> All datasets.</p>
+<p><strong>Rationale.</strong> The <code>uuid</code> is the stable key for every per-record API call (<code>GET /api/dataset/{uuid}</code>) and is the only field reliable enough to sort/paginate the index on — <code>_id</code> and <code>uuid.keyword</code> are not. A missing or duplicate <code>uuid</code> makes a dataset unaddressable and breaks enumeration.</p>
+<p><strong>Check.</strong> <code>uuid</code> empty, or any <code>uuid</code> value appearing on more than one record → fail.</p>
+<p><strong>Current status.</strong> All 58,424 records sorted and paged cleanly on <code>uuid</code> during the audit — no gaps or collisions observed.</p>
+<p>✅ <strong>Pass</strong> — <code>uuid: "a3f1c2e4-…"</code> (unique)<br>
+❌ <strong>Fail</strong> — <code>uuid: ""</code>, or two records sharing one <code>uuid</code>.</p>
+</blockquote>
+</section>
+<section id="md-006" class="level3">
+<h3 class="anchored" data-anchor-id="md-006"><code>MD-006</code> — Datasets SHOULD record an issued date</h3>
+<blockquote class="blockquote">
+<p><strong>Statement.</strong> Each dataset <strong>should</strong> record when it was added to the catalogue via <code>created</code>.</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>SHOULD</strong> · cardinality <code>0..1</code> · aligns to <code>dct:issued</code> <em>(and <code>dct:modified</code> on change)</em>.</p>
+<p><strong>Applies to.</strong> All datasets.</p>
+<p><strong>Rationale.</strong> An issued date lets users and auditors reason about freshness and change over time, and underpins “what’s new since…” views.</p>
+<p><strong>Check.</strong> <code>created</code> missing or unparseable as a date → fail (SHOULD, so advisory).</p>
+<p>✅ <strong>Pass</strong> — <code>created: "2024-11-03T09:12:00Z"</code><br>
+❌ <strong>Fail</strong> — <code>created: ""</code></p>
 </blockquote>
 <hr>
 </section>
@@ -314,8 +454,8 @@ Note
 <section id="nm-001" class="level3">
 <h3 class="anchored" data-anchor-id="nm-001"><code>NM-001</code> — Titles SHOULD follow the canonical pattern</h3>
 <blockquote class="blockquote">
-<p><strong>Statement.</strong> Dataset titles <strong>should</strong> follow:</p>
-<pre><code>&lt;Source/Product&gt;, &lt;variable&gt; (&lt;period&gt;), &lt;model/scenario?&gt;, &lt;resolution&gt;</code></pre>
+<p><strong>Statement.</strong> Dataset titles <strong>should</strong> follow the canonical pattern: <em>Source/Product, variable (period), model/scenario, resolution</em>.</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>SHOULD</strong> · aligns to <code>dct:title</code> <em>(which DCAT-AP makes Mandatory, <code>1..*</code> — presence is assumed; this rule governs its <strong>form</strong>)</em>.</p>
 <p><strong>Rationale.</strong> A predictable title structure makes long lists scannable and sortable, and lets users compare like-for-like layers across products.</p>
 <p>✅ <strong>Pass</strong> — <code>"WorldClim v2.1, future climate Minimum Temperature August (2021-2040), HADGEM3-GC31-LL ssp245, 10 arcmin (~20km)"</code><br>
 ❌ <strong>Fail</strong> — <code>"min temp aug worldclim"</code></p>
@@ -325,6 +465,7 @@ Note
 <h3 class="anchored" data-anchor-id="nm-002"><code>NM-002</code> — Resolution MUST use the standard notation</h3>
 <blockquote class="blockquote">
 <p><strong>Statement.</strong> <code>resolution</code> <strong>must</strong> be expressed as <code>&lt;value&gt; &lt;unit&gt; (~&lt;approx&gt;)</code>, e.g.&nbsp;<code>10 arcmin (~20km)</code>, <code>30 arcsec (~1km)</code>.</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>MUST</strong> · cardinality <code>0..1</code> · aligns to <code>geodcat:spatialResolution</code> <em>(GeoDCAT-AP)</em>.</p>
 <p><strong>Rationale.</strong> Consistent resolution strings let users match datasets to a target grid and are machine-parseable.</p>
 <p>✅ <strong>Pass</strong> — <code>"30 arcsec (~1km)"</code><br>
 ❌ <strong>Fail</strong> — <code>"1km"</code>, <code>"0.0083 deg"</code>, empty.</p>
@@ -338,6 +479,7 @@ Note
 <h3 class="anchored" data-anchor-id="ds-001"><code>DS-001</code> — Spatial data type MUST be declared</h3>
 <blockquote class="blockquote">
 <p><strong>Statement.</strong> <code>spatial_data_type</code> <strong>must</strong> be one of <code>Continuous</code> or <code>Categorical</code>.</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>MUST</strong> · cardinality <code>1..1</code> · <strong>EcoCommons extension</strong> (no DCAT-AP equivalent).</p>
 <p><strong>Rationale.</strong> Downstream models treat continuous and categorical predictors differently; misclassification silently corrupts results.</p>
 <p>✅ <strong>Pass</strong> — <code>spatial_data_type: "Continuous"</code><br>
 ❌ <strong>Fail</strong> — missing, or a numeric/other value.</p>
@@ -347,10 +489,36 @@ Note
 <h3 class="anchored" data-anchor-id="ds-002"><code>DS-002</code> — Every dataset MUST belong to a collection</h3>
 <blockquote class="blockquote">
 <p><strong>Statement.</strong> <code>collection_names</code> <strong>must</strong> be non-empty.</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>MUST</strong> · cardinality <code>0..*</code> · aligns to <code>dcat:DatasetSeries</code> / catalogue membership.</p>
 <p><strong>Rationale.</strong> Collections are how related layers are grouped for users; orphan datasets (<code>None</code>) are hard to find and to govern.</p>
 <p><strong>Check.</strong> <code>collection_names</code> empty or <code>["None"]</code> → fail.</p>
+<p><strong>Current status.</strong> Production holds ~54 collections; the catalogue is heavily skewed — <strong>WorldClim-v2.1 alone accounts for 52,308 records (≈90%)</strong>, so most datasets are well-placed, but orphan checks matter for the long tail.</p>
 <p>✅ <strong>Pass</strong> — <code>collection_names: ["WorldClim-v2.1"]</code><br>
 ❌ <strong>Fail</strong> — <code>collection_names: []</code></p>
+</blockquote>
+</section>
+<section id="ds-003" class="level3">
+<h3 class="anchored" data-anchor-id="ds-003"><code>DS-003</code> — Spatial domain SHOULD be declared</h3>
+<blockquote class="blockquote">
+<p><strong>Statement.</strong> <code>spatial_domain</code> <strong>should</strong> be populated from a places codelist (e.g.&nbsp;<code>Australia</code>, <code>Global</code>, a state/territory).</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>SHOULD</strong> · cardinality <code>0..*</code> · aligns to <code>dct:spatial</code>.</p>
+<p><strong>Applies to.</strong> All datasets.</p>
+<p><strong>Rationale.</strong> Geographic extent is a primary discovery filter; a layer with no declared spatial domain cannot be found by “data for Australia” queries and risks being applied outside its valid footprint.</p>
+<p><strong>Check.</strong> <code>spatial_domain</code> empty, or a value outside the agreed places codelist → fail (advisory).</p>
+<p>✅ <strong>Pass</strong> — <code>spatial_domain: "Australia"</code><br>
+❌ <strong>Fail</strong> — <code>spatial_domain: ""</code></p>
+</blockquote>
+</section>
+<section id="ds-004" class="level3">
+<h3 class="anchored" data-anchor-id="ds-004"><code>DS-004</code> — Access MUST be declared explicitly</h3>
+<blockquote class="blockquote">
+<p><strong>Statement.</strong> <code>downloadable</code> <strong>must</strong> be an explicit boolean (<code>true</code> / <code>false</code>), never absent or blank.</p>
+<p><strong>DCAT-AP.</strong> Obligation <strong>MUST</strong> · cardinality <code>1..1</code> · aligns to <code>dcat:Distribution</code> / <code>dct:accessRights</code> <em>(declared at the dataset level here)</em>.</p>
+<p><strong>Applies to.</strong> All datasets.</p>
+<p><strong>Rationale.</strong> Users and tooling need to know up front whether a layer can be exported; an undefined access flag forces a trial-and-error download attempt and breaks automated harvesting.</p>
+<p><strong>Check.</strong> <code>downloadable</code> missing or non-boolean → fail.</p>
+<p>✅ <strong>Pass</strong> — <code>downloadable: true</code><br>
+❌ <strong>Fail</strong> — <code>downloadable: null</code> or absent.</p>
 </blockquote>
 <hr>
 </section>
@@ -362,7 +530,9 @@ Note
 <tr class="header">
 <th>Rule</th>
 <th>Area</th>
-<th>Severity</th>
+<th>Obligation</th>
+<th>Card.</th>
+<th>Aligns to (DCAT-AP)</th>
 <th>Summary</th>
 </tr>
 </thead>
@@ -370,53 +540,141 @@ Note
 <tr class="odd">
 <td><a href="#md-001"><code>MD-001</code></a></td>
 <td>Metadata</td>
-<td>MUST</td>
+<td>MUST (M) *</td>
+<td>1..*</td>
+<td><code>dcat:theme</code></td>
 <td>Category present &amp; in vocabulary</td>
 </tr>
 <tr class="even">
 <td><a href="#md-002"><code>MD-002</code></a></td>
 <td>Metadata</td>
-<td>MUST</td>
+<td>MUST (M)</td>
+<td>1..1</td>
+<td><code>dct:temporal</code> †</td>
 <td>Time domain is a controlled value</td>
 </tr>
 <tr class="odd">
 <td><a href="#md-003"><code>MD-003</code></a></td>
 <td>Metadata</td>
-<td>SHOULD</td>
+<td>SHOULD (R)</td>
+<td>0..1</td>
+<td><code>dct:temporal</code></td>
 <td>Future datasets declare scenario &amp; model</td>
 </tr>
 <tr class="even">
-<td><a href="#nm-001"><code>NM-001</code></a></td>
-<td>Naming</td>
-<td>SHOULD</td>
-<td>Title follows canonical pattern</td>
+<td><a href="#md-004"><code>MD-004</code></a></td>
+<td>Metadata</td>
+<td>MUST (M)</td>
+<td>1..*</td>
+<td><code>dct:description</code></td>
+<td>Description present &amp; non-empty</td>
 </tr>
 <tr class="odd">
-<td><a href="#nm-002"><code>NM-002</code></a></td>
-<td>Naming</td>
-<td>MUST</td>
-<td>Resolution uses standard notation</td>
+<td><a href="#md-005"><code>MD-005</code></a></td>
+<td>Metadata</td>
+<td>MUST (M) *</td>
+<td>1..1</td>
+<td><code>dct:identifier</code></td>
+<td><code>uuid</code> present &amp; unique</td>
 </tr>
 <tr class="even">
-<td><a href="#ds-001"><code>DS-001</code></a></td>
-<td>Data</td>
-<td>MUST</td>
-<td>Spatial data type declared</td>
+<td><a href="#md-006"><code>MD-006</code></a></td>
+<td>Metadata</td>
+<td>SHOULD (R)</td>
+<td>0..1</td>
+<td><code>dct:issued</code></td>
+<td>Issued/created date recorded</td>
 </tr>
 <tr class="odd">
+<td><a href="#nm-001"><code>NM-001</code></a></td>
+<td>Naming</td>
+<td>SHOULD (R)</td>
+<td>—</td>
+<td><code>dct:title</code></td>
+<td>Title follows canonical pattern</td>
+</tr>
+<tr class="even">
+<td><a href="#nm-002"><code>NM-002</code></a></td>
+<td>Naming</td>
+<td>MUST (M)</td>
+<td>0..1</td>
+<td><code>geodcat:spatialResolution</code></td>
+<td>Resolution uses standard notation</td>
+</tr>
+<tr class="odd">
+<td><a href="#ds-001"><code>DS-001</code></a></td>
+<td>Data</td>
+<td>MUST (M)</td>
+<td>1..1</td>
+<td>— †</td>
+<td>Spatial data type declared</td>
+</tr>
+<tr class="even">
 <td><a href="#ds-002"><code>DS-002</code></a></td>
 <td>Data</td>
-<td>MUST</td>
+<td>MUST (M)</td>
+<td>0..*</td>
+<td><code>dcat:DatasetSeries</code></td>
 <td>Dataset belongs to a collection</td>
+</tr>
+<tr class="odd">
+<td><a href="#ds-003"><code>DS-003</code></a></td>
+<td>Data</td>
+<td>SHOULD (R)</td>
+<td>0..*</td>
+<td><code>dct:spatial</code></td>
+<td>Spatial domain declared</td>
+</tr>
+<tr class="even">
+<td><a href="#ds-004"><code>DS-004</code></a></td>
+<td>Data</td>
+<td>MUST (M)</td>
+<td>1..1</td>
+<td><code>dct:accessRights</code></td>
+<td>Access flag declared explicitly</td>
 </tr>
 </tbody>
 </table>
+<p>* Stricter than DCAT-AP (which only <em>recommends</em> <code>dcat:theme</code>). † EcoCommons extension beyond core DCAT-AP.</p>
+<hr>
+</section>
+<section id="references-prior-art" class="level1">
+<h1>References &amp; prior art</h1>
+<p>This rule book is deliberately lightweight, but it follows the same pattern as established metadata and data-quality standards: each field carries an <strong>obligation level</strong> (mandatory / recommended / optional) and is often bound to a <strong>controlled vocabulary (codelist)</strong>. The standards below are the best templates to align with — and, over time, to borrow controlled vocabularies from.</p>
+<section id="geospatial-metadata-quality-standards" class="level3">
+<h3 class="anchored" data-anchor-id="geospatial-metadata-quality-standards">Geospatial metadata &amp; quality standards</h3>
+<ul>
+<li><strong>ISO 19115-1</strong> (geographic metadata) and <strong>ISO 19157</strong> (data quality) — the mainstream geospatial standard. Elements carry Mandatory / Conditional / Optional obligations (the analogue of our MUST / SHOULD / MAY) and bind to codelists. <em>Normative text is paywalled by ISO;</em> open overviews: <a href="https://www.dcc.ac.uk/resources/metadata-standards/iso-19115">DCC guide</a> · <a href="https://wiki.icaci.org/index.php?title=ISO_19115-1:2014_Geographic_information_-_Metadata_-_Part_1:_Fundamentals">ICA wiki</a>.</li>
+<li><strong>FGDC CSDGM</strong> — the long-standing US Content Standard for Digital Geospatial Metadata, same obligation model: <a href="https://www.fgdc.gov/metadata/csdgm-standard">fgdc.gov/metadata/csdgm-standard</a>.</li>
+<li><strong>INSPIRE metadata (EU)</strong> — ships an official online <strong>validator</strong> that reports pass/fail against the rules; the automatable end-state of our <em>Check</em> field: <a href="https://inspire.ec.europa.eu/validator/">inspire.ec.europa.eu/validator</a>.</li>
+</ul>
+</section>
+<section id="catalogue-fair-profiles-closest-to-this-rule-books-format" class="level3">
+<h3 class="anchored" data-anchor-id="catalogue-fair-profiles-closest-to-this-rule-books-format">Catalogue / FAIR profiles (closest to this Rule Book’s format)</h3>
+<ul>
+<li><strong>DCAT-AP</strong> — a W3C DCAT application profile defining per-field <strong>cardinalities and obligations</strong> plus recommended controlled vocabularies. The closest structural match to this page (see <a href="#alignment-with-dcat-ap">Alignment with DCAT-AP</a> above): <a href="https://semiceu.github.io/DCAT-AP/releases/3.0.0/">DCAT-AP 3.0 spec</a> · <a href="https://www.w3.org/TR/vocab-dcat-3/">W3C DCAT</a>.</li>
+<li><strong>GeoDCAT-AP</strong> — the geospatial extension of DCAT-AP (adds spatial resolution, reference system, etc.), the source for our <code>resolution</code> mapping: <a href="https://semiceu.github.io/GeoDCAT-AP/releases/">GeoDCAT-AP</a>.</li>
+<li><strong>FAIR principles</strong> — the guiding rationale (Findable, Accessible, Interoperable, Reusable): <a href="https://www.go-fair.org/fair-principles/">go-fair.org/fair-principles</a>.</li>
+</ul>
+</section>
+<section id="ecology-biodiversity-domain-standards-relevant-to-ecocommons" class="level3">
+<h3 class="anchored" data-anchor-id="ecology-biodiversity-domain-standards-relevant-to-ecocommons">Ecology / biodiversity domain standards (relevant to EcoCommons)</h3>
+<ul>
+<li><strong>Darwin Core</strong> — biodiversity occurrence data terms: <a href="https://dwc.tdwg.org/">dwc.tdwg.org</a>.</li>
+<li><strong>EML — Ecological Metadata Language</strong> — dataset metadata for ecology: <a href="https://eml.ecoinformatics.org/">eml.ecoinformatics.org</a>.</li>
+</ul>
+</section>
+<section id="making-rules-machine-checkable" class="level3">
+<h3 class="anchored" data-anchor-id="making-rules-machine-checkable">Making rules machine-checkable</h3>
+<ul>
+<li><strong>SHACL</strong> — validate RDF / DCAT metadata against constraint “shapes”: <a href="https://www.w3.org/TR/shacl/">w3.org/TR/shacl</a>.</li>
+<li><strong>Frictionless Data (Table Schema)</strong> — declarative field/row validation for tabular data: <a href="https://frictionlessdata.io/">frictionlessdata.io</a>.</li>
+</ul>
 <hr>
 <p>If you have questions or suggestions, please <a href="mailto:support@ecocommons.org.au">contact the EcoCommons</a> team.</p>
 
 
-<!-- -->
-
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -507,57 +765,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -887,225 +1094,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Rule Book"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">code-tools:</span><span class="co"> false</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png)</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu"># Rule Book</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>Contact details: support\@ecocommons.org.au</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>Date: September 2026</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu"># Purpose</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>*The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples.*</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>This page is the **living rule book** for EcoCommons data. It turns loose expectations — "titles should be consistent", "every dataset needs a category" — into **explicit, checkable rules**, so that a dataset can be audited against them objectively rather than by opinion.</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>Each rule ties back to the metadata fields exposed by the data-ingester index (the same fields we pulled in the <span class="co">[</span><span class="ot">production catalogue audit</span><span class="co">](ecocommons_prod_data_audit.qmd)</span>):</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="in">`title`</span> · <span class="in">`uuid`</span> · <span class="in">`data_category`</span> · <span class="in">`data_subcategories`</span> · <span class="in">`time_domain`</span> · <span class="in">`year`</span> · <span class="in">`resolution`</span> · <span class="in">`spatial_domain`</span> · <span class="in">`spatial_data_type`</span> · <span class="in">`collection_names`</span> · <span class="in">`downloadable`</span> · <span class="in">`created`</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>This is a **draft scaffold**. The rules below are worked examples to establish the format — review, replace, and extend them with the agreed EcoCommons / Biosecurity Commons standards.</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu"># How to read a rule</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>Every rule follows the same template so it can be applied and, eventually, automated:</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>| Field | Meaning |</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>|-------------------|-----------------------------------------------------|</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>| **Rule ID** | Stable identifier (e.g. <span class="in">`MD-001`</span>). |</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>| **Statement** | The rule itself, phrased as a requirement ("must", "should"). |</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>| **DCAT-AP** | Obligation + cardinality + the DCAT / DCAT-AP property it maps onto (see <span class="co">[</span><span class="ot">Alignment with DCAT-AP</span><span class="co">](#alignment-with-dcat-ap)</span>). |</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>| **Applies to** | Which datasets / fields the rule governs. |</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>| **Rationale** | Why the rule exists (FAIR, discoverability, interoperability…). |</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>| **Check** | How to test compliance — a concrete condition. |</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>| **✅ Pass / ❌ Fail** | An example that satisfies the rule and one that violates it. |</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>We adopt the **DCAT-AP obligation model**, so severity maps directly onto an accepted standard: **MUST ↔ Mandatory (M)**, **SHOULD ↔ Recommended (R)**, **MAY ↔ Optional (O)**. A property is *Mandatory* exactly when its minimum cardinality is ≥ 1 (cardinality is written `min..max`, e.g. `1..1`, `1..*<span class="in">`, `</span>0..1`).</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="fu"># Alignment with DCAT-AP</span></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">DCAT-AP 3.0</span><span class="co">](https://semiceu.github.io/DCAT-AP/releases/3.0.0/)</span> describes each dataset property with an **obligation** (Mandatory / Recommended / Optional) and a **cardinality** (`min..max`). We map the EcoCommons index fields onto DCAT / DCAT-AP properties so these rules inherit an accepted standard rather than inventing one. Geospatial specifics (resolution) follow **GeoDCAT-AP**; two fields have no DCAT equivalent and are flagged as **EcoCommons extensions**.</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>| EcoCommons field | DCAT / DCAT-AP property | DCAT-AP obligation | Card. | Notes |</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>|------------|------------|------------|------|------------|</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>| <span class="in">`title`</span> | <span class="in">`dct:title`</span> | Mandatory | 1..<span class="sc">\*</span> | — |</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>| <span class="in">`description`</span> | <span class="in">`dct:description`</span> | Mandatory | 1..<span class="sc">\*</span> | Not yet enforced as a rule here |</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>| <span class="in">`data_category`</span> | <span class="in">`dcat:theme`</span> | Recommended | 0..<span class="sc">\*</span> | Bind to an EcoCommons theme vocabulary (local codelist) |</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>| <span class="in">`data_subcategories`</span> | <span class="in">`dcat:keyword`</span> | Optional | 0..<span class="sc">\*</span> | — |</span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>| <span class="in">`time_domain`</span> | <span class="in">`dct:temporal`</span> | Optional | 0..<span class="sc">\*</span> | Current / Future / Historical is an EcoCommons **extension** of temporal coverage |</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>| <span class="in">`year`</span> | <span class="in">`dct:temporal`</span> | Optional | 0..1 | — |</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>| <span class="in">`spatial_domain`</span> | <span class="in">`dct:spatial`</span> | Optional | 0..<span class="sc">\*</span> | Bind to a places codelist (e.g. Countries NAL) |</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>| <span class="in">`resolution`</span> | <span class="in">`geodcat:spatialResolution`</span> | Optional | 0..1 | **GeoDCAT-AP** |</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>| <span class="in">`spatial_data_type`</span> | *(none)* | — | — | **EcoCommons extension** (Continuous / Categorical) |</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>| <span class="in">`collection_names`</span> | <span class="in">`dcat:DatasetSeries`</span> / catalogue membership | — | 0..<span class="sc">\*</span> | — |</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>| <span class="in">`uuid`</span> | <span class="in">`dct:identifier`</span> | Optional | 0..<span class="sc">\*</span> | — |</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>| <span class="in">`created`</span> | <span class="in">`dct:issued`</span> (+ <span class="in">`dct:modified`</span>) | Optional | 0..1 | — |</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>| <span class="in">`downloadable`</span> | <span class="in">`dcat:Distribution`</span> / <span class="in">`dct:accessRights`</span> | Optional | 0..1 | Access handled at distribution level |</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>Where a rule is **stricter** than DCAT-AP — e.g. we make *category* **MUST**/mandatory though DCAT-AP only *recommends* <span class="in">`dcat:theme`</span> — that is an intentional EcoCommons tightening, and it is noted on the rule.</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="fu"># 1. Metadata rules</span></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="fu">### `MD-001` — Every dataset MUST have a category {#md-001}</span></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Statement.** Every dataset **must** populate </span><span class="in">`data_category`</span><span class="at"> with a value from the controlled vocabulary.</span></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **DCAT-AP.** Obligation **MUST** *(stricter than DCAT-AP, which only recommends `dcat:theme`)* · cardinality `1..*</span><span class="in">` · aligns to `</span><span class="at">dcat:theme`.</span></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Applies to.** All datasets.</span></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Rationale.** Category drives filtering and discovery in the data explorer; an uncategorised dataset is effectively invisible to users browsing by theme.</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Controlled vocabulary (draft).** </span><span class="in">`Climate`</span><span class="at">, </span><span class="in">`Vegetation`</span><span class="at">, </span><span class="in">`Biodiversity`</span><span class="at">, </span><span class="in">`Marine`</span><span class="at">, </span><span class="in">`Topography`</span><span class="at">, </span><span class="in">`Human Activity`</span><span class="at">, </span><span class="in">`Freshwater`</span><span class="at">, </span><span class="in">`Soil`</span><span class="at">, </span><span class="in">`Boundary Data`</span><span class="at">.</span></span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Check.** A dataset fails if its category is missing, empty, "Unknown", or outside the vocabulary.</span></span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✅ **Pass** — </span><span class="in">`data_category: "Climate"`</span><span class="at">\</span></span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ❌ **Fail** — </span><span class="in">`data_category: ""`</span><span class="at"> or </span><span class="in">`data_category: "Unknown"`</span></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="fu">### `MD-002` — Time domain MUST be a controlled value {#md-002}</span></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Statement.** `time_domain` **must** be exactly one of </span><span class="in">`Current`</span><span class="at">, </span><span class="in">`Future`</span><span class="at">, or </span><span class="in">`Historical`</span><span class="at">.</span></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **DCAT-AP.** Obligation **MUST** · cardinality </span><span class="in">`1..1`</span><span class="at"> · aligns to </span><span class="in">`dct:temporal`</span><span class="at"> *(EcoCommons classification extension)*.</span></span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Rationale.** Temporal scope is a primary filter for model inputs; free-text or missing values break the "current vs future climate" split.</span></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Check.** </span><span class="in">`time_domain ∉ {Current, Future, Historical}`</span><span class="at"> → fail.</span></span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✅ **Pass** — </span><span class="in">`time_domain: "Future"`</span><span class="at">\</span></span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ❌ **Fail** — </span><span class="in">`time_domain: "2050"`</span><span class="at"> or empty.</span></span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### `MD-003` — Future datasets SHOULD declare scenario and model {#md-003}</span></span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Statement.** When `time_domain = "Future"`, the dataset **should** record its emissions scenario and climate model (e.g. </span><span class="in">`emsc`</span><span class="at">/</span><span class="in">`gcm`</span><span class="at">, or embedded in the title).</span></span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **DCAT-AP.** Obligation **SHOULD** · cardinality </span><span class="in">`0..1`</span><span class="at"> · relates to </span><span class="in">`dct:temporal`</span><span class="at"> and </span><span class="in">`dct:title`</span><span class="at">.</span></span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Rationale.** A future-climate layer is not interpretable without knowing the GCM and SSP/RCP it came from.</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✅ **Pass** — title </span><span class="in">`"… (2021-2040), HADGEM3-GC31-LL ssp245, 10 arcmin (~20km)"`</span><span class="at">\</span></span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ❌ **Fail** — title </span><span class="in">`"Future minimum temperature August"`</span><span class="at"> (no model, no scenario).</span></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="fu"># 2. Naming &amp; title standards</span></span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### `NM-001` — Titles SHOULD follow the canonical pattern {#nm-001}</span></span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Statement.** Dataset titles **should** follow the canonical pattern: *Source/Product, variable (period), model/scenario, resolution*.</span></span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **DCAT-AP.** Obligation **SHOULD** · aligns to `dct:title` *(which DCAT-AP makes Mandatory, `1..*` — presence is assumed; this rule governs its **form**)*.</span></span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Rationale.** A predictable title structure makes long lists scannable and sortable, and lets users compare like-for-like layers across products.</span></span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✅ **Pass** — </span><span class="in">`"WorldClim v2.1, future climate Minimum Temperature August (2021-2040), HADGEM3-GC31-LL ssp245, 10 arcmin (~20km)"`</span><span class="at">\</span></span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ❌ **Fail** — </span><span class="in">`"min temp aug worldclim"`</span></span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a><span class="fu">### `NM-002` — Resolution MUST use the standard notation {#nm-002}</span></span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Statement.** `resolution` **must** be expressed as </span><span class="in">`&lt;value&gt; &lt;unit&gt; (~&lt;approx&gt;)`</span><span class="at">, e.g. </span><span class="in">`10 arcmin (~20km)`</span><span class="at">, </span><span class="in">`30 arcsec (~1km)`</span><span class="at">.</span></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **DCAT-AP.** Obligation **MUST** · cardinality </span><span class="in">`0..1`</span><span class="at"> · aligns to </span><span class="in">`geodcat:spatialResolution`</span><span class="at"> *(GeoDCAT-AP)*.</span></span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Rationale.** Consistent resolution strings let users match datasets to a target grid and are machine-parseable.</span></span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✅ **Pass** — </span><span class="in">`"30 arcsec (~1km)"`</span><span class="at">\</span></span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ❌ **Fail** — </span><span class="in">`"1km"`</span><span class="at">, </span><span class="in">`"0.0083 deg"`</span><span class="at">, empty.</span></span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="fu"># 3. Data standards</span></span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### `DS-001` — Spatial data type MUST be declared {#ds-001}</span></span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Statement.** `spatial_data_type` **must** be one of </span><span class="in">`Continuous`</span><span class="at"> or </span><span class="in">`Categorical`</span><span class="at">.</span></span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **DCAT-AP.** Obligation **MUST** · cardinality `1..1` · **EcoCommons extension** (no DCAT-AP equivalent).</span></span>
-<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Rationale.** Downstream models treat continuous and categorical predictors differently; misclassification silently corrupts results.</span></span>
-<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✅ **Pass** — </span><span class="in">`spatial_data_type: "Continuous"`</span><span class="at">\</span></span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ❌ **Fail** — missing, or a numeric/other value.</span></span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a><span class="fu">### `DS-002` — Every dataset MUST belong to a collection {#ds-002}</span></span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Statement.** `collection_names` **must** be non-empty.</span></span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **DCAT-AP.** Obligation **MUST** · cardinality </span><span class="in">`0..*`</span><span class="at"> · aligns to </span><span class="in">`dcat:DatasetSeries`</span><span class="at"> / catalogue membership.</span></span>
-<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Rationale.** Collections are how related layers are grouped for users; orphan datasets (</span><span class="in">`None`</span><span class="at">) are hard to find and to govern.</span></span>
-<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Check.** </span><span class="in">`collection_names`</span><span class="at"> empty or </span><span class="in">`["None"]`</span><span class="at"> → fail.</span></span>
-<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✅ **Pass** — </span><span class="in">`collection_names: ["WorldClim-v2.1"]`</span><span class="at">\</span></span>
-<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ❌ **Fail** — </span><span class="in">`collection_names: []`</span></span>
-<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a><span class="fu"># Rule index</span></span>
-<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a>| Rule | Area | Obligation | Card. | Aligns to (DCAT-AP) | Summary |</span>
-<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>|--------|--------|--------|------|------------|------------|</span>
-<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">`MD-001`</span><span class="co">](#md-001)</span> | Metadata | MUST (M) <span class="sc">\*</span> | 1..<span class="sc">\*</span> | <span class="in">`dcat:theme`</span> | Category present &amp; in vocabulary |</span>
-<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">`MD-002`</span><span class="co">](#md-002)</span> | Metadata | MUST (M) | 1..1 | <span class="in">`dct:temporal`</span> † | Time domain is a controlled value |</span>
-<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">`MD-003`</span><span class="co">](#md-003)</span> | Metadata | SHOULD (R) | 0..1 | <span class="in">`dct:temporal`</span> | Future datasets declare scenario &amp; model |</span>
-<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">`NM-001`</span><span class="co">](#nm-001)</span> | Naming | SHOULD (R) | — | <span class="in">`dct:title`</span> | Title follows canonical pattern |</span>
-<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">`NM-002`</span><span class="co">](#nm-002)</span> | Naming | MUST (M) | 0..1 | <span class="in">`geodcat:spatialResolution`</span> | Resolution uses standard notation |</span>
-<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">`DS-001`</span><span class="co">](#ds-001)</span> | Data | MUST (M) | 1..1 | — † | Spatial data type declared |</span>
-<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">`DS-002`</span><span class="co">](#ds-002)</span> | Data | MUST (M) | 0..<span class="sc">\*</span> | <span class="in">`dcat:DatasetSeries`</span> | Dataset belongs to a collection |</span>
-<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a><span class="sc">\*</span> Stricter than DCAT-AP (which only *recommends* <span class="in">`dcat:theme`</span>).  † EcoCommons extension beyond core DCAT-AP.</span>
-<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a><span class="fu"># References &amp; prior art</span></span>
-<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a>This rule book is deliberately lightweight, but it follows the same pattern as established metadata and data-quality standards: each field carries an **obligation level** (mandatory / recommended / optional) and is often bound to a **controlled vocabulary (codelist)**. The standards below are the best templates to align with — and, over time, to borrow controlled vocabularies from.</span>
-<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a><span class="fu">### Geospatial metadata &amp; quality standards</span></span>
-<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**ISO 19115-1** (geographic metadata) and **ISO 19157** (data quality) — the mainstream geospatial standard. Elements carry Mandatory / Conditional / Optional obligations (the analogue of our MUST / SHOULD / MAY) and bind to codelists. *Normative text is paywalled by ISO;* open overviews: <span class="co">[</span><span class="ot">DCC guide</span><span class="co">](https://www.dcc.ac.uk/resources/metadata-standards/iso-19115)</span> · <span class="co">[</span><span class="ot">ICA wiki</span><span class="co">](https://wiki.icaci.org/index.php?title=ISO_19115-1:2014_Geographic_information_-_Metadata_-_Part_1:_Fundamentals)</span>.</span>
-<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**FGDC CSDGM** — the long-standing US Content Standard for Digital Geospatial Metadata, same obligation model: <span class="co">[</span><span class="ot">fgdc.gov/metadata/csdgm-standard</span><span class="co">](https://www.fgdc.gov/metadata/csdgm-standard)</span>.</span>
-<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**INSPIRE metadata (EU)** — ships an official online **validator** that reports pass/fail against the rules; the automatable end-state of our *Check* field: <span class="co">[</span><span class="ot">inspire.ec.europa.eu/validator</span><span class="co">](https://inspire.ec.europa.eu/validator/)</span>.</span>
-<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a><span class="fu">### Catalogue / FAIR profiles (closest to this Rule Book's format)</span></span>
-<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**DCAT-AP** — a W3C DCAT application profile defining per-field **cardinalities and obligations** plus recommended controlled vocabularies. The closest structural match to this page (see <span class="co">[</span><span class="ot">Alignment with DCAT-AP</span><span class="co">](#alignment-with-dcat-ap)</span> above): <span class="co">[</span><span class="ot">DCAT-AP 3.0 spec</span><span class="co">](https://semiceu.github.io/DCAT-AP/releases/3.0.0/)</span> · <span class="co">[</span><span class="ot">W3C DCAT</span><span class="co">](https://www.w3.org/TR/vocab-dcat-3/)</span>.</span>
-<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**GeoDCAT-AP** — the geospatial extension of DCAT-AP (adds spatial resolution, reference system, etc.), the source for our <span class="in">`resolution`</span> mapping: <span class="co">[</span><span class="ot">GeoDCAT-AP</span><span class="co">](https://semiceu.github.io/GeoDCAT-AP/releases/)</span>.</span>
-<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**FAIR principles** — the guiding rationale (Findable, Accessible, Interoperable, Reusable): <span class="co">[</span><span class="ot">go-fair.org/fair-principles</span><span class="co">](https://www.go-fair.org/fair-principles/)</span>.</span>
-<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ecology / biodiversity domain standards (relevant to EcoCommons)</span></span>
-<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Darwin Core** — biodiversity occurrence data terms: <span class="co">[</span><span class="ot">dwc.tdwg.org</span><span class="co">](https://dwc.tdwg.org/)</span>.</span>
-<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**EML — Ecological Metadata Language** — dataset metadata for ecology: <span class="co">[</span><span class="ot">eml.ecoinformatics.org</span><span class="co">](https://eml.ecoinformatics.org/)</span>.</span>
-<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a><span class="fu">### Making rules machine-checkable</span></span>
-<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**SHACL** — validate RDF / DCAT metadata against constraint "shapes": <span class="co">[</span><span class="ot">w3.org/TR/shacl</span><span class="co">](https://www.w3.org/TR/shacl/)</span>.</span>
-<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Frictionless Data (Table Schema)** — declarative field/row validation for tabular data: <span class="co">[</span><span class="ot">frictionlessdata.io</span><span class="co">](https://frictionlessdata.io/)</span>.</span>
-<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a>If you have questions or suggestions, please <span class="co">[</span><span class="ot">contact the EcoCommons</span><span class="co">](mailto:support@ecocommons.org.au)</span> team.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</script>
 </div> <!-- /content -->
 
 
