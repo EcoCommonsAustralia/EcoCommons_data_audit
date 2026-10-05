@@ -1,0 +1,217 @@
+---
+title: "Rule Book"
+code-tools: false
+---
+
+![](https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png)
+
+# Rule Book
+
+Contact details: support\@ecocommons.org.au
+
+Date: September 2026
+
+# Purpose
+
+*The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples.*
+
+This page is the **living rule book** for EcoCommons data. It turns loose expectations — "titles should be consistent", "every dataset needs a category" — into **explicit, checkable rules**, so that a dataset can be audited against them objectively rather than by opinion.
+
+Each rule ties back to the metadata fields exposed by the data-ingester index (the same fields we pulled in the [production catalogue audit](ecocommons_prod_data_audit.qmd)):
+
+`title` · `uuid` · `data_category` · `data_subcategories` · `time_domain` · `year` · `resolution` · `spatial_domain` · `spatial_data_type` · `collection_names` · `downloadable` · `created`
+
+::: callout-note
+This is a **draft scaffold**. The rules below are worked examples to establish the format — review, replace, and extend them with the agreed EcoCommons / Biosecurity Commons standards.
+:::
+
+------------------------------------------------------------------------
+
+# How to read a rule
+
+Every rule follows the same template so it can be applied and, eventually, automated:
+
+| Field | Meaning |
+|-------------------|-----------------------------------------------------|
+| **Rule ID** | Stable identifier (e.g. `MD-001`). |
+| **Statement** | The rule itself, phrased as a requirement ("must", "should"). |
+| **DCAT-AP** | Obligation + cardinality + the DCAT / DCAT-AP property it maps onto (see [Alignment with DCAT-AP](#alignment-with-dcat-ap)). |
+| **Applies to** | Which datasets / fields the rule governs. |
+| **Rationale** | Why the rule exists (FAIR, discoverability, interoperability…). |
+| **Check** | How to test compliance — a concrete condition. |
+| **✅ Pass / ❌ Fail** | An example that satisfies the rule and one that violates it. |
+
+We adopt the **DCAT-AP obligation model**, so severity maps directly onto an accepted standard: **MUST ↔ Mandatory (M)**, **SHOULD ↔ Recommended (R)**, **MAY ↔ Optional (O)**. A property is *Mandatory* exactly when its minimum cardinality is ≥ 1 (cardinality is written `min..max`, e.g. `1..1`, `1..*`, `0..1`).
+
+------------------------------------------------------------------------
+
+# Alignment with DCAT-AP
+
+[DCAT-AP 3.0](https://semiceu.github.io/DCAT-AP/releases/3.0.0/) describes each dataset property with an **obligation** (Mandatory / Recommended / Optional) and a **cardinality** (`min..max`). We map the EcoCommons index fields onto DCAT / DCAT-AP properties so these rules inherit an accepted standard rather than inventing one. Geospatial specifics (resolution) follow **GeoDCAT-AP**; two fields have no DCAT equivalent and are flagged as **EcoCommons extensions**.
+
+| EcoCommons field | DCAT / DCAT-AP property | DCAT-AP obligation | Card. | Notes |
+|------------|------------|------------|------|------------|
+| `title` | `dct:title` | Mandatory | 1..\* | — |
+| `description` | `dct:description` | Mandatory | 1..\* | Not yet enforced as a rule here |
+| `data_category` | `dcat:theme` | Recommended | 0..\* | Bind to an EcoCommons theme vocabulary (local codelist) |
+| `data_subcategories` | `dcat:keyword` | Optional | 0..\* | — |
+| `time_domain` | `dct:temporal` | Optional | 0..\* | Current / Future / Historical is an EcoCommons **extension** of temporal coverage |
+| `year` | `dct:temporal` | Optional | 0..1 | — |
+| `spatial_domain` | `dct:spatial` | Optional | 0..\* | Bind to a places codelist (e.g. Countries NAL) |
+| `resolution` | `geodcat:spatialResolution` | Optional | 0..1 | **GeoDCAT-AP** |
+| `spatial_data_type` | *(none)* | — | — | **EcoCommons extension** (Continuous / Categorical) |
+| `collection_names` | `dcat:DatasetSeries` / catalogue membership | — | 0..\* | — |
+| `uuid` | `dct:identifier` | Optional | 0..\* | — |
+| `created` | `dct:issued` (+ `dct:modified`) | Optional | 0..1 | — |
+| `downloadable` | `dcat:Distribution` / `dct:accessRights` | Optional | 0..1 | Access handled at distribution level |
+
+::: callout-tip
+Where a rule is **stricter** than DCAT-AP — e.g. we make *category* **MUST**/mandatory though DCAT-AP only *recommends* `dcat:theme` — that is an intentional EcoCommons tightening, and it is noted on the rule.
+:::
+
+------------------------------------------------------------------------
+
+# 1. Metadata rules
+
+### `MD-001` — Every dataset MUST have a category {#md-001}
+
+> **Statement.** Every dataset **must** populate `data_category` with a value from the controlled vocabulary.
+>
+> **DCAT-AP.** Obligation **MUST** *(stricter than DCAT-AP, which only recommends `dcat:theme`)* · cardinality `1..*` · aligns to `dcat:theme`.
+>
+> **Applies to.** All datasets.
+>
+> **Rationale.** Category drives filtering and discovery in the data explorer; an uncategorised dataset is effectively invisible to users browsing by theme.
+>
+> **Controlled vocabulary (draft).** `Climate`, `Vegetation`, `Biodiversity`, `Marine`, `Topography`, `Human Activity`, `Freshwater`, `Soil`, `Boundary Data`.
+>
+> **Check.** A dataset fails if its category is missing, empty, "Unknown", or outside the vocabulary.
+>
+> ✅ **Pass** — `data_category: "Climate"`\
+> ❌ **Fail** — `data_category: ""` or `data_category: "Unknown"`
+
+### `MD-002` — Time domain MUST be a controlled value {#md-002}
+
+> **Statement.** `time_domain` **must** be exactly one of `Current`, `Future`, or `Historical`.
+>
+> **DCAT-AP.** Obligation **MUST** · cardinality `1..1` · aligns to `dct:temporal` *(EcoCommons classification extension)*.
+>
+> **Rationale.** Temporal scope is a primary filter for model inputs; free-text or missing values break the "current vs future climate" split.
+>
+> **Check.** `time_domain ∉ {Current, Future, Historical}` → fail.
+>
+> ✅ **Pass** — `time_domain: "Future"`\
+> ❌ **Fail** — `time_domain: "2050"` or empty.
+
+### `MD-003` — Future datasets SHOULD declare scenario and model {#md-003}
+
+> **Statement.** When `time_domain = "Future"`, the dataset **should** record its emissions scenario and climate model (e.g. `emsc`/`gcm`, or embedded in the title).
+>
+> **DCAT-AP.** Obligation **SHOULD** · cardinality `0..1` · relates to `dct:temporal` and `dct:title`.
+>
+> **Rationale.** A future-climate layer is not interpretable without knowing the GCM and SSP/RCP it came from.
+>
+> ✅ **Pass** — title `"… (2021-2040), HADGEM3-GC31-LL ssp245, 10 arcmin (~20km)"`\
+> ❌ **Fail** — title `"Future minimum temperature August"` (no model, no scenario).
+
+------------------------------------------------------------------------
+
+# 2. Naming & title standards
+
+### `NM-001` — Titles SHOULD follow the canonical pattern {#nm-001}
+
+> **Statement.** Dataset titles **should** follow the canonical pattern: *Source/Product, variable (period), model/scenario, resolution*.
+>
+> **DCAT-AP.** Obligation **SHOULD** · aligns to `dct:title` *(which DCAT-AP makes Mandatory, `1..*` — presence is assumed; this rule governs its **form**)*.
+>
+> **Rationale.** A predictable title structure makes long lists scannable and sortable, and lets users compare like-for-like layers across products.
+>
+> ✅ **Pass** — `"WorldClim v2.1, future climate Minimum Temperature August (2021-2040), HADGEM3-GC31-LL ssp245, 10 arcmin (~20km)"`\
+> ❌ **Fail** — `"min temp aug worldclim"`
+
+### `NM-002` — Resolution MUST use the standard notation {#nm-002}
+
+> **Statement.** `resolution` **must** be expressed as `<value> <unit> (~<approx>)`, e.g. `10 arcmin (~20km)`, `30 arcsec (~1km)`.
+>
+> **DCAT-AP.** Obligation **MUST** · cardinality `0..1` · aligns to `geodcat:spatialResolution` *(GeoDCAT-AP)*.
+>
+> **Rationale.** Consistent resolution strings let users match datasets to a target grid and are machine-parseable.
+>
+> ✅ **Pass** — `"30 arcsec (~1km)"`\
+> ❌ **Fail** — `"1km"`, `"0.0083 deg"`, empty.
+
+------------------------------------------------------------------------
+
+# 3. Data standards
+
+### `DS-001` — Spatial data type MUST be declared {#ds-001}
+
+> **Statement.** `spatial_data_type` **must** be one of `Continuous` or `Categorical`.
+>
+> **DCAT-AP.** Obligation **MUST** · cardinality `1..1` · **EcoCommons extension** (no DCAT-AP equivalent).
+>
+> **Rationale.** Downstream models treat continuous and categorical predictors differently; misclassification silently corrupts results.
+>
+> ✅ **Pass** — `spatial_data_type: "Continuous"`\
+> ❌ **Fail** — missing, or a numeric/other value.
+
+### `DS-002` — Every dataset MUST belong to a collection {#ds-002}
+
+> **Statement.** `collection_names` **must** be non-empty.
+>
+> **DCAT-AP.** Obligation **MUST** · cardinality `0..*` · aligns to `dcat:DatasetSeries` / catalogue membership.
+>
+> **Rationale.** Collections are how related layers are grouped for users; orphan datasets (`None`) are hard to find and to govern.
+>
+> **Check.** `collection_names` empty or `["None"]` → fail.
+>
+> ✅ **Pass** — `collection_names: ["WorldClim-v2.1"]`\
+> ❌ **Fail** — `collection_names: []`
+
+------------------------------------------------------------------------
+
+# Rule index
+
+| Rule | Area | Obligation | Card. | Aligns to (DCAT-AP) | Summary |
+|--------|--------|--------|------|------------|------------|
+| [`MD-001`](#md-001) | Metadata | MUST (M) \* | 1..\* | `dcat:theme` | Category present & in vocabulary |
+| [`MD-002`](#md-002) | Metadata | MUST (M) | 1..1 | `dct:temporal` † | Time domain is a controlled value |
+| [`MD-003`](#md-003) | Metadata | SHOULD (R) | 0..1 | `dct:temporal` | Future datasets declare scenario & model |
+| [`NM-001`](#nm-001) | Naming | SHOULD (R) | — | `dct:title` | Title follows canonical pattern |
+| [`NM-002`](#nm-002) | Naming | MUST (M) | 0..1 | `geodcat:spatialResolution` | Resolution uses standard notation |
+| [`DS-001`](#ds-001) | Data | MUST (M) | 1..1 | — † | Spatial data type declared |
+| [`DS-002`](#ds-002) | Data | MUST (M) | 0..\* | `dcat:DatasetSeries` | Dataset belongs to a collection |
+
+\* Stricter than DCAT-AP (which only *recommends* `dcat:theme`).  † EcoCommons extension beyond core DCAT-AP.
+
+------------------------------------------------------------------------
+
+# References & prior art
+
+This rule book is deliberately lightweight, but it follows the same pattern as established metadata and data-quality standards: each field carries an **obligation level** (mandatory / recommended / optional) and is often bound to a **controlled vocabulary (codelist)**. The standards below are the best templates to align with — and, over time, to borrow controlled vocabularies from.
+
+### Geospatial metadata & quality standards
+
+-   **ISO 19115-1** (geographic metadata) and **ISO 19157** (data quality) — the mainstream geospatial standard. Elements carry Mandatory / Conditional / Optional obligations (the analogue of our MUST / SHOULD / MAY) and bind to codelists. *Normative text is paywalled by ISO;* open overviews: [DCC guide](https://www.dcc.ac.uk/resources/metadata-standards/iso-19115) · [ICA wiki](https://wiki.icaci.org/index.php?title=ISO_19115-1:2014_Geographic_information_-_Metadata_-_Part_1:_Fundamentals).
+-   **FGDC CSDGM** — the long-standing US Content Standard for Digital Geospatial Metadata, same obligation model: [fgdc.gov/metadata/csdgm-standard](https://www.fgdc.gov/metadata/csdgm-standard).
+-   **INSPIRE metadata (EU)** — ships an official online **validator** that reports pass/fail against the rules; the automatable end-state of our *Check* field: [inspire.ec.europa.eu/validator](https://inspire.ec.europa.eu/validator/).
+
+### Catalogue / FAIR profiles (closest to this Rule Book's format)
+
+-   **DCAT-AP** — a W3C DCAT application profile defining per-field **cardinalities and obligations** plus recommended controlled vocabularies. The closest structural match to this page (see [Alignment with DCAT-AP](#alignment-with-dcat-ap) above): [DCAT-AP 3.0 spec](https://semiceu.github.io/DCAT-AP/releases/3.0.0/) · [W3C DCAT](https://www.w3.org/TR/vocab-dcat-3/).
+-   **GeoDCAT-AP** — the geospatial extension of DCAT-AP (adds spatial resolution, reference system, etc.), the source for our `resolution` mapping: [GeoDCAT-AP](https://semiceu.github.io/GeoDCAT-AP/releases/).
+-   **FAIR principles** — the guiding rationale (Findable, Accessible, Interoperable, Reusable): [go-fair.org/fair-principles](https://www.go-fair.org/fair-principles/).
+
+### Ecology / biodiversity domain standards (relevant to EcoCommons)
+
+-   **Darwin Core** — biodiversity occurrence data terms: [dwc.tdwg.org](https://dwc.tdwg.org/).
+-   **EML — Ecological Metadata Language** — dataset metadata for ecology: [eml.ecoinformatics.org](https://eml.ecoinformatics.org/).
+
+### Making rules machine-checkable
+
+-   **SHACL** — validate RDF / DCAT metadata against constraint "shapes": [w3.org/TR/shacl](https://www.w3.org/TR/shacl/).
+-   **Frictionless Data (Table Schema)** — declarative field/row validation for tabular data: [frictionlessdata.io](https://frictionlessdata.io/).
+
+------------------------------------------------------------------------
+
+If you have questions or suggestions, please [contact the EcoCommons](mailto:support@ecocommons.org.au) team.

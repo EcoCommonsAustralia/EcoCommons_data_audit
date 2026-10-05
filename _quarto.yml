@@ -11,6 +11,8 @@ website:
         text: "EcoCommons Data Audit"
       - href: ecocommons_prod_data_audit.qmd
         text: "Prod Dataset Audit"
+      - href: rule_book.qmd
+        text: "Rule Book"
 
 format:
   html:
