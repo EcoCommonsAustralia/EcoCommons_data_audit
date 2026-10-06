@@ -3,6 +3,9 @@ project:
   output-dir: docs
   resources:
     - data/
+  # Re-create the Jekyll opt-out after each render (render cleans docs/).
+  post-render:
+    - touch docs/.nojekyll
 
 website:
   title: "EcoCommons Data Audit"
