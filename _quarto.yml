@@ -21,10 +21,17 @@ website:
 format:
   html:
     css: styles/ec_html_template.css
-    toc: true
-    toc-depth: 4
     theme: cosmo
+    toc: true
+    toc-depth: 3
+    number-sections: false
     code-fold: true
     code-tools: true
+    include-before-body:
+      text: |
+        <div style="margin:0 0 1.5rem;">
+          <img src="https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png"
+               style="max-width:100%;height:auto;" alt="EcoCommons">
+        </div>
 
 editor: visual

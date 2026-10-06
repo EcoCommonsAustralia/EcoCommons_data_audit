@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-10-06">
 <meta name="description" content="A running log of data-audit work on the EcoCommons and Biosecurity Commons platforms — cataloguing datasets, checking data holdings against requirements, and documenting how it was done.">
 
 <title>EcoCommons Data Audit</title>
@@ -157,10 +158,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#ecocommons-data-audit" id="toc-ecocommons-data-audit" class="nav-link active" data-scroll-target="#ecocommons-data-audit">EcoCommons Data Audit</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#posts" id="toc-posts" class="nav-link" data-scroll-target="#posts">Posts</a>
   <ul class="collapse">
   <li><a href="#auditing-the-ecocommons-production-data-catalogue" id="toc-auditing-the-ecocommons-production-data-catalogue" class="nav-link" data-scroll-target="#auditing-the-ecocommons-production-data-catalogue">1. Auditing the EcoCommons Production Data Catalogue</a></li>
+  <li><a href="#the-ecocommons-production-data-catalogue" id="toc-the-ecocommons-production-data-catalogue" class="nav-link" data-scroll-target="#the-ecocommons-production-data-catalogue">2. The EcoCommons Production Data Catalogue</a></li>
+  <li><a href="#rule-book" id="toc-rule-book" class="nav-link" data-scroll-target="#rule-book">3. Rule Book</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -168,10 +171,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+<div style="margin:0 0 1.5rem;">
+  <img src="https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png" style="max-width:100%;height:auto;" alt="EcoCommons">
+</div>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">EcoCommons Data Audit</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">Data-audit write-ups for the EcoCommons Australia &amp; Biosecurity Commons platforms</p>
 </div>
 
 <div>
@@ -184,6 +191,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 6, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -193,7 +206,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><img src="https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png" class="img-fluid"></p>
 <section id="ecocommons-data-audit" class="level1">
 <h1>EcoCommons Data Audit</h1>
 <p>Welcome. This site collects <strong>data-audit</strong> write-ups for the <a href="https://www.ecocommons.org.au/">EcoCommons Australia</a> and Biosecurity Commons platforms — the behind-the-scenes work of figuring out <em>what data we actually have</em>, whether it matches what the science needs, and how the answers were obtained so anyone can reproduce them.</p>
@@ -203,6 +215,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="auditing-the-ecocommons-production-data-catalogue">1. Auditing the EcoCommons Production Data Catalogue</h3>
 <p><a href="./ecocommons_prod_data_audit.html">Auditing the EcoCommons Production Data Catalogue</a><br>
 How we enumerated <strong>every</strong> dataset in the EcoCommons production environment — 58,424 records across ~54 collections — using the data-ingester Elasticsearch endpoint, and what the catalogue actually contains.</p>
+</section>
+<section id="the-ecocommons-production-data-catalogue" class="level3">
+<h3 class="anchored" data-anchor-id="the-ecocommons-production-data-catalogue">2. The EcoCommons Production Data Catalogue</h3>
+<p><a href="./prod_dataset_catalogue.html">The EcoCommons Production Data Catalogue</a><br>
+A browsable inventory of what’s in production — broken down by category, time domain and collection — with compact per-collection profiles to download.</p>
+</section>
+<section id="rule-book" class="level3">
+<h3 class="anchored" data-anchor-id="rule-book">3. Rule Book</h3>
+<p><a href="./rule_book.html">Rule Book</a><br>
+The metadata and data-quality rules EcoCommons datasets are expected to meet — each rule stated, justified and made checkable, mapped onto the DCAT-AP obligation model.</p>
 <hr>
 <p>If you have questions or suggestions, please <a href="mailto:support@ecocommons.org.au">contact the EcoCommons</a> team.</p>
 
@@ -684,10 +706,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "EcoCommons Data Audit"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "A running log of data-audit work on the EcoCommons and Biosecurity Commons platforms — cataloguing datasets, checking data holdings against requirements, and documenting how it was done."</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Data-audit write-ups for the EcoCommons Australia &amp; Biosecurity Commons platforms"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "A running log of data-audit work on the EcoCommons and Biosecurity Commons platforms — cataloguing datasets, checking data holdings against requirements, and documenting how it was done."</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2026-10-06"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu"># EcoCommons Data Audit</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
@@ -700,9 +722,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Auditing the EcoCommons Production Data Catalogue</span><span class="co">](ecocommons_prod_data_audit.qmd)</span>\</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>How we enumerated **every** dataset in the EcoCommons production environment — 58,424 records across ~54 collections — using the data-ingester Elasticsearch endpoint, and what the catalogue actually contains.</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. The EcoCommons Production Data Catalogue</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>If you have questions or suggestions, please <span class="co">[</span><span class="ot">contact the EcoCommons</span><span class="co">](mailto:support@ecocommons.org.au)</span> team.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">The EcoCommons Production Data Catalogue</span><span class="co">](prod_dataset_catalogue.qmd)</span>\</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>A browsable inventory of what's in production — broken down by category, time domain and collection — with compact per-collection profiles to download.</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. Rule Book</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Rule Book</span><span class="co">](rule_book.qmd)</span>\</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>The metadata and data-quality rules EcoCommons datasets are expected to meet — each rule stated, justified and made checkable, mapped onto the DCAT-AP obligation model.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>If you have questions or suggestions, please <span class="co">[</span><span class="ot">contact the EcoCommons</span><span class="co">](mailto:support@ecocommons.org.au)</span> team.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

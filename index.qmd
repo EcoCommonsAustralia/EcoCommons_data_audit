@@ -1,9 +1,9 @@
 ---
 title: "EcoCommons Data Audit"
+subtitle: "Data-audit write-ups for the EcoCommons Australia & Biosecurity Commons platforms"
 description: "A running log of data-audit work on the EcoCommons and Biosecurity Commons platforms — cataloguing datasets, checking data holdings against requirements, and documenting how it was done."
+date: "2026-10-06"
 ---
-
-![](https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png)
 
 # EcoCommons Data Audit
 
@@ -15,6 +15,16 @@ Welcome. This site collects **data-audit** write-ups for the [EcoCommons Austral
 
 [Auditing the EcoCommons Production Data Catalogue](ecocommons_prod_data_audit.qmd)\
 How we enumerated **every** dataset in the EcoCommons production environment — 58,424 records across ~54 collections — using the data-ingester Elasticsearch endpoint, and what the catalogue actually contains.
+
+### 2. The EcoCommons Production Data Catalogue
+
+[The EcoCommons Production Data Catalogue](prod_dataset_catalogue.qmd)\
+A browsable inventory of what's in production — broken down by category, time domain and collection — with compact per-collection profiles to download.
+
+### 3. Rule Book
+
+[Rule Book](rule_book.qmd)\
+The metadata and data-quality rules EcoCommons datasets are expected to meet — each rule stated, justified and made checkable, mapped onto the DCAT-AP obligation model.
 
 ------------------------------------------------------------------------
 

@@ -1,19 +1,16 @@
 ---
 title: "Auditing the EcoCommons Production Data Catalogue"
+subtitle: "Enumerating every dataset in production via the data-ingester Elasticsearch endpoint"
 description: "How we enumerated every dataset in the EcoCommons production environment — 58,424 records — using the data-ingester Elasticsearch endpoint, and what the catalogue actually contains."
+date: "2026-09-18"
+author: "Xiang Zhao"
 ---
 
-![](https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png)
-
 # Auditing the EcoCommons Production Data Catalogue
-
-Author details: Xiang Zhao
 
 Contact details: support\@ecocommons.org.au
 
 Copyright statement: This document is a product of the EcoCommons platform. Please refer to the EcoCommons website for more details: <https://www.ecocommons.org.au/>
-
-Date: September 2026
 
 # Script information
 

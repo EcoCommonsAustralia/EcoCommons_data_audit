@@ -6,6 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Xiang Zhao">
+<meta name="dcterms.date" content="2026-09-18">
+<meta name="description" content="The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples.">
 
 <title>Rule Book – EcoCommons Data Audit</title>
 <style>
@@ -126,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#how-to-read-a-rule" id="toc-how-to-read-a-rule" class="nav-link" data-scroll-target="#how-to-read-a-rule">How to read a rule</a></li>
   <li><a href="#alignment-with-dcat-ap" id="toc-alignment-with-dcat-ap" class="nav-link" data-scroll-target="#alignment-with-dcat-ap">Alignment with DCAT-AP</a></li>
   <li><a href="#metadata-rules" id="toc-metadata-rules" class="nav-link" data-scroll-target="#metadata-rules">1. Metadata rules</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#md-001" id="toc-md-001" class="nav-link" data-scroll-target="#md-001"><code>MD-001</code> — Every dataset MUST have a category</a></li>
   <li><a href="#md-002" id="toc-md-002" class="nav-link" data-scroll-target="#md-002"><code>MD-002</code> — Time domain MUST be a controlled value</a></li>
   <li><a href="#md-003" id="toc-md-003" class="nav-link" data-scroll-target="#md-003"><code>MD-003</code> — Future datasets SHOULD declare scenario and model</a></li>
@@ -135,12 +138,12 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#md-006" id="toc-md-006" class="nav-link" data-scroll-target="#md-006"><code>MD-006</code> — Datasets SHOULD record an issued date</a></li>
   </ul></li>
   <li><a href="#naming-title-standards" id="toc-naming-title-standards" class="nav-link" data-scroll-target="#naming-title-standards">2. Naming &amp; title standards</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#nm-001" id="toc-nm-001" class="nav-link" data-scroll-target="#nm-001"><code>NM-001</code> — Titles SHOULD follow the canonical pattern</a></li>
   <li><a href="#nm-002" id="toc-nm-002" class="nav-link" data-scroll-target="#nm-002"><code>NM-002</code> — Resolution MUST use the standard notation</a></li>
   </ul></li>
   <li><a href="#data-standards" id="toc-data-standards" class="nav-link" data-scroll-target="#data-standards">3. Data standards</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#ds-001" id="toc-ds-001" class="nav-link" data-scroll-target="#ds-001"><code>DS-001</code> — Spatial data type MUST be declared</a></li>
   <li><a href="#ds-002" id="toc-ds-002" class="nav-link" data-scroll-target="#ds-002"><code>DS-002</code> — Every dataset MUST belong to a collection</a></li>
   <li><a href="#ds-003" id="toc-ds-003" class="nav-link" data-scroll-target="#ds-003"><code>DS-003</code> — Spatial domain SHOULD be declared</a></li>
@@ -148,7 +151,7 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#rule-index" id="toc-rule-index" class="nav-link" data-scroll-target="#rule-index">Rule index</a></li>
   <li><a href="#references-prior-art" id="toc-references-prior-art" class="nav-link" data-scroll-target="#references-prior-art">References &amp; prior art</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#geospatial-metadata-quality-standards" id="toc-geospatial-metadata-quality-standards" class="nav-link" data-scroll-target="#geospatial-metadata-quality-standards">Geospatial metadata &amp; quality standards</a></li>
   <li><a href="#catalogue-fair-profiles-closest-to-this-rule-books-format" id="toc-catalogue-fair-profiles-closest-to-this-rule-books-format" class="nav-link" data-scroll-target="#catalogue-fair-profiles-closest-to-this-rule-books-format">Catalogue / FAIR profiles (closest to this Rule Book’s format)</a></li>
   <li><a href="#ecology-biodiversity-domain-standards-relevant-to-ecocommons" id="toc-ecology-biodiversity-domain-standards-relevant-to-ecocommons" class="nav-link" data-scroll-target="#ecology-biodiversity-domain-standards-relevant-to-ecocommons">Ecology / biodiversity domain standards (relevant to EcoCommons)</a></li>
@@ -159,17 +162,38 @@ ul.task-list li input[type="checkbox"] {
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+<div style="margin:0 0 1.5rem;">
+  <img src="https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png" style="max-width:100%;height:auto;" alt="EcoCommons">
+</div>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Rule Book</h1>
+<p class="subtitle lead">Checkable metadata &amp; data-quality rules, mapped to the DCAT-AP obligation model</p>
 </div>
 
+<div>
+  <div class="description">
+    The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Xiang Zhao </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 18, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -179,11 +203,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="https://raw.githubusercontent.com/EcoCommons-Australia-2024-2026/ec-notebook_site/main/images/notebooks_banner_withframe.png" class="img-fluid"></p>
 <section id="rule-book" class="level1">
 <h1>Rule Book</h1>
 <p>Contact details: support@ecocommons.org.au</p>
-<p>Date: September 2026</p>
 </section>
 <section id="purpose" class="level1">
 <h1>Purpose</h1>
