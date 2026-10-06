@@ -158,8 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#auditing-the-ecocommons-production-data-catalogue" id="toc-auditing-the-ecocommons-production-data-catalogue" class="nav-link active" data-scroll-target="#auditing-the-ecocommons-production-data-catalogue">Auditing the EcoCommons Production Data Catalogue</a></li>
-  <li><a href="#script-information" id="toc-script-information" class="nav-link" data-scroll-target="#script-information">Script information</a></li>
+  <li><a href="#script-information" id="toc-script-information" class="nav-link active" data-scroll-target="#script-information">Script information</a></li>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
   <li><a href="#the-problem-there-is-no-list-all-datasets-endpoint" id="toc-the-problem-there-is-no-list-all-datasets-endpoint" class="nav-link" data-scroll-target="#the-problem-there-is-no-list-all-datasets-endpoint">The problem: there is no “list all datasets” endpoint</a></li>
@@ -224,11 +223,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="auditing-the-ecocommons-production-data-catalogue" class="level1">
-<h1>Auditing the EcoCommons Production Data Catalogue</h1>
 <p>Contact details: support@ecocommons.org.au</p>
 <p>Copyright statement: This document is a product of the EcoCommons platform. Please refer to the EcoCommons website for more details: <a href="https://www.ecocommons.org.au/" class="uri">https://www.ecocommons.org.au/</a></p>
-</section>
 <section id="script-information" class="level1">
 <h1>Script information</h1>
 <p>This post documents a data-audit exercise: producing a complete, reproducible inventory of <strong>every dataset that exists in the EcoCommons production environment</strong>, so that the platform’s data holdings can be reviewed against the “critical datasets” the science team expects to find.</p>
@@ -1010,214 +1006,212 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Xiang Zhao"</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Auditing the EcoCommons Production Data Catalogue</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Contact details: support\@ecocommons.org.au</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>Contact details: support\@ecocommons.org.au</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>Copyright statement: This document is a product of the EcoCommons platform. Please refer to the EcoCommons website for more details: <span class="ot">&lt;https://www.ecocommons.org.au/&gt;</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>Copyright statement: This document is a product of the EcoCommons platform. Please refer to the EcoCommons website for more details: <span class="ot">&lt;https://www.ecocommons.org.au/&gt;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu"># Script information</span></span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Script information</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>This post documents a data-audit exercise: producing a complete, reproducible inventory of **every dataset that exists in the EcoCommons production environment**, so that the platform's data holdings can be reviewed against the "critical datasets" the science team expects to find.</span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>This post documents a data-audit exercise: producing a complete, reproducible inventory of **every dataset that exists in the EcoCommons production environment**, so that the platform's data holdings can be reviewed against the "critical datasets" the science team expects to find.</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>It is a companion to the earlier curated audit (<span class="in">`EcoCommons_prod_dataset_audit.xlsx`</span>), which spot-checked 43 datasets from a support article. This time we pulled the *whole* catalogue.</span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>It is a companion to the earlier curated audit (<span class="in">`EcoCommons_prod_dataset_audit.xlsx`</span>), which spot-checked 43 datasets from a support article. This time we pulled the *whole* catalogue.</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>A recurring question in any data platform is deceptively simple: **"What data do we actually have?"**</span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>A recurring question in any data platform is deceptively simple: **"What data do we actually have?"**</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>For EcoCommons, the datasets that power species distribution models and spatial analyses live behind the **data-ingester API**. There is a public data explorer, and there are import tools — but neither answers the question in one shot. To audit the platform properly we needed a single, authoritative list of every dataset record in production, with enough metadata to slice it by category, time domain, and collection.</span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>For EcoCommons, the datasets that power species distribution models and spatial analyses live behind the **data-ingester API**. There is a public data explorer, and there are import tools — but neither answers the question in one shot. To audit the platform properly we needed a single, authoritative list of every dataset record in production, with enough metadata to slice it by category, time domain, and collection.</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="fu"># Objectives</span></span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="fu"># Objectives</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Enumerate every dataset in the EcoCommons **production** environment.</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Capture per-dataset metadata (title, UUID, category, time domain, resolution, collection).</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Summarise the catalogue so it is human-readable, not just a 58k-row dump.</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Make the whole thing **reproducible** — a script anyone can re-run against prod, test, or dev.</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Enumerate every dataset in the EcoCommons **production** environment.</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Capture per-dataset metadata (title, UUID, category, time domain, resolution, collection).</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Summarise the catalogue so it is human-readable, not just a 58k-row dump.</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Make the whole thing **reproducible** — a script anyone can re-run against prod, test, or dev.</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
 <span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="fu"># The problem: there is no "list all datasets" endpoint</span></span>
 <span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="fu"># The problem: there is no "list all datasets" endpoint</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>The obvious first attempt — asking the API for a list of datasets — fails:</span>
 <span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>The obvious first attempt — asking the API for a list of datasets — fails:</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="in">``` bash</span></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="ex">GET</span> https://api.data-ingester.app.ecocommons.org.au/api/dataset      → 404</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="ex">GET</span> .../api/datasets                                                 → 404</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="ex">GET</span> .../api/data                                                     → 404</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="in">``` bash</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="ex">GET</span> https://api.data-ingester.app.ecocommons.org.au/api/dataset      → 404</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="ex">GET</span> .../api/datasets                                                 → 404</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="ex">GET</span> .../api/data                                                     → 404</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>The data-ingester API is built around **individual records**, not listings. The endpoints that *do* exist work per-UUID or per-collection:</span>
 <span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>The data-ingester API is built around **individual records**, not listings. The endpoints that *do* exist work per-UUID or per-collection:</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>| Endpoint | Purpose |</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>|:---|:---|</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>| <span class="in">`GET /api/dataset/{uuid}`</span> | Fetch one dataset (metadata + band manifest) |</span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>| <span class="in">`GET /api/collection`</span> | List the ~60 collections (but not their member datasets) |</span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>| <span class="in">`GET /api/collection/{uuid}`</span> | Fetch one collection's details |</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>| Endpoint | Purpose |</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>|:---|:---|</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>| <span class="in">`GET /api/dataset/{uuid}`</span> | Fetch one dataset (metadata + band manifest) |</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>| <span class="in">`GET /api/collection`</span> | List the ~60 collections (but not their member datasets) |</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>| <span class="in">`GET /api/collection/{uuid}`</span> | Fetch one collection's details |</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>The collection list gets us collection *names*, but a collection object does **not** enumerate its member datasets — so it cannot answer "what datasets exist".</span>
 <span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>The collection list gets us collection *names*, but a collection object does **not** enumerate its member datasets — so it cannot answer "what datasets exist".</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="fu"># The solution: query Elasticsearch directly</span></span>
 <span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="fu"># The solution: query Elasticsearch directly</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>The breakthrough came from the earlier audit spreadsheet, whose notes referenced an <span class="in">`/api/es/search/dataset`</span> endpoint. The data-ingester indexes every dataset into **Elasticsearch**, and exposes a thin search proxy over it.</span>
 <span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>The breakthrough came from the earlier audit spreadsheet, whose notes referenced an <span class="in">`/api/es/search/dataset`</span> endpoint. The data-ingester indexes every dataset into **Elasticsearch**, and exposes a thin search proxy over it.</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>A plain <span class="in">`GET`</span> returns <span class="in">`405 Method Not Allowed`</span> — the endpoint expects a **POST with an Elasticsearch query body**:</span>
 <span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>A plain <span class="in">`GET`</span> returns <span class="in">`405 Method Not Allowed`</span> — the endpoint expects a **POST with an Elasticsearch query body**:</span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests, json</span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>api  <span class="op">=</span> <span class="st">"https://api.data-ingester.app.ecocommons.org.au"</span></span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {<span class="st">"Authorization"</span>: <span class="st">"Bearer "</span> <span class="op">+</span> token,</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>}</span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="co"># How many datasets are there, exactly?</span></span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> {<span class="st">"track_total_hits"</span>: <span class="va">True</span>, <span class="st">"size"</span>: <span class="dv">0</span>, <span class="st">"query"</span>: {<span class="st">"match_all"</span>: {}}}</span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>resp <span class="op">=</span> requests.post(<span class="ss">f"</span><span class="sc">{</span>api<span class="sc">}</span><span class="ss">/api/es/search/dataset"</span>,</span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>                     headers<span class="op">=</span>headers, data<span class="op">=</span>json.dumps(body), verify<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resp.json()[<span class="st">"hits"</span>][<span class="st">"total"</span>])</span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="co"># → {'value': 58424, 'relation': 'eq'}</span></span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests, json</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>api  <span class="op">=</span> <span class="st">"https://api.data-ingester.app.ecocommons.org.au"</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {<span class="st">"Authorization"</span>: <span class="st">"Bearer "</span> <span class="op">+</span> token,</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>}</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="co"># How many datasets are there, exactly?</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> {<span class="st">"track_total_hits"</span>: <span class="va">True</span>, <span class="st">"size"</span>: <span class="dv">0</span>, <span class="st">"query"</span>: {<span class="st">"match_all"</span>: {}}}</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>resp <span class="op">=</span> requests.post(<span class="ss">f"</span><span class="sc">{</span>api<span class="sc">}</span><span class="ss">/api/es/search/dataset"</span>,</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>                     headers<span class="op">=</span>headers, data<span class="op">=</span>json.dumps(body), verify<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resp.json()[<span class="st">"hits"</span>][<span class="st">"total"</span>])</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="co"># → {'value': 58424, 'relation': 'eq'}</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>**58,424 dataset records.** That is the whole production catalogue.</span>
 <span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>**58,424 dataset records.** That is the whole production catalogue.</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Authentication</span></span>
 <span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Authentication</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>The endpoint requires a bearer token. We use Keycloak **client credentials** (the <span class="in">`data-publish`</span> client), the same secret the import tooling uses:</span>
 <span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>The endpoint requires a bearer token. We use Keycloak **client credentials** (the <span class="in">`data-publish`</span> client), the same secret the import tooling uses:</span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_token():</span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> requests.post(</span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>        <span class="st">"https://auth.ecocommons.org.au/auth/realms/"</span></span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ecocommons-prod/protocol/openid-connect/token"</span>,</span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"grant_type"</span>: <span class="st">"client_credentials"</span>,</span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>              <span class="st">"client_id"</span>: <span class="st">"data-publish"</span>,</span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>              <span class="st">"client_secret"</span>: SECRET},   <span class="co"># from .secrets.env.prod</span></span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>        verify<span class="op">=</span><span class="va">False</span>, timeout<span class="op">=</span><span class="dv">30</span>)</span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r.json()[<span class="st">"access_token"</span>]</span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_token():</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> requests.post(</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>        <span class="st">"https://auth.ecocommons.org.au/auth/realms/"</span></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ecocommons-prod/protocol/openid-connect/token"</span>,</span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"grant_type"</span>: <span class="st">"client_credentials"</span>,</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>              <span class="st">"client_id"</span>: <span class="st">"data-publish"</span>,</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>              <span class="st">"client_secret"</span>: SECRET},   <span class="co"># from .secrets.env.prod</span></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>        verify<span class="op">=</span><span class="va">False</span>, timeout<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r.json()[<span class="st">"access_token"</span>]</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## Paginating past 10,000</span></span>
 <span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="fu">## Paginating past 10,000</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>Elasticsearch caps a normal query at 10,000 hits, so we page through with <span class="in">`search_after`</span>. That needs a **unique, sortable** field to tie-break on. Two natural candidates both failed on this index:</span>
 <span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>Elasticsearch caps a normal query at 10,000 hits, so we page through with <span class="in">`search_after`</span>. That needs a **unique, sortable** field to tie-break on. Two natural candidates both failed on this index:</span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`_id`</span> → *"Fielddata access on the \_id field is disallowed"*</span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`uuid.keyword`</span> → *"No mapping found for \[uuid.keyword\]"*</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`_id`</span> → *"Fielddata access on the \_id field is disallowed"*</span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`uuid.keyword`</span> → *"No mapping found for \[uuid.keyword\]"*</span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>The plain **`uuid`** field, however, is sortable and unique — perfect:</span>
 <span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>The plain **`uuid`** field, however, is sortable and unique — perfect:</span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [<span class="st">"title"</span>, <span class="st">"uuid"</span>, <span class="st">"data_category"</span>, <span class="st">"data_subcategories"</span>,</span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>          <span class="st">"time_domain"</span>, <span class="st">"year"</span>, <span class="st">"resolution"</span>, <span class="st">"spatial_domain"</span>,</span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>          <span class="st">"spatial_data_type"</span>, <span class="st">"collection_names"</span>, <span class="st">"downloadable"</span>, <span class="st">"created"</span>]</span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>rows, after <span class="op">=</span> [], <span class="va">None</span></span>
-<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>    body <span class="op">=</span> {<span class="st">"size"</span>: <span class="dv">5000</span>, <span class="st">"query"</span>: {<span class="st">"match_all"</span>: {}},</span>
-<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>            <span class="st">"sort"</span>: [{<span class="st">"uuid"</span>: <span class="st">"asc"</span>}], <span class="st">"_source"</span>: fields}</span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> after:</span>
-<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a>        body[<span class="st">"search_after"</span>] <span class="op">=</span> after</span>
-<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a>    hits <span class="op">=</span> requests.post(<span class="ss">f"</span><span class="sc">{</span>api<span class="sc">}</span><span class="ss">/api/es/search/dataset"</span>, headers<span class="op">=</span>headers,</span>
-<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a>                         data<span class="op">=</span>json.dumps(body), verify<span class="op">=</span><span class="va">False</span>).json()[<span class="st">"hits"</span>][<span class="st">"hits"</span>]</span>
-<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> hits:</span>
-<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
-<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a>    rows.extend(h[<span class="st">"_source"</span>] <span class="cf">for</span> h <span class="kw">in</span> hits)</span>
-<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a>    after <span class="op">=</span> hits[<span class="op">-</span><span class="dv">1</span>][<span class="st">"sort"</span>]        <span class="co"># cursor for the next page</span></span>
-<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [<span class="st">"title"</span>, <span class="st">"uuid"</span>, <span class="st">"data_category"</span>, <span class="st">"data_subcategories"</span>,</span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>          <span class="st">"time_domain"</span>, <span class="st">"year"</span>, <span class="st">"resolution"</span>, <span class="st">"spatial_domain"</span>,</span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>          <span class="st">"spatial_data_type"</span>, <span class="st">"collection_names"</span>, <span class="st">"downloadable"</span>, <span class="st">"created"</span>]</span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>rows, after <span class="op">=</span> [], <span class="va">None</span></span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>    body <span class="op">=</span> {<span class="st">"size"</span>: <span class="dv">5000</span>, <span class="st">"query"</span>: {<span class="st">"match_all"</span>: {}},</span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>            <span class="st">"sort"</span>: [{<span class="st">"uuid"</span>: <span class="st">"asc"</span>}], <span class="st">"_source"</span>: fields}</span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> after:</span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>        body[<span class="st">"search_after"</span>] <span class="op">=</span> after</span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>    hits <span class="op">=</span> requests.post(<span class="ss">f"</span><span class="sc">{</span>api<span class="sc">}</span><span class="ss">/api/es/search/dataset"</span>, headers<span class="op">=</span>headers,</span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a>                         data<span class="op">=</span>json.dumps(body), verify<span class="op">=</span><span class="va">False</span>).json()[<span class="st">"hits"</span>][<span class="st">"hits"</span>]</span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> hits:</span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>    rows.extend(h[<span class="st">"_source"</span>] <span class="cf">for</span> h <span class="kw">in</span> hits)</span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a>    after <span class="op">=</span> hits[<span class="op">-</span><span class="dv">1</span>][<span class="st">"sort"</span>]        <span class="co"># cursor for the next page</span></span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>Twelve pages of 5,000 later, we have all 58,424 records in hand.</span>
 <span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a>Twelve pages of 5,000 later, we have all 58,424 records in hand.</span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
 <span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a><span class="fu"># What is actually in production?</span></span>
 <span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a><span class="fu"># What is actually in production?</span></span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a><span class="fu">### By category</span></span>
 <span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### By category</span></span>
+<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a>The catalogue is overwhelmingly **climate** data.</span>
 <span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>The catalogue is overwhelmingly **climate** data.</span>
-<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a>| Category | Records |</span>
-<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>|:---|---:|</span>
-<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a>| Climate | 55,485 |</span>
-<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a>| Vegetation | 2,099 |</span>
-<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>| Biodiversity | 407 |</span>
-<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a>| Marine | 204 |</span>
-<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a>| Topography | 129 |</span>
-<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a>| Human Activity | 18 |</span>
-<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a>| Freshwater | 17 |</span>
-<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a>| Soil | 11 |</span>
-<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>| Boundary Data | 9 |</span>
-<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>| *(uncategorised / unknown)* | 45 |</span>
+<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>| Category | Records |</span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a>|:---|---:|</span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a>| Climate | 55,485 |</span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>| Vegetation | 2,099 |</span>
+<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a>| Biodiversity | 407 |</span>
+<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a>| Marine | 204 |</span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>| Topography | 129 |</span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a>| Human Activity | 18 |</span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a>| Freshwater | 17 |</span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a>| Soil | 11 |</span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a>| Boundary Data | 9 |</span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a>| *(uncategorised / unknown)* | 45 |</span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a><span class="fu">### By time domain</span></span>
 <span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### By time domain</span></span>
-<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a>| Time domain | Records |</span>
-<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a>|:---|---:|</span>
-<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a>| Future | 54,614 |</span>
-<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a>| Current | 3,810 |</span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a>| Time domain | Records |</span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a>|:---|---:|</span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a>| Future | 54,614 |</span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a>| Current | 3,810 |</span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a><span class="fu">### By collection (top of ~54)</span></span>
 <span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a><span class="fu">### By collection (top of ~54)</span></span>
-<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a>| Collection | Records |</span>
-<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a>|:---|---:|</span>
-<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a>| **WorldClim-v2.1** | **52,308** |</span>
-<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a>| Australia current and future climate data | 2,594 |</span>
-<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a>| MODIS Vegetation Fraction Cover: monthly layers | 1,785 |</span>
-<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a>| eBird Range Maps (Status &amp; Trends, 2023) | 401 |</span>
-<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a>| Queensland Government Climate Datasets | 239 |</span>
-<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a>| Australia fPAR | 219 |</span>
-<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a>| Bio-Oracle v3.0 — Marine Environmental Layers | 117 |</span>
-<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a>| Australian Water Availability Project | 114 |</span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a>| Collection | Records |</span>
+<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a>|:---|---:|</span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a>| **WorldClim-v2.1** | **52,308** |</span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a>| Australia current and future climate data | 2,594 |</span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a>| MODIS Vegetation Fraction Cover: monthly layers | 1,785 |</span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a>| eBird Range Maps (Status &amp; Trends, 2023) | 401 |</span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a>| Queensland Government Climate Datasets | 239 |</span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a>| Australia fPAR | 219 |</span>
+<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a>| Bio-Oracle v3.0 — Marine Environmental Layers | 117 |</span>
+<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a>| Australian Water Availability Project | 114 |</span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="fu"># The headline caveat: records ≠ datasets</span></span>
 <span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a><span class="fu"># The headline caveat: records ≠ datasets</span></span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a>**58,424 is a layer-level count.** Every individual layer is its own record — one WorldClim future variable, for one GCM, one emissions scenario, one month, is a single row. That single "WorldClim v2.1 future climate" product explodes into **~52,300 records**, roughly **90% of the entire catalogue**.</span>
 <span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a>**58,424 is a layer-level count.** Every individual layer is its own record — one WorldClim future variable, for one GCM, one emissions scenario, one month, is a single row. That single "WorldClim v2.1 future climate" product explodes into **~52,300 records**, roughly **90% of the entire catalogue**.</span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a>So the number to quote depends on the audience:</span>
 <span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a>So the number to quote depends on the audience:</span>
-<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*"How many raster layers are stored?"* → **58,424**.</span>
-<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*"How many distinct data products / collections do we offer?"* → **~54 collections**.</span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*"How many raster layers are stored?"* → **58,424**.</span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*"How many distinct data products / collections do we offer?"* → **~54 collections**.</span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a>For a data audit, the collection-level view is the meaningful "what do we have" answer; the raw record count is dominated by the combinatorial expansion of one climate product.</span>
 <span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a>For a data audit, the collection-level view is the meaningful "what do we have" answer; the raw record count is dominated by the combinatorial expansion of one climate product.</span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
 <span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a><span class="fu"># Deliverables</span></span>
 <span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a><span class="fu"># Deliverables</span></span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>The extraction produces two artefacts, both checked into the audit repository under <span class="in">`prod_dataset_catalogue/`</span>:</span>
 <span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>The extraction produces two artefacts, both checked into the audit repository under <span class="in">`prod_dataset_catalogue/`</span>:</span>
-<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a>| File | Contents |</span>
-<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a>|:---|:---|</span>
-<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a>| <span class="in">`prod_dataset_list_full.csv`</span> | One row per dataset — the flat, layer-level list (58,424 rows). |</span>
-<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a>| <span class="in">`EcoCommons_prod_dataset_catalogue.xlsx`</span> | Grouped workbook: **Summary**, **By Collection**, **By Subcategory**, and the full list. |</span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>| File | Contents |</span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a>|:---|:---|</span>
+<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a>| <span class="in">`prod_dataset_list_full.csv`</span> | One row per dataset — the flat, layer-level list (58,424 rows). |</span>
+<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a>| <span class="in">`EcoCommons_prod_dataset_catalogue.xlsx`</span> | Grouped workbook: **Summary**, **By Collection**, **By Subcategory**, and the full list. |</span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a>A single script, <span class="in">`extract_prod_datasets.py`</span>, regenerates both and works against any environment:</span>
 <span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a>A single script, <span class="in">`extract_prod_datasets.py`</span>, regenerates both and works against any environment:</span>
-<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a><span class="in">``` bash</span></span>
-<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv .venv <span class="kw">&amp;&amp;</span> <span class="bu">source</span> .venv/bin/activate</span>
-<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
-<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> .secrets.env.prod.example .secrets.env.prod   <span class="co"># add KEYCLOAK_CLIENT_SECRET_KEY</span></span>
-<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> extract_prod_datasets.py <span class="at">--env</span> prod        <span class="co"># or --env test / --env dev</span></span>
-<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a><span class="in">``` bash</span></span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv .venv <span class="kw">&amp;&amp;</span> <span class="bu">source</span> .venv/bin/activate</span>
+<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> .secrets.env.prod.example .secrets.env.prod   <span class="co"># add KEYCLOAK_CLIENT_SECRET_KEY</span></span>
+<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> extract_prod_datasets.py <span class="at">--env</span> prod        <span class="co"># or --env test / --env dev</span></span>
+<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a><span class="fu"># Findings against the earlier audit</span></span>
 <span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a><span class="fu"># Findings against the earlier audit</span></span>
+<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a>The earlier curated audit checked 43 datasets from support article 6000261884 against this same index. Of those:</span>
 <span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a>The earlier curated audit checked 43 datasets from support article 6000261884 against this same index. Of those:</span>
-<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**38 present**, **2 present under a renamed title**, **3 missing**.</span>
-<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The missing items (e.g. an *ANUClim* monthly climate set) returned empty on both title and keyword search — genuinely absent from prod, not merely re-titled.</span>
+<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**38 present**, **2 present under a renamed title**, **3 missing**.</span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The missing items (e.g. an *ANUClim* monthly climate set) returned empty on both title and keyword search — genuinely absent from prod, not merely re-titled.</span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>Cross-referencing that curated list against the full catalogue pulled here lets us confirm which "critical datasets" are truly missing versus simply hard to find in the data explorer.</span>
 <span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a>Cross-referencing that curated list against the full catalogue pulled here lets us confirm which "critical datasets" are truly missing versus simply hard to find in the data explorer.</span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a><span class="fu"># Takeaways</span></span>
 <span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a><span class="fu"># Takeaways</span></span>
-<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The data-ingester exposes **no list endpoint** — enumeration goes through <span class="in">`POST /api/es/search/dataset`</span>.</span>
-<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Paginate with <span class="in">`search_after`</span> on **`uuid`**; <span class="in">`_id`</span> and <span class="in">`uuid.keyword`</span> do not work as sort keys on this index.</span>
-<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Prod holds **58,424 layer records across ~54 collections**, and is **~90% WorldClim future-climate layers** — always distinguish "records" from "products" when reporting.</span>
-<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The whole audit is now a one-command, reproducible pull.</span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The data-ingester exposes **no list endpoint** — enumeration goes through <span class="in">`POST /api/es/search/dataset`</span>.</span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Paginate with <span class="in">`search_after`</span> on **`uuid`**; <span class="in">`_id`</span> and <span class="in">`uuid.keyword`</span> do not work as sort keys on this index.</span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Prod holds **58,424 layer records across ~54 collections**, and is **~90% WorldClim future-climate layers** — always distinguish "records" from "products" when reporting.</span>
+<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The whole audit is now a one-command, reproducible pull.</span>
+<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
 <span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a>If you have questions or suggestions, please <span class="co">[</span><span class="ot">contact the EcoCommons</span><span class="co">](mailto:support@ecocommons.org.au)</span> team.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a>If you have questions or suggestions, please <span class="co">[</span><span class="ot">contact the EcoCommons</span><span class="co">](mailto:support@ecocommons.org.au)</span> team.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

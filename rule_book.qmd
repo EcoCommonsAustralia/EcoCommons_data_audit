@@ -7,8 +7,6 @@ author: "Xiang Zhao"
 code-tools: false
 ---
 
-# Rule Book
-
 Contact details: support\@ecocommons.org.au
 
 # Purpose

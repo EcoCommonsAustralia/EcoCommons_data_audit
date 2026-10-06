@@ -5,8 +5,6 @@ description: "A running log of data-audit work on the EcoCommons and Biosecurity
 date: "2026-10-06"
 ---
 
-# EcoCommons Data Audit
-
 Welcome. This site collects **data-audit** write-ups for the [EcoCommons Australia](https://www.ecocommons.org.au/) and Biosecurity Commons platforms — the behind-the-scenes work of figuring out *what data we actually have*, whether it matches what the science needs, and how the answers were obtained so anyone can reproduce them.
 
 ## Posts

@@ -7,8 +7,6 @@ author: "Xiang Zhao"
 code-tools: false
 ---
 
-# The EcoCommons Production Data Catalogue
-
 Contact details: support\@ecocommons.org.au
 
 # Purpose

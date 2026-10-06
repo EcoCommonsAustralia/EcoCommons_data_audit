@@ -284,3 +284,41 @@ main {
 .nb-table th:nth-child(5), .nb-table td:nth-child(5) { width: 26%; }
 .nb-table td { word-wrap: break-word; overflow-wrap: break-word; }
 .nb-table img { max-width: 100%; height: auto; }
+
+
+/* ---------------------------------------------------------------------------
+   Quarto title block
+   The generic `header { }` rules above were written for a PNG-background
+   banner (orange title at opacity:0, white subtitle/meta text). They match
+   Quarto's #title-block-header and make the title invisible and the
+   subtitle/description/author/date white-on-white. Reset the title block to a
+   clean, readable, left-aligned layout in the EcoCommons palette.
+   --------------------------------------------------------------------------- */
+#title-block-header {
+  height: auto;
+  background: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+#title-block-header h1.title {
+  color: #11aa96;            /* EcoCommons green */
+  opacity: 1;                /* undo the banner rule's opacity:0 */
+  font-size: 2.1em;
+}
+#title-block-header .subtitle.lead {
+  color: #555;
+  font-size: 1.15em;
+}
+#title-block-header .description,
+#title-block-header .quarto-title-meta,
+#title-block-header .quarto-title-meta-heading,
+#title-block-header .quarto-title-meta-contents,
+#title-block-header .quarto-title-meta-contents p,
+#title-block-header p {
+  color: #333;               /* undo the banner rule's white text */
+}
+#title-block-header .quarto-title-meta-heading {
+  font-weight: 700;
+  color: #11aa96;            /* "Author" / "Published" labels in brand green */
+}
