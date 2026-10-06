@@ -142,10 +142,4 @@ The long tail matters for governance: **289 records sit in no collection** (the 
 
 ------------------------------------------------------------------------
 
-# How this connects to the Rule Book
-
-This catalogue is the evidence base for the [Rule Book](rule_book.qmd): the category vocabulary, the time-domain values, the collection-membership checks, and the "Current status" figures in each rule all come from the numbers on this page. Re-pulling the catalogue and re-checking it against the rules is how we measure whether the platform's metadata quality is improving over time.
-
-------------------------------------------------------------------------
-
 If you have questions or suggestions, please [contact the EcoCommons](mailto:support@ecocommons.org.au) team.
