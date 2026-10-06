@@ -3,7 +3,6 @@ title: "The EcoCommons Production Data Catalogue"
 subtitle: "A browsable inventory of production data holdings, by category and collection"
 description: "A browsable inventory of everything in the EcoCommons production environment — 58,424 dataset records across 54 collections — profiled by category, time domain, resolution and more."
 date: "2026-10-06"
-author: "Xiang Zhao"
 code-tools: false
 ---
 

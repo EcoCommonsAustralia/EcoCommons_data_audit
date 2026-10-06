@@ -3,7 +3,6 @@ title: "Rule Book"
 subtitle: "Checkable metadata & data-quality rules, mapped to the DCAT-AP obligation model"
 description: "The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples."
 date: "2026-09-18"
-author: "Xiang Zhao"
 code-tools: false
 ---
 

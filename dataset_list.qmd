@@ -3,7 +3,6 @@ title: "Dataset List"
 subtitle: "The complete, searchable record-level list of every dataset in production"
 description: "An interactive, searchable and sortable table of all 58,424 dataset records in the EcoCommons production environment, with category, time domain, resolution, spatial domain, data type, collection and downloadability."
 date: "2026-10-06"
-author: "Xiang Zhao"
 code-tools: false
 page-layout: full
 toc: false
