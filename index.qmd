@@ -19,7 +19,12 @@ How we enumerated **every** dataset in the EcoCommons production environment —
 [The EcoCommons Production Data Catalogue](prod_dataset_catalogue.qmd)\
 A browsable inventory of what's in production — broken down by category, time domain and collection — with compact per-collection profiles to download.
 
-### 3. Rule Book
+### 3. Dataset List
+
+[Dataset List](dataset_list.qmd)\
+The complete, searchable and sortable record-level table of all 58,424 datasets in production — filter across every field and sort by any column.
+
+### 4. Rule Book
 
 [Rule Book](rule_book.qmd)\
 The metadata and data-quality rules EcoCommons datasets are expected to meet — each rule stated, justified and made checkable, mapped onto the DCAT-AP obligation model.

@@ -16,6 +16,8 @@ website:
         text: "Prod Dataset Audit"
       - href: prod_dataset_catalogue.qmd
         text: "Data Catalogue"
+      - href: dataset_list.qmd
+        text: "Dataset List"
       - href: rule_book.qmd
         text: "Rule Book"
 

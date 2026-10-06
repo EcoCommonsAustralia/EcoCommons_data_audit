@@ -14,6 +14,7 @@ The site output is generated into `docs/` for GitHub Pages hosting.
 |------|--------|
 | [Auditing the EcoCommons Production Data Catalogue](https://ecocommonsaustralia.github.io/EcoCommons_data_audit/ecocommons_prod_data_audit.html) | `ecocommons_prod_data_audit.qmd` |
 | [The EcoCommons Production Data Catalogue](https://ecocommonsaustralia.github.io/EcoCommons_data_audit/prod_dataset_catalogue.html) | `prod_dataset_catalogue.qmd` |
+| [Dataset List](https://ecocommonsaustralia.github.io/EcoCommons_data_audit/dataset_list.html) | `dataset_list.qmd` |
 | [Rule Book](https://ecocommonsaustralia.github.io/EcoCommons_data_audit/rule_book.html) | `rule_book.qmd` |
 
 ## Building
