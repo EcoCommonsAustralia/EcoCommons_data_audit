@@ -1,5 +1,7 @@
 # EcoCommons Data Audit — Blog
 
+🔗 **Live site: <https://ecocommonsaustralia.github.io/EcoCommons_data_audit/>**
+
 A [Quarto](https://quarto.org) website publishing data-audit write-ups for the
 **EcoCommons Australia** and **Biosecurity Commons** platforms. Styled to match the
 [EcoCommons notebook blog](https://ecocommonsaustralia.github.io/notebook-blog).
@@ -10,7 +12,9 @@ The site output is generated into `docs/` for GitHub Pages hosting.
 
 | Post | Source |
 |------|--------|
-| Auditing the EcoCommons Production Data Catalogue | `ecocommons_prod_data_audit.qmd` |
+| [Auditing the EcoCommons Production Data Catalogue](https://ecocommonsaustralia.github.io/EcoCommons_data_audit/ecocommons_prod_data_audit.html) | `ecocommons_prod_data_audit.qmd` |
+| [The EcoCommons Production Data Catalogue](https://ecocommonsaustralia.github.io/EcoCommons_data_audit/prod_dataset_catalogue.html) | `prod_dataset_catalogue.qmd` |
+| [Rule Book](https://ecocommonsaustralia.github.io/EcoCommons_data_audit/rule_book.html) | `rule_book.qmd` |
 
 ## Building
 
