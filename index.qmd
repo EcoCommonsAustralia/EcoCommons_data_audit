@@ -1,7 +1,5 @@
 ---
 title: "EcoCommons Data Audit"
-subtitle: "Data-audit write-ups for the EcoCommons Australia & Biosecurity Commons platforms"
-description: "A running log of data-audit work on the EcoCommons and Biosecurity Commons platforms — cataloguing datasets, checking data holdings against requirements, and documenting how it was done."
 date: "2026-10-06"
 ---
 
