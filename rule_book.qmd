@@ -296,7 +296,3 @@ This rule book is deliberately lightweight, but it follows the same pattern as e
 
 -   **SHACL** — validate RDF / DCAT metadata against constraint "shapes": [w3.org/TR/shacl](https://www.w3.org/TR/shacl/).
 -   **Frictionless Data (Table Schema)** — declarative field/row validation for tabular data: [frictionlessdata.io](https://frictionlessdata.io/).
-
-------------------------------------------------------------------------
-
-If you have questions or suggestions, please [contact the EcoCommons](mailto:support@ecocommons.org.au) team.

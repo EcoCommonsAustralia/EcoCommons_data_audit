@@ -33,6 +33,34 @@ body {
     position: relative;         /* Ensure the banner stays in the right place */
 }
 
+/* White navbar text on the teal banner: the brand title
+   ("EcoCommons Data Audit") and every nav link
+   ("Prod Dataset Audit", "Data Catalogue", "Dataset List", "Rule Book"). */
+.navbar .navbar-brand,
+.navbar .navbar-title,
+.navbar .nav-link,
+.navbar .nav-link.active {
+    color: #ffffff !important;
+}
+
+/* Larger navbar tab/brand text. */
+.navbar .navbar-brand,
+.navbar .navbar-title {
+    font-size: 1.35rem;
+}
+
+.navbar .nav-link {
+    font-size: 1.15rem;
+}
+
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus,
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: #ffffff !important;
+    opacity: 0.85;
+}
+
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {

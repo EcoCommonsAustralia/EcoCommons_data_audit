@@ -207,7 +207,3 @@ Cross-referencing that curated list against the full catalogue pulled here lets 
 -   Paginate with `search_after` on **`uuid`**; `_id` and `uuid.keyword` do not work as sort keys on this index.
 -   Prod holds **58,424 layer records across ~54 collections**, and is **~90% WorldClim future-climate layers** — always distinguish "records" from "products" when reporting.
 -   The whole audit is now a one-command, reproducible pull.
-
-------------------------------------------------------------------------
-
-If you have questions or suggestions, please [contact the EcoCommons](mailto:support@ecocommons.org.au) team.

@@ -15,17 +15,9 @@ toc: false
 </style>
 ```
 
-# Dataset List
-
-Contact details: support\@ecocommons.org.au
-
 # About this list
 
 This is the **full, layer-level list** of every record in the EcoCommons production catalogue — all **58,424** of them. Use the search box to filter across every column, and click a column header to sort.
-
-::: callout-note
-Remember that **records are not products**: one WorldClim variable, for a single model, scenario and month, is its own row, so this list is ~90% WorldClim future-climate layers. For the "what products do we have" view, see the [Data Catalogue](prod_dataset_catalogue.qmd); for how it was extracted, see the [audit](ecocommons_prod_data_audit.qmd).
-:::
 
 The table below loads from [`dataset_list.csv`](data/dataset_list.csv) (also available to [download](data/dataset_list.csv)). The `uuid`, `data_subcategories` and `created` fields are omitted here for readability — they are in the full extract (`prod_dataset_list_full.csv`), regenerated on demand by `extract_prod_datasets.py`.
 
@@ -72,7 +64,3 @@ Inputs.table(query, {
   }
 })
 ```
-
-------------------------------------------------------------------------
-
-If you have questions or suggestions, please [contact the EcoCommons](mailto:support@ecocommons.org.au) team.

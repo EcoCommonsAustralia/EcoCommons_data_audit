@@ -79,69 +79,63 @@ Every record carries a time domain — none are missing. `Historical` is defined
 
 # By collection
 
-All 54 collections, largest first — the "what products do we offer" view, profiled across the key metadata fields. The **#** column is the rank by record count. (*Downloadable* = Yes/No/Mixed across the collection's records; *Time domain* shows record counts; *Views* = the `event_view` count from the usage export.[^views])
+All 54 collections, largest first — the "what products do we offer" view, profiled across the key metadata fields. The **#** column is the rank by record count. (*Downloadable* = Yes/No/Mixed across the collection's records; *Time domain* shows record counts.)
 
-[^views]: The *Views* column merges the `event_view` tallies from `view_rank_collections.csv` (with *eBird* and *Australia National Soil Grids* filled in from `collection_rank.csv`). In practice it tracks the record count almost exactly — it is identical to *Records* on every collection except *Soil and Landscape Grid National Soil Attribute Maps - Release 2* (Views 7 vs 8 records) — because the usage export counts one event per record. It is shown here for completeness, not as an independent popularity signal. The orphan/`None` bucket is absent from both exports and so has no value.
-
-| # | Collection | Category | Records | Views | Time domain | Resolution(s) | Spatial domain | Type | Years | Downloadable |
-|--:|:--|:--|--:|--:|:--|:--|:--|:--|:--|:--|
-| 1 | WorldClim-v2.1 | Climate | 52,308 | 52,308 | Future 51,555; Current 753 | 4 (10 arcmin (~20km) … 5 arcmin (~10km)) | Global | Continuous | 1961–2090 | No |
-| 2 | Australia current and future climate data | Climate | 2,594 | 2,594 | Future 2,590; Current 4 | 2 (2.5 arcmin (~5km) … 30 arcsec (~1km)) | Australia | Continuous | 1990–2085 | Yes |
-| 3 | MODIS Vegetation Fraction Cover: monthly layers | Vegetation | 1,785 | 1,785 | Current 1,785 | 15 arcsec (~500m) | Australia | Continuous | 2001–2022 | Yes |
-| 4 | eBird Range Maps, eBird Status and Trends, Estimated for 2023 | Biodiversity | 401 | 401 | Current 401 | 9km | — | Polygon | 2023 | No |
-| 5 | *(no collection / orphan, `None`)* | Climate | 289 | — | Future 209; Current 80 | 6 (10 arcmin (~20km) … 9 arcsec (~250m)) | — | Continuous | — | Yes |
-| 6 | Queensland Government Climate Datasets | Climate | 239 | 239 | Future 192; Current 47 | 2.5 arcmin (~5km) | — | Continuous | — | Yes |
-| 7 | Australia Fraction of Photosynthetically Active Radiation (fPAR) | Vegetation | 219 | 219 | Current 219 | 9 arcsec (~250m) | Australia | Continuous | 1999–2014 | Yes |
-| 8 | Bio-Oracle v3.0 — Marine Environmental Layers | Marine | 117 | 117 | Current 117 | 2.5 arcmin (~5km) | — | Continuous | — | Yes |
-| 9 | Australian Water Availability Project | Topography | 114 | 114 | Current 114 | 2.5 arcmin (~5km) | Australia | Continuous | 1900–2013 | Yes |
-| 10 | Australian NDVI (Normalised Difference Vegetation Index) October 2018 - March 2019 | Vegetation | 76 | 76 | Current 76 | 2.5 arcmin (~5km) | Australia | Continuous | 2013–2019 | Yes |
-| 11 | Global Marine Environmental Data (Bio-ORACLE) | Marine | 50 | 50 | Current 50 | 5 arcmin (~10km) | Global | Continuous | 2007–2095 | Yes |
-| 12 | exCHELSA (extended bioclim) (1979-2013, 30 arcsec (~1km)) | Climate | 49 | 49 | Current 49 | 2 (1 arcsec (~25m) … 30 arcsec (~1km)) | Australia | Continuous | 1979–2013 | Yes |
-| 13 | Bio-ORACLE v2.2: Marine Layers | Marine | 36 | 36 | Future 32; Current 4 | 5 arcmin (~10km) | Global | Continuous | — | Yes |
-| 14 | NaRCLIM climate data | Climate | 25 | 25 | Future 24; Current 1 | 30 arcsec (~1km) | Regional | Continuous | 2000–2070 | Yes |
-| 15 | Australian Template | Boundary Data | 9 | 9 | Current 9 | 5 (15 arcsec (~500m) … 9 arcsec (~250m)) | Australia | Continuous | — | Yes |
-| 16 | Australia Gross Primary Productivity | Vegetation | 8 | 8 | Current 8 | 9 arcsec (~250m) | — | Continuous | 2000–2006 | Yes |
-| 17 | Soil and Landscape Grid National Soil Attribute Maps - Release 2 | Soil | 8 | 7 | Current 8 | 3 arcsec (~90m) | Australia | Continuous | — | Yes |
-| 18 | Australia Catchment Data | Freshwater | 8 | 8 | Current 8 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 19 | ACCUclim climate data | Climate | 8 | 8 | Current 8 | 9 arcsec (~250m) | Regional | Continuous | 1965–2000 | Yes |
-| 20 | Australia Stream Data | Freshwater | 7 | 7 | Current 7 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 21 | Habitat Condition Assessment System (HCAS) 2.1 | *(none)* | 5 | 5 | Current 5 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 22 | Land Use Catchment Scale - ABARES | Human Activity | 5 | 5 | Current 5 | 2 arcsec (~50m) | Australia | Categorical | 2023 | Yes |
-| 23 | A map of Australia: 16 dimensions of value protected by biosecurity | Human Activity | 5 | 5 | Current 5 | 90 arcsec (~2.5km) | Australia | Continuous | — | Yes |
-| 24 | Australia, precipitation seasonality, current (1976-2005) and future (2036-2065), 9s | Climate | 5 | 5 | Future 4; Current 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 25 | CliMond climate data | Climate | 5 | 5 | Future 4; Current 1 | 10 arcmin (~20km) | Global | Continuous | 1975–2100 | Yes |
-| 26 | Australia Topography | Topography | 4 | 4 | Current 4 | 3 arcsec (~90m) | Australia | Continuous | 2000 | Yes |
-| 27 | Australia National Vegetation Information System (NVIS) | Vegetation | 4 | 4 | Current 4 | 3 arcsec (~90m) | Australia | Categorical | — | Yes |
-| 28 | Wind Pathways | *(none)* | 4 | 4 | Current 4 | 30 arcsec (~1km) | Australia | Continuous | 2021 | Yes |
-| 29 | Indigenous Protected Areas 2016 | Human Activity | 3 | 3 | Current 3 | 3 (3 arcsec (~90m) … 9 arcsec (~250m)) | Australia | Categorical | 2016 | Yes |
-| 30 | Australia Land Cover | Vegetation | 3 | 3 | Current 3 | 9 arcsec (~250m) | Global | Continuous | 2004 | Yes |
-| 31 | Global Forest Change 2000–2020 | Climate | 3 | 3 | Current 3 | 1 arcsec (~25m) | Australia | Categorical | 2000 | Yes |
-| 32 | Australia, NARCLIM (ACT, NSW and SA) region, current climate, landform and ubstrate (1974-2015), 3s | Topography | 3 | 3 | Current 3 | 3 arcsec (~90m) | Australia | Continuous | — | Yes |
-| 33 | GEODATA 9 second DEM and D8: Digital Elevation Model Version 3 and Flow Direction Grid 2008 | Topography | 2 | 2 | Current 2 | 9 arcsec (~250m) | Australia | Continuous | 2008 | Yes |
-| 34 | Australia, continental soil and landform analysis, current (1949-2013), 9s | Topography | 2 | 2 | Current 2 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 35 | Australian Population Grid 2018 | Human Activity | 2 | 2 | Current 2 | 30 arcsec (~1km) | Australia | Continuous | 2018–2023 | Yes |
-| 36 | Australia Stream climate data | Freshwater | 1 | 1 | Current 1 | 9 arcsec (~250m) | Australia | Continuous | 1958 | Yes |
-| 37 | 3 second SRTM Derived Digital Elevation Model (DEM) Version 1.0 | Topography | 1 | 1 | Current 1 | 3 arcsec (~90m) | Australia | Continuous | 2009 | Yes |
-| 38 | Global Marine Environmental Data (MARSPEC) | Marine | 1 | 1 | Current 1 | 5 arcmin (~10km) | Global | Continuous | 2002 | Yes |
-| 39 | Australia, Current Climate (1976-2005, 9s): Summary variables with elevation and radiative adjustment [CSIRO] | Climate | 1 | 1 | Current 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 40 | Australian Population Grid 2011 | Human Activity | 1 | 1 | Current 1 | 30 arcsec (~1km) | Australia | Continuous | 2011 | Yes |
-| 41 | Accommodation Distribution, Australia | Human Activity | 1 | 1 | Current 1 | 30 arcsec (~1km) | Australia | Continuous | — | Yes |
-| 42 | Australia National Soil Grids | Soil | 1 | 1 | Current 1 | 9 arcsec (~250m) | Australia | Unclassified | 2012 | Yes |
-| 43 | Global PET and Aridity | Topography | 1 | 1 | Current 1 | 30 arcsec (~1km) | Global | Continuous | 1975 | Yes |
-| 44 | Climatic Research Unit (CRU) climate data | Climate | 1 | 1 | Current 1 | 30 arcmin (~50km) | Global | Continuous | 1990 | Yes |
-| 45 | Australian climate, future (2036-2065), Can-ESM2 RCP 4.5 9s | Climate | 1 | 1 | Future 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 46 | Australia, Current Climate (1976-2005, 9s): BIOCLIM variable suite [CSIRO] | Climate | 1 | 1 | Current 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 47 | Australian climate, future (2036-2065), Can-ESM2 RCP 8.5 9s | Climate | 1 | 1 | Future 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 48 | Australia Vegetation Assets, States and Transitions (VAST) | Vegetation | 1 | 1 | Current 1 | 30 arcsec (~1km) | Australia | Categorical | — | Yes |
-| 49 | Australia, continental substrate analysis, current (2010-2012), 9s | Topography | 1 | 1 | Current 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 50 | Australian Postcodes, 2022 | Human Activity | 1 | 1 | Current 1 | 30 arcsec (~1km) | Australia | Categorical | 2022 | Yes |
-| 51 | Australia Catchment climate data | Freshwater | 1 | 1 | Current 1 | 9 arcsec (~250m) | Australia | Continuous | 1958 | Yes |
-| 52 | Australian climate, future (2036-2065), MIROC5 RCP 8.5 9s | Climate | 1 | 1 | Future 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 53 | Australian climate, future (2036-2065), MIROC5 RCP 4.5 9s | Climate | 1 | 1 | Future 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
-| 54 | Forests of Australia 2018 | *(none)* | 1 | 1 | Current 1 | 3 arcsec (~90m) | Australia | Categorical | 2018 | Yes |
+| # | Collection | Category | Records | Time domain | Resolution(s) | Spatial domain | Type | Years | Downloadable |
+|--:|:--|:--|--:|:--|:--|:--|:--|:--|:--|
+| 1 | WorldClim-v2.1 | Climate | 52,308 | Future 51,555; Current 753 | 4 (10 arcmin (~20km) … 5 arcmin (~10km)) | Global | Continuous | 1961–2090 | No |
+| 2 | Australia current and future climate data | Climate | 2,594 | Future 2,590; Current 4 | 2 (2.5 arcmin (~5km) … 30 arcsec (~1km)) | Australia | Continuous | 1990–2085 | Yes |
+| 3 | MODIS Vegetation Fraction Cover: monthly layers | Vegetation | 1,785 | Current 1,785 | 15 arcsec (~500m) | Australia | Continuous | 2001–2022 | Yes |
+| 4 | eBird Range Maps, eBird Status and Trends, Estimated for 2023 | Biodiversity | 401 | Current 401 | 9km | — | Polygon | 2023 | No |
+| 5 | *(no collection / orphan, `None`)* | Climate | 289 | Future 209; Current 80 | 6 (10 arcmin (~20km) … 9 arcsec (~250m)) | — | Continuous | — | Yes |
+| 6 | Queensland Government Climate Datasets | Climate | 239 | Future 192; Current 47 | 2.5 arcmin (~5km) | — | Continuous | — | Yes |
+| 7 | Australia Fraction of Photosynthetically Active Radiation (fPAR) | Vegetation | 219 | Current 219 | 9 arcsec (~250m) | Australia | Continuous | 1999–2014 | Yes |
+| 8 | Bio-Oracle v3.0 — Marine Environmental Layers | Marine | 117 | Current 117 | 2.5 arcmin (~5km) | — | Continuous | — | Yes |
+| 9 | Australian Water Availability Project | Topography | 114 | Current 114 | 2.5 arcmin (~5km) | Australia | Continuous | 1900–2013 | Yes |
+| 10 | Australian NDVI (Normalised Difference Vegetation Index) October 2018 - March 2019 | Vegetation | 76 | Current 76 | 2.5 arcmin (~5km) | Australia | Continuous | 2013–2019 | Yes |
+| 11 | Global Marine Environmental Data (Bio-ORACLE) | Marine | 50 | Current 50 | 5 arcmin (~10km) | Global | Continuous | 2007–2095 | Yes |
+| 12 | exCHELSA (extended bioclim) (1979-2013, 30 arcsec (~1km)) | Climate | 49 | Current 49 | 2 (1 arcsec (~25m) … 30 arcsec (~1km)) | Australia | Continuous | 1979–2013 | Yes |
+| 13 | Bio-ORACLE v2.2: Marine Layers | Marine | 36 | Future 32; Current 4 | 5 arcmin (~10km) | Global | Continuous | — | Yes |
+| 14 | NaRCLIM climate data | Climate | 25 | Future 24; Current 1 | 30 arcsec (~1km) | Regional | Continuous | 2000–2070 | Yes |
+| 15 | Australian Template | Boundary Data | 9 | Current 9 | 5 (15 arcsec (~500m) … 9 arcsec (~250m)) | Australia | Continuous | — | Yes |
+| 16 | Australia Gross Primary Productivity | Vegetation | 8 | Current 8 | 9 arcsec (~250m) | — | Continuous | 2000–2006 | Yes |
+| 17 | Soil and Landscape Grid National Soil Attribute Maps - Release 2 | Soil | 8 | Current 8 | 3 arcsec (~90m) | Australia | Continuous | — | Yes |
+| 18 | Australia Catchment Data | Freshwater | 8 | Current 8 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 19 | ACCUclim climate data | Climate | 8 | Current 8 | 9 arcsec (~250m) | Regional | Continuous | 1965–2000 | Yes |
+| 20 | Australia Stream Data | Freshwater | 7 | Current 7 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 21 | Habitat Condition Assessment System (HCAS) 2.1 | *(none)* | 5 | Current 5 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 22 | Land Use Catchment Scale - ABARES | Human Activity | 5 | Current 5 | 2 arcsec (~50m) | Australia | Categorical | 2023 | Yes |
+| 23 | A map of Australia: 16 dimensions of value protected by biosecurity | Human Activity | 5 | Current 5 | 90 arcsec (~2.5km) | Australia | Continuous | — | Yes |
+| 24 | Australia, precipitation seasonality, current (1976-2005) and future (2036-2065), 9s | Climate | 5 | Future 4; Current 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 25 | CliMond climate data | Climate | 5 | Future 4; Current 1 | 10 arcmin (~20km) | Global | Continuous | 1975–2100 | Yes |
+| 26 | Australia Topography | Topography | 4 | Current 4 | 3 arcsec (~90m) | Australia | Continuous | 2000 | Yes |
+| 27 | Australia National Vegetation Information System (NVIS) | Vegetation | 4 | Current 4 | 3 arcsec (~90m) | Australia | Categorical | — | Yes |
+| 28 | Wind Pathways | *(none)* | 4 | Current 4 | 30 arcsec (~1km) | Australia | Continuous | 2021 | Yes |
+| 29 | Indigenous Protected Areas 2016 | Human Activity | 3 | Current 3 | 3 (3 arcsec (~90m) … 9 arcsec (~250m)) | Australia | Categorical | 2016 | Yes |
+| 30 | Australia Land Cover | Vegetation | 3 | Current 3 | 9 arcsec (~250m) | Global | Continuous | 2004 | Yes |
+| 31 | Global Forest Change 2000–2020 | Climate | 3 | Current 3 | 1 arcsec (~25m) | Australia | Categorical | 2000 | Yes |
+| 32 | Australia, NARCLIM (ACT, NSW and SA) region, current climate, landform and ubstrate (1974-2015), 3s | Topography | 3 | Current 3 | 3 arcsec (~90m) | Australia | Continuous | — | Yes |
+| 33 | GEODATA 9 second DEM and D8: Digital Elevation Model Version 3 and Flow Direction Grid 2008 | Topography | 2 | Current 2 | 9 arcsec (~250m) | Australia | Continuous | 2008 | Yes |
+| 34 | Australia, continental soil and landform analysis, current (1949-2013), 9s | Topography | 2 | Current 2 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 35 | Australian Population Grid 2018 | Human Activity | 2 | Current 2 | 30 arcsec (~1km) | Australia | Continuous | 2018–2023 | Yes |
+| 36 | Australia Stream climate data | Freshwater | 1 | Current 1 | 9 arcsec (~250m) | Australia | Continuous | 1958 | Yes |
+| 37 | 3 second SRTM Derived Digital Elevation Model (DEM) Version 1.0 | Topography | 1 | Current 1 | 3 arcsec (~90m) | Australia | Continuous | 2009 | Yes |
+| 38 | Global Marine Environmental Data (MARSPEC) | Marine | 1 | Current 1 | 5 arcmin (~10km) | Global | Continuous | 2002 | Yes |
+| 39 | Australia, Current Climate (1976-2005, 9s): Summary variables with elevation and radiative adjustment [CSIRO] | Climate | 1 | Current 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 40 | Australian Population Grid 2011 | Human Activity | 1 | Current 1 | 30 arcsec (~1km) | Australia | Continuous | 2011 | Yes |
+| 41 | Accommodation Distribution, Australia | Human Activity | 1 | Current 1 | 30 arcsec (~1km) | Australia | Continuous | — | Yes |
+| 42 | Australia National Soil Grids | Soil | 1 | Current 1 | 9 arcsec (~250m) | Australia | Unclassified | 2012 | Yes |
+| 43 | Global PET and Aridity | Topography | 1 | Current 1 | 30 arcsec (~1km) | Global | Continuous | 1975 | Yes |
+| 44 | Climatic Research Unit (CRU) climate data | Climate | 1 | Current 1 | 30 arcmin (~50km) | Global | Continuous | 1990 | Yes |
+| 45 | Australian climate, future (2036-2065), Can-ESM2 RCP 4.5 9s | Climate | 1 | Future 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 46 | Australia, Current Climate (1976-2005, 9s): BIOCLIM variable suite [CSIRO] | Climate | 1 | Current 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 47 | Australian climate, future (2036-2065), Can-ESM2 RCP 8.5 9s | Climate | 1 | Future 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 48 | Australia Vegetation Assets, States and Transitions (VAST) | Vegetation | 1 | Current 1 | 30 arcsec (~1km) | Australia | Categorical | — | Yes |
+| 49 | Australia, continental substrate analysis, current (2010-2012), 9s | Topography | 1 | Current 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 50 | Australian Postcodes, 2022 | Human Activity | 1 | Current 1 | 30 arcsec (~1km) | Australia | Categorical | 2022 | Yes |
+| 51 | Australia Catchment climate data | Freshwater | 1 | Current 1 | 9 arcsec (~250m) | Australia | Continuous | 1958 | Yes |
+| 52 | Australian climate, future (2036-2065), MIROC5 RCP 8.5 9s | Climate | 1 | Future 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 53 | Australian climate, future (2036-2065), MIROC5 RCP 4.5 9s | Climate | 1 | Future 1 | 9 arcsec (~250m) | Australia | Continuous | — | Yes |
+| 54 | Forests of Australia 2018 | *(none)* | 1 | Current 1 | 3 arcsec (~90m) | Australia | Categorical | 2018 | Yes |
 
 The long tail matters for governance: **289 records sit in no collection** (the `None` orphan bucket), and many products exist as a single layer. These are exactly the datasets [`DS-002`](rule_book.qmd#ds-002) is designed to catch. The full download set (`downloadable: No`) is concentrated in **WorldClim-v2.1** and **eBird** — the two biggest products — which [`DS-004`](rule_book.qmd#ds-004) flags for an explicit access decision.
-
-------------------------------------------------------------------------
-
-If you have questions or suggestions, please [contact the EcoCommons](mailto:support@ecocommons.org.au) team.

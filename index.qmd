@@ -26,7 +26,3 @@ The complete, searchable and sortable record-level table of all 58,424 datasets 
 
 [Rule Book](rule_book.qmd)\
 The metadata and data-quality rules EcoCommons datasets are expected to meet — each rule stated, justified and made checkable, mapped onto the DCAT-AP obligation model.
-
-------------------------------------------------------------------------
-
-If you have questions or suggestions, please [contact the EcoCommons](mailto:support@ecocommons.org.au) team.

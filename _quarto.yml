@@ -20,6 +20,8 @@ website:
         text: "Dataset List"
       - href: rule_book.qmd
         text: "Rule Book"
+      - href: audit_log.qmd
+        text: "Audit Log"
 
 format:
   html:
