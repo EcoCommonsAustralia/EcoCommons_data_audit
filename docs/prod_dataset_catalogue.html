@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-10-06">
-<meta name="description" content="A browsable inventory of everything in the EcoCommons production environment — 58,424 dataset records across 54 collections — profiled by category, time domain, resolution and more.">
 
 <title>The EcoCommons Production Data Catalogue – EcoCommons Data Audit</title>
 <style>
@@ -74,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles/ec_html_template.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -122,34 +121,15 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#purpose" id="toc-purpose" class="nav-link active" data-scroll-target="#purpose">Purpose</a></li>
-  <li><a href="#download-the-summaries" id="toc-download-the-summaries" class="nav-link" data-scroll-target="#download-the-summaries">Download the summaries</a></li>
-  <li><a href="#at-a-glance" id="toc-at-a-glance" class="nav-link" data-scroll-target="#at-a-glance">At a glance</a></li>
-  <li><a href="#by-category" id="toc-by-category" class="nav-link" data-scroll-target="#by-category">By category</a></li>
-  <li><a href="#by-time-domain" id="toc-by-time-domain" class="nav-link" data-scroll-target="#by-time-domain">By time domain</a></li>
-  <li><a href="#by-collection" id="toc-by-collection" class="nav-link" data-scroll-target="#by-collection">By collection</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">The EcoCommons Production Data Catalogue</h1>
-<p class="subtitle lead">A browsable inventory of production data holdings, by category and collection</p>
 </div>
 
-<div>
-  <div class="description">
-    A browsable inventory of everything in the EcoCommons production environment — 58,424 dataset records across 54 collections — profiled by category, time domain, resolution and more.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -170,199 +150,22 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Contact details: support@ecocommons.org.au</p>
-<section id="purpose" class="level1">
-<h1>Purpose</h1>
-<p><em>A single, plain-language answer to the question “what data do we actually have?” — the complete inventory pulled from the EcoCommons production environment, summarised by category and collection, with a compact per-collection profile available to download.</em></p>
-<p>This page is the companion <strong>data</strong> to the <a href="./ecocommons_prod_data_audit.html">production catalogue audit</a>, which explains <em>how</em> the list was extracted (via <code>POST /api/es/search/dataset</code>, paginated on <code>uuid</code>). Here we just show <em>what came back</em>.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Records are not products.</strong> The headline count of <strong>58,424</strong> is a <em>layer-level</em> number — one variable, for one model, one scenario, one month is a single record. A single product, <em>WorldClim v2.1 future climate</em>, expands into <strong>52,308 records (≈90% of the catalogue)</strong>. For a “what do we have” view, the <strong>collection-level</strong> breakdown below is the meaningful one; the raw record count is dominated by that combinatorial expansion.</p>
-</div>
-</div>
-<hr>
-</section>
-<section id="download-the-summaries" class="level1">
-<h1>Download the summaries</h1>
-<p>The meaningful “what do we have” information is published here as two small, text-based files. The full 58,424-row record list and the grouped Excel workbook are <em>not</em> hosted on this site — they are large binaries and every number worth reporting is already rolled up below. They can be regenerated on demand with <code>extract_prod_datasets.py</code> (see the <a href="./ecocommons_prod_data_audit.html">audit</a>).</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>File</th>
-<th>Contents</th>
-<th>Download</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Collection profiles</strong> (<code>.csv</code>)</td>
-<td>One row per collection — records, category, time domain, resolution(s), spatial domain, data type, year range, downloadability. The table in <a href="#by-collection">By collection</a> below.</td>
-<td><a href="data/collection_profiles.csv">collection_profiles.csv</a></td>
-</tr>
-<tr class="even">
-<td><strong>Summary</strong> (<code>.json</code>)</td>
-<td>The aggregate category / time-domain / collection counts behind the charts on this page.</td>
-<td><a href="data/prod_dataset_summary.json">prod_dataset_summary.json</a></td>
-</tr>
-</tbody>
-</table>
-<p>Each underlying record carries these fields:</p>
-<p><code>title</code> · <code>uuid</code> · <code>data_category</code> · <code>data_subcategories</code> · <code>time_domain</code> · <code>year</code> · <code>resolution</code> · <code>spatial_domain</code> · <code>spatial_data_type</code> · <code>collection_names</code> · <code>downloadable</code> · <code>created</code></p>
-<hr>
-</section>
-<section id="at-a-glance" class="level1">
-<h1>At a glance</h1>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Measure</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Dataset records (layers)</td>
-<td><strong>58,424</strong></td>
-</tr>
-<tr class="even">
-<td>Distinct collections (products)</td>
-<td><strong>54</strong> (53 named + an orphan bucket)</td>
-</tr>
-<tr class="odd">
-<td>Dominant product</td>
-<td>WorldClim v2.1 future climate — <strong>52,308</strong> records (≈90%)</td>
-</tr>
-<tr class="even">
-<td>Future vs current</td>
-<td>54,614 future · 3,810 current</td>
-</tr>
-<tr class="odd">
-<td>Uncategorised records</td>
-<td>45 (≈0.08%)</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="by-category" class="level1">
-<h1>By category</h1>
-<p>The catalogue is overwhelmingly <strong>climate</strong> data — 95% of all records.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Category</th>
-<th style="text-align: right;">Records</th>
-<th style="text-align: right;">Share</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Climate</td>
-<td style="text-align: right;">55,485</td>
-<td style="text-align: right;">95.0%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Vegetation</td>
-<td style="text-align: right;">2,099</td>
-<td style="text-align: right;">3.6%</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Biodiversity</td>
-<td style="text-align: right;">407</td>
-<td style="text-align: right;">0.7%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Marine</td>
-<td style="text-align: right;">204</td>
-<td style="text-align: right;">0.3%</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Topography</td>
-<td style="text-align: right;">129</td>
-<td style="text-align: right;">0.2%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Human Activity</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">0.0%</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Freshwater</td>
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">0.0%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Soil</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">0.0%</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Boundary Data</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">0.0%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><em>(uncategorised / unknown)</em></td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">0.08%</td>
-</tr>
-</tbody>
-</table>
-<p>The nine category values above are the controlled vocabulary adopted in <a href="./rule_book.html#md-001"><code>MD-001</code></a> of the Rule Book; the 45 uncategorised records are exactly the ones that rule flags.</p>
-</section>
-<section id="by-time-domain" class="level1">
-<h1>By time domain</h1>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Time domain</th>
-<th style="text-align: right;">Records</th>
-<th style="text-align: right;">Share</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Future</td>
-<td style="text-align: right;">54,614</td>
-<td style="text-align: right;">93.5%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Current</td>
-<td style="text-align: right;">3,810</td>
-<td style="text-align: right;">6.5%</td>
-</tr>
-</tbody>
-</table>
-<p>Every record carries a time domain — none are missing. <code>Historical</code> is defined in the vocabulary (<a href="./rule_book.html#md-002"><code>MD-002</code></a>) but is currently unused in production.</p>
-<hr>
-</section>
 <section id="by-collection" class="level1">
 <h1>By collection</h1>
-<p>All 54 collections, largest first — the “what products do we offer” view, profiled across the key metadata fields. The <strong>#</strong> column is the rank by record count. (<em>Downloadable</em> = Yes/No/Mixed across the collection’s records; <em>Time domain</em> shows record counts.)</p>
+<p>All 54 collections, largest first — the “what products do we offer” view, profiled across the key metadata fields. The <strong>#</strong> column is the rank by record count. (<em>Downloadable</em> = Yes/No/Mixed across the collection’s records; <em>Time domain</em> shows record counts; <em>Total views</em> is the sum of per-dataset <code>event_view</code> counts across the collection, from the full dataset export.)</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -370,6 +173,7 @@ Important
 <th style="text-align: left;">Collection</th>
 <th style="text-align: left;">Category</th>
 <th style="text-align: right;">Records</th>
+<th style="text-align: right;">Total views</th>
 <th style="text-align: left;">Time domain</th>
 <th style="text-align: left;">Resolution(s)</th>
 <th style="text-align: left;">Spatial domain</th>
@@ -384,6 +188,7 @@ Important
 <td style="text-align: left;">WorldClim-v2.1</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">52,308</td>
+<td style="text-align: right;">57,459</td>
 <td style="text-align: left;">Future 51,555; Current 753</td>
 <td style="text-align: left;">4 (10 arcmin (~20km) … 5 arcmin (~10km))</td>
 <td style="text-align: left;">Global</td>
@@ -396,6 +201,7 @@ Important
 <td style="text-align: left;">Australia current and future climate data</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">2,594</td>
+<td style="text-align: right;">28,378</td>
 <td style="text-align: left;">Future 2,590; Current 4</td>
 <td style="text-align: left;">2 (2.5 arcmin (~5km) … 30 arcsec (~1km))</td>
 <td style="text-align: left;">Australia</td>
@@ -408,6 +214,7 @@ Important
 <td style="text-align: left;">MODIS Vegetation Fraction Cover: monthly layers</td>
 <td style="text-align: left;">Vegetation</td>
 <td style="text-align: right;">1,785</td>
+<td style="text-align: right;">212</td>
 <td style="text-align: left;">Current 1,785</td>
 <td style="text-align: left;">15 arcsec (~500m)</td>
 <td style="text-align: left;">Australia</td>
@@ -420,6 +227,7 @@ Important
 <td style="text-align: left;">eBird Range Maps, eBird Status and Trends, Estimated for 2023</td>
 <td style="text-align: left;">Biodiversity</td>
 <td style="text-align: right;">401</td>
+<td style="text-align: right;">40,988</td>
 <td style="text-align: left;">Current 401</td>
 <td style="text-align: left;">9km</td>
 <td style="text-align: left;">—</td>
@@ -432,6 +240,7 @@ Important
 <td style="text-align: left;"><em>(no collection / orphan, <code>None</code>)</em></td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">289</td>
+<td style="text-align: right;">45,604</td>
 <td style="text-align: left;">Future 209; Current 80</td>
 <td style="text-align: left;">6 (10 arcmin (~20km) … 9 arcsec (~250m))</td>
 <td style="text-align: left;">—</td>
@@ -444,6 +253,7 @@ Important
 <td style="text-align: left;">Queensland Government Climate Datasets</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">239</td>
+<td style="text-align: right;">2,107</td>
 <td style="text-align: left;">Future 192; Current 47</td>
 <td style="text-align: left;">2.5 arcmin (~5km)</td>
 <td style="text-align: left;">—</td>
@@ -456,6 +266,7 @@ Important
 <td style="text-align: left;">Australia Fraction of Photosynthetically Active Radiation (fPAR)</td>
 <td style="text-align: left;">Vegetation</td>
 <td style="text-align: right;">219</td>
+<td style="text-align: right;">335</td>
 <td style="text-align: left;">Current 219</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -468,6 +279,7 @@ Important
 <td style="text-align: left;">Bio-Oracle v3.0 — Marine Environmental Layers</td>
 <td style="text-align: left;">Marine</td>
 <td style="text-align: right;">117</td>
+<td style="text-align: right;">1,821</td>
 <td style="text-align: left;">Current 117</td>
 <td style="text-align: left;">2.5 arcmin (~5km)</td>
 <td style="text-align: left;">—</td>
@@ -480,6 +292,7 @@ Important
 <td style="text-align: left;">Australian Water Availability Project</td>
 <td style="text-align: left;">Topography</td>
 <td style="text-align: right;">114</td>
+<td style="text-align: right;">467</td>
 <td style="text-align: left;">Current 114</td>
 <td style="text-align: left;">2.5 arcmin (~5km)</td>
 <td style="text-align: left;">Australia</td>
@@ -492,6 +305,7 @@ Important
 <td style="text-align: left;">Australian NDVI (Normalised Difference Vegetation Index) October 2018 - March 2019</td>
 <td style="text-align: left;">Vegetation</td>
 <td style="text-align: right;">76</td>
+<td style="text-align: right;">4,607</td>
 <td style="text-align: left;">Current 76</td>
 <td style="text-align: left;">2.5 arcmin (~5km)</td>
 <td style="text-align: left;">Australia</td>
@@ -504,6 +318,7 @@ Important
 <td style="text-align: left;">Global Marine Environmental Data (Bio-ORACLE)</td>
 <td style="text-align: left;">Marine</td>
 <td style="text-align: right;">50</td>
+<td style="text-align: right;">5,948</td>
 <td style="text-align: left;">Current 50</td>
 <td style="text-align: left;">5 arcmin (~10km)</td>
 <td style="text-align: left;">Global</td>
@@ -516,6 +331,7 @@ Important
 <td style="text-align: left;">exCHELSA (extended bioclim) (1979-2013, 30 arcsec (~1km))</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">49</td>
+<td style="text-align: right;">737</td>
 <td style="text-align: left;">Current 49</td>
 <td style="text-align: left;">2 (1 arcsec (~25m) … 30 arcsec (~1km))</td>
 <td style="text-align: left;">Australia</td>
@@ -528,6 +344,7 @@ Important
 <td style="text-align: left;">Bio-ORACLE v2.2: Marine Layers</td>
 <td style="text-align: left;">Marine</td>
 <td style="text-align: right;">36</td>
+<td style="text-align: right;">2,166</td>
 <td style="text-align: left;">Future 32; Current 4</td>
 <td style="text-align: left;">5 arcmin (~10km)</td>
 <td style="text-align: left;">Global</td>
@@ -540,6 +357,7 @@ Important
 <td style="text-align: left;">NaRCLIM climate data</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">25</td>
+<td style="text-align: right;">542</td>
 <td style="text-align: left;">Future 24; Current 1</td>
 <td style="text-align: left;">30 arcsec (~1km)</td>
 <td style="text-align: left;">Regional</td>
@@ -552,6 +370,7 @@ Important
 <td style="text-align: left;">Australian Template</td>
 <td style="text-align: left;">Boundary Data</td>
 <td style="text-align: right;">9</td>
+<td style="text-align: right;">73,751</td>
 <td style="text-align: left;">Current 9</td>
 <td style="text-align: left;">5 (15 arcsec (~500m) … 9 arcsec (~250m))</td>
 <td style="text-align: left;">Australia</td>
@@ -564,6 +383,7 @@ Important
 <td style="text-align: left;">Australia Gross Primary Productivity</td>
 <td style="text-align: left;">Vegetation</td>
 <td style="text-align: right;">8</td>
+<td style="text-align: right;">259</td>
 <td style="text-align: left;">Current 8</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">—</td>
@@ -576,6 +396,7 @@ Important
 <td style="text-align: left;">Soil and Landscape Grid National Soil Attribute Maps - Release 2</td>
 <td style="text-align: left;">Soil</td>
 <td style="text-align: right;">8</td>
+<td style="text-align: right;">1,754</td>
 <td style="text-align: left;">Current 8</td>
 <td style="text-align: left;">3 arcsec (~90m)</td>
 <td style="text-align: left;">Australia</td>
@@ -588,6 +409,7 @@ Important
 <td style="text-align: left;">Australia Catchment Data</td>
 <td style="text-align: left;">Freshwater</td>
 <td style="text-align: right;">8</td>
+<td style="text-align: right;">1,115</td>
 <td style="text-align: left;">Current 8</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -600,6 +422,7 @@ Important
 <td style="text-align: left;">ACCUclim climate data</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">8</td>
+<td style="text-align: right;">189</td>
 <td style="text-align: left;">Current 8</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Regional</td>
@@ -612,6 +435,7 @@ Important
 <td style="text-align: left;">Australia Stream Data</td>
 <td style="text-align: left;">Freshwater</td>
 <td style="text-align: right;">7</td>
+<td style="text-align: right;">741</td>
 <td style="text-align: left;">Current 7</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -624,6 +448,7 @@ Important
 <td style="text-align: left;">Habitat Condition Assessment System (HCAS) 2.1</td>
 <td style="text-align: left;"><em>(none)</em></td>
 <td style="text-align: right;">5</td>
+<td style="text-align: right;">278</td>
 <td style="text-align: left;">Current 5</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -636,6 +461,7 @@ Important
 <td style="text-align: left;">Land Use Catchment Scale - ABARES</td>
 <td style="text-align: left;">Human Activity</td>
 <td style="text-align: right;">5</td>
+<td style="text-align: right;">16,478</td>
 <td style="text-align: left;">Current 5</td>
 <td style="text-align: left;">2 arcsec (~50m)</td>
 <td style="text-align: left;">Australia</td>
@@ -648,6 +474,7 @@ Important
 <td style="text-align: left;">A map of Australia: 16 dimensions of value protected by biosecurity</td>
 <td style="text-align: left;">Human Activity</td>
 <td style="text-align: right;">5</td>
+<td style="text-align: right;">2,425</td>
 <td style="text-align: left;">Current 5</td>
 <td style="text-align: left;">90 arcsec (~2.5km)</td>
 <td style="text-align: left;">Australia</td>
@@ -660,6 +487,7 @@ Important
 <td style="text-align: left;">Australia, precipitation seasonality, current (1976-2005) and future (2036-2065), 9s</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">5</td>
+<td style="text-align: right;">410</td>
 <td style="text-align: left;">Future 4; Current 1</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -672,6 +500,7 @@ Important
 <td style="text-align: left;">CliMond climate data</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">5</td>
+<td style="text-align: right;">591</td>
 <td style="text-align: left;">Future 4; Current 1</td>
 <td style="text-align: left;">10 arcmin (~20km)</td>
 <td style="text-align: left;">Global</td>
@@ -684,6 +513,7 @@ Important
 <td style="text-align: left;">Australia Topography</td>
 <td style="text-align: left;">Topography</td>
 <td style="text-align: right;">4</td>
+<td style="text-align: right;">416</td>
 <td style="text-align: left;">Current 4</td>
 <td style="text-align: left;">3 arcsec (~90m)</td>
 <td style="text-align: left;">Australia</td>
@@ -696,6 +526,7 @@ Important
 <td style="text-align: left;">Australia National Vegetation Information System (NVIS)</td>
 <td style="text-align: left;">Vegetation</td>
 <td style="text-align: right;">4</td>
+<td style="text-align: right;">7,513</td>
 <td style="text-align: left;">Current 4</td>
 <td style="text-align: left;">3 arcsec (~90m)</td>
 <td style="text-align: left;">Australia</td>
@@ -708,6 +539,7 @@ Important
 <td style="text-align: left;">Wind Pathways</td>
 <td style="text-align: left;"><em>(none)</em></td>
 <td style="text-align: right;">4</td>
+<td style="text-align: right;">1,021</td>
 <td style="text-align: left;">Current 4</td>
 <td style="text-align: left;">30 arcsec (~1km)</td>
 <td style="text-align: left;">Australia</td>
@@ -720,6 +552,7 @@ Important
 <td style="text-align: left;">Indigenous Protected Areas 2016</td>
 <td style="text-align: left;">Human Activity</td>
 <td style="text-align: right;">3</td>
+<td style="text-align: right;">80</td>
 <td style="text-align: left;">Current 3</td>
 <td style="text-align: left;">3 (3 arcsec (~90m) … 9 arcsec (~250m))</td>
 <td style="text-align: left;">Australia</td>
@@ -732,6 +565,7 @@ Important
 <td style="text-align: left;">Australia Land Cover</td>
 <td style="text-align: left;">Vegetation</td>
 <td style="text-align: right;">3</td>
+<td style="text-align: right;">913</td>
 <td style="text-align: left;">Current 3</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Global</td>
@@ -744,6 +578,7 @@ Important
 <td style="text-align: left;">Global Forest Change 2000–2020</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">3</td>
+<td style="text-align: right;">2,231</td>
 <td style="text-align: left;">Current 3</td>
 <td style="text-align: left;">1 arcsec (~25m)</td>
 <td style="text-align: left;">Australia</td>
@@ -756,6 +591,7 @@ Important
 <td style="text-align: left;">Australia, NARCLIM (ACT, NSW and SA) region, current climate, landform and ubstrate (1974-2015), 3s</td>
 <td style="text-align: left;">Topography</td>
 <td style="text-align: right;">3</td>
+<td style="text-align: right;">349</td>
 <td style="text-align: left;">Current 3</td>
 <td style="text-align: left;">3 arcsec (~90m)</td>
 <td style="text-align: left;">Australia</td>
@@ -768,6 +604,7 @@ Important
 <td style="text-align: left;">GEODATA 9 second DEM and D8: Digital Elevation Model Version 3 and Flow Direction Grid 2008</td>
 <td style="text-align: left;">Topography</td>
 <td style="text-align: right;">2</td>
+<td style="text-align: right;">519</td>
 <td style="text-align: left;">Current 2</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -780,6 +617,7 @@ Important
 <td style="text-align: left;">Australia, continental soil and landform analysis, current (1949-2013), 9s</td>
 <td style="text-align: left;">Topography</td>
 <td style="text-align: right;">2</td>
+<td style="text-align: right;">541</td>
 <td style="text-align: left;">Current 2</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -792,6 +630,7 @@ Important
 <td style="text-align: left;">Australian Population Grid 2018</td>
 <td style="text-align: left;">Human Activity</td>
 <td style="text-align: right;">2</td>
+<td style="text-align: right;">23,595</td>
 <td style="text-align: left;">Current 2</td>
 <td style="text-align: left;">30 arcsec (~1km)</td>
 <td style="text-align: left;">Australia</td>
@@ -804,6 +643,7 @@ Important
 <td style="text-align: left;">Australia Stream climate data</td>
 <td style="text-align: left;">Freshwater</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">79</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -816,6 +656,7 @@ Important
 <td style="text-align: left;">3 second SRTM Derived Digital Elevation Model (DEM) Version 1.0</td>
 <td style="text-align: left;">Topography</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">1,856</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">3 arcsec (~90m)</td>
 <td style="text-align: left;">Australia</td>
@@ -828,6 +669,7 @@ Important
 <td style="text-align: left;">Global Marine Environmental Data (MARSPEC)</td>
 <td style="text-align: left;">Marine</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">1,038</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">5 arcmin (~10km)</td>
 <td style="text-align: left;">Global</td>
@@ -840,6 +682,7 @@ Important
 <td style="text-align: left;">Australia, Current Climate (1976-2005, 9s): Summary variables with elevation and radiative adjustment [CSIRO]</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">482</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -852,6 +695,7 @@ Important
 <td style="text-align: left;">Australian Population Grid 2011</td>
 <td style="text-align: left;">Human Activity</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">19</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">30 arcsec (~1km)</td>
 <td style="text-align: left;">Australia</td>
@@ -864,6 +708,7 @@ Important
 <td style="text-align: left;">Accommodation Distribution, Australia</td>
 <td style="text-align: left;">Human Activity</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">2,724</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">30 arcsec (~1km)</td>
 <td style="text-align: left;">Australia</td>
@@ -876,6 +721,7 @@ Important
 <td style="text-align: left;">Australia National Soil Grids</td>
 <td style="text-align: left;">Soil</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">1,118</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -888,6 +734,7 @@ Important
 <td style="text-align: left;">Global PET and Aridity</td>
 <td style="text-align: left;">Topography</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">394</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">30 arcsec (~1km)</td>
 <td style="text-align: left;">Global</td>
@@ -900,6 +747,7 @@ Important
 <td style="text-align: left;">Climatic Research Unit (CRU) climate data</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">582</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">30 arcmin (~50km)</td>
 <td style="text-align: left;">Global</td>
@@ -912,6 +760,7 @@ Important
 <td style="text-align: left;">Australian climate, future (2036-2065), Can-ESM2 RCP 4.5 9s</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">216</td>
 <td style="text-align: left;">Future 1</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -924,6 +773,7 @@ Important
 <td style="text-align: left;">Australia, Current Climate (1976-2005, 9s): BIOCLIM variable suite [CSIRO]</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">3,882</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -936,6 +786,7 @@ Important
 <td style="text-align: left;">Australian climate, future (2036-2065), Can-ESM2 RCP 8.5 9s</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">358</td>
 <td style="text-align: left;">Future 1</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -948,6 +799,7 @@ Important
 <td style="text-align: left;">Australia Vegetation Assets, States and Transitions (VAST)</td>
 <td style="text-align: left;">Vegetation</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">205</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">30 arcsec (~1km)</td>
 <td style="text-align: left;">Australia</td>
@@ -960,6 +812,7 @@ Important
 <td style="text-align: left;">Australia, continental substrate analysis, current (2010-2012), 9s</td>
 <td style="text-align: left;">Topography</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">623</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -972,6 +825,7 @@ Important
 <td style="text-align: left;">Australian Postcodes, 2022</td>
 <td style="text-align: left;">Human Activity</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">20</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">30 arcsec (~1km)</td>
 <td style="text-align: left;">Australia</td>
@@ -984,6 +838,7 @@ Important
 <td style="text-align: left;">Australia Catchment climate data</td>
 <td style="text-align: left;">Freshwater</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">134</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -996,6 +851,7 @@ Important
 <td style="text-align: left;">Australian climate, future (2036-2065), MIROC5 RCP 8.5 9s</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">41</td>
 <td style="text-align: left;">Future 1</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -1008,6 +864,7 @@ Important
 <td style="text-align: left;">Australian climate, future (2036-2065), MIROC5 RCP 4.5 9s</td>
 <td style="text-align: left;">Climate</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">17</td>
 <td style="text-align: left;">Future 1</td>
 <td style="text-align: left;">9 arcsec (~250m)</td>
 <td style="text-align: left;">Australia</td>
@@ -1020,6 +877,7 @@ Important
 <td style="text-align: left;">Forests of Australia 2018</td>
 <td style="text-align: left;"><em>(none)</em></td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">336</td>
 <td style="text-align: left;">Current 1</td>
 <td style="text-align: left;">3 arcsec (~90m)</td>
 <td style="text-align: left;">Australia</td>

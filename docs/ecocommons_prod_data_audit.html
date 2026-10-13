@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -108,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles/ec_html_template.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -156,33 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#script-information" id="toc-script-information" class="nav-link active" data-scroll-target="#script-information">Script information</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
-  <li><a href="#the-problem-there-is-no-list-all-datasets-endpoint" id="toc-the-problem-there-is-no-list-all-datasets-endpoint" class="nav-link" data-scroll-target="#the-problem-there-is-no-list-all-datasets-endpoint">The problem: there is no “list all datasets” endpoint</a></li>
-  <li><a href="#the-solution-query-elasticsearch-directly" id="toc-the-solution-query-elasticsearch-directly" class="nav-link" data-scroll-target="#the-solution-query-elasticsearch-directly">The solution: query Elasticsearch directly</a>
-  <ul class="collapse">
-  <li><a href="#authentication" id="toc-authentication" class="nav-link" data-scroll-target="#authentication">Authentication</a></li>
-  <li><a href="#paginating-past-10000" id="toc-paginating-past-10000" class="nav-link" data-scroll-target="#paginating-past-10000">Paginating past 10,000</a></li>
-  </ul></li>
-  <li><a href="#what-is-actually-in-production" id="toc-what-is-actually-in-production" class="nav-link" data-scroll-target="#what-is-actually-in-production">What is actually in production?</a>
-  <ul class="collapse">
-  <li><a href="#by-category" id="toc-by-category" class="nav-link" data-scroll-target="#by-category">By category</a></li>
-  <li><a href="#by-time-domain" id="toc-by-time-domain" class="nav-link" data-scroll-target="#by-time-domain">By time domain</a></li>
-  <li><a href="#by-collection-top-of-54" id="toc-by-collection-top-of-54" class="nav-link" data-scroll-target="#by-collection-top-of-54">By collection (top of ~54)</a></li>
-  </ul></li>
-  <li><a href="#the-headline-caveat-records-datasets" id="toc-the-headline-caveat-records-datasets" class="nav-link" data-scroll-target="#the-headline-caveat-records-datasets">The headline caveat: records ≠ datasets</a></li>
-  <li><a href="#deliverables" id="toc-deliverables" class="nav-link" data-scroll-target="#deliverables">Deliverables</a></li>
-  <li><a href="#findings-against-the-earlier-audit" id="toc-findings-against-the-earlier-audit" class="nav-link" data-scroll-target="#findings-against-the-earlier-audit">Findings against the earlier audit</a></li>
-  <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -219,119 +159,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Contact details: support@ecocommons.org.au</p>
 <p>Copyright statement: This document is a product of the EcoCommons platform. Please refer to the EcoCommons website for more details: <a href="https://www.ecocommons.org.au/" class="uri">https://www.ecocommons.org.au/</a></p>
-<section id="script-information" class="level1">
-<h1>Script information</h1>
-<p>This post documents a data-audit exercise: producing a complete, reproducible inventory of <strong>every dataset that exists in the EcoCommons production environment</strong>, so that the platform’s data holdings can be reviewed against the “critical datasets” the science team expects to find.</p>
-<p>It is a companion to the earlier curated audit (<code>EcoCommons_prod_dataset_audit.xlsx</code>), which spot-checked 43 datasets from a support article. This time we pulled the <em>whole</em> catalogue.</p>
-</section>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>A recurring question in any data platform is deceptively simple: <strong>“What data do we actually have?”</strong></p>
 <p>For EcoCommons, the datasets that power species distribution models and spatial analyses live behind the <strong>data-ingester API</strong>. There is a public data explorer, and there are import tools — but neither answers the question in one shot. To audit the platform properly we needed a single, authoritative list of every dataset record in production, with enough metadata to slice it by category, time domain, and collection.</p>
-</section>
-<section id="objectives" class="level1">
-<h1>Objectives</h1>
-<ol type="1">
-<li>Enumerate every dataset in the EcoCommons <strong>production</strong> environment.</li>
-<li>Capture per-dataset metadata (title, UUID, category, time domain, resolution, collection).</li>
-<li>Summarise the catalogue so it is human-readable, not just a 58k-row dump.</li>
-<li>Make the whole thing <strong>reproducible</strong> — a script anyone can re-run against prod, test, or dev.</li>
-</ol>
-<hr>
-</section>
-<section id="the-problem-there-is-no-list-all-datasets-endpoint" class="level1">
-<h1>The problem: there is no “list all datasets” endpoint</h1>
-<p>The obvious first attempt — asking the API for a list of datasets — fails:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">GET</span> https://api.data-ingester.app.ecocommons.org.au/api/dataset      → 404</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">GET</span> .../api/datasets                                                 → 404</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">GET</span> .../api/data                                                     → 404</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The data-ingester API is built around <strong>individual records</strong>, not listings. The endpoints that <em>do</em> exist work per-UUID or per-collection:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Endpoint</th>
-<th style="text-align: left;">Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><code>GET /api/dataset/{uuid}</code></td>
-<td style="text-align: left;">Fetch one dataset (metadata + band manifest)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>GET /api/collection</code></td>
-<td style="text-align: left;">List the ~60 collections (but not their member datasets)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>GET /api/collection/{uuid}</code></td>
-<td style="text-align: left;">Fetch one collection’s details</td>
-</tr>
-</tbody>
-</table>
-<p>The collection list gets us collection <em>names</em>, but a collection object does <strong>not</strong> enumerate its member datasets — so it cannot answer “what datasets exist”.</p>
-</section>
-<section id="the-solution-query-elasticsearch-directly" class="level1">
-<h1>The solution: query Elasticsearch directly</h1>
-<p>The breakthrough came from the earlier audit spreadsheet, whose notes referenced an <code>/api/es/search/dataset</code> endpoint. The data-ingester indexes every dataset into <strong>Elasticsearch</strong>, and exposes a thin search proxy over it.</p>
-<p>A plain <code>GET</code> returns <code>405 Method Not Allowed</code> — the endpoint expects a <strong>POST with an Elasticsearch query body</strong>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests, json</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>api  <span class="op">=</span> <span class="st">"https://api.data-ingester.app.ecocommons.org.au"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {<span class="st">"Authorization"</span>: <span class="st">"Bearer "</span> <span class="op">+</span> token,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>}</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># How many datasets are there, exactly?</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> {<span class="st">"track_total_hits"</span>: <span class="va">True</span>, <span class="st">"size"</span>: <span class="dv">0</span>, <span class="st">"query"</span>: {<span class="st">"match_all"</span>: {}}}</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>resp <span class="op">=</span> requests.post(<span class="ss">f"</span><span class="sc">{</span>api<span class="sc">}</span><span class="ss">/api/es/search/dataset"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                     headers<span class="op">=</span>headers, data<span class="op">=</span>json.dumps(body), verify<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resp.json()[<span class="st">"hits"</span>][<span class="st">"total"</span>])</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># → {'value': 58424, 'relation': 'eq'}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>58,424 dataset records.</strong> That is the whole production catalogue.</p>
-<section id="authentication" class="level2">
-<h2 class="anchored" data-anchor-id="authentication">Authentication</h2>
-<p>The endpoint requires a bearer token. We use Keycloak <strong>client credentials</strong> (the <code>data-publish</code> client), the same secret the import tooling uses:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_token():</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> requests.post(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"https://auth.ecocommons.org.au/auth/realms/"</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ecocommons-prod/protocol/openid-connect/token"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"grant_type"</span>: <span class="st">"client_credentials"</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">"client_id"</span>: <span class="st">"data-publish"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>              <span class="st">"client_secret"</span>: SECRET},   <span class="co"># from .secrets.env.prod</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        verify<span class="op">=</span><span class="va">False</span>, timeout<span class="op">=</span><span class="dv">30</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r.json()[<span class="st">"access_token"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="paginating-past-10000" class="level2">
-<h2 class="anchored" data-anchor-id="paginating-past-10000">Paginating past 10,000</h2>
-<p>Elasticsearch caps a normal query at 10,000 hits, so we page through with <code>search_after</code>. That needs a <strong>unique, sortable</strong> field to tie-break on. Two natural candidates both failed on this index:</p>
-<ul>
-<li><code>_id</code> → <em>“Fielddata access on the _id field is disallowed”</em></li>
-<li><code>uuid.keyword</code> → <em>“No mapping found for [uuid.keyword]”</em></li>
-</ul>
-<p>The plain <strong><code>uuid</code></strong> field, however, is sortable and unique — perfect:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [<span class="st">"title"</span>, <span class="st">"uuid"</span>, <span class="st">"data_category"</span>, <span class="st">"data_subcategories"</span>,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"time_domain"</span>, <span class="st">"year"</span>, <span class="st">"resolution"</span>, <span class="st">"spatial_domain"</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">"spatial_data_type"</span>, <span class="st">"collection_names"</span>, <span class="st">"downloadable"</span>, <span class="st">"created"</span>]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>rows, after <span class="op">=</span> [], <span class="va">None</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    body <span class="op">=</span> {<span class="st">"size"</span>: <span class="dv">5000</span>, <span class="st">"query"</span>: {<span class="st">"match_all"</span>: {}},</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"sort"</span>: [{<span class="st">"uuid"</span>: <span class="st">"asc"</span>}], <span class="st">"_source"</span>: fields}</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> after:</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        body[<span class="st">"search_after"</span>] <span class="op">=</span> after</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    hits <span class="op">=</span> requests.post(<span class="ss">f"</span><span class="sc">{</span>api<span class="sc">}</span><span class="ss">/api/es/search/dataset"</span>, headers<span class="op">=</span>headers,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                         data<span class="op">=</span>json.dumps(body), verify<span class="op">=</span><span class="va">False</span>).json()[<span class="st">"hits"</span>][<span class="st">"hits"</span>]</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> hits:</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    rows.extend(h[<span class="st">"_source"</span>] <span class="cf">for</span> h <span class="kw">in</span> hits)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    after <span class="op">=</span> hits[<span class="op">-</span><span class="dv">1</span>][<span class="st">"sort"</span>]        <span class="co"># cursor for the next page</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Twelve pages of 5,000 later, we have all 58,424 records in hand.</p>
-<hr>
-</section>
 </section>
 <section id="what-is-actually-in-production" class="level1">
 <h1>What is actually in production?</h1>
@@ -454,69 +285,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="the-headline-caveat-records-datasets" class="level1">
-<h1>The headline caveat: records ≠ datasets</h1>
-<p><strong>58,424 is a layer-level count.</strong> Every individual layer is its own record — one WorldClim future variable, for one GCM, one emissions scenario, one month, is a single row. That single “WorldClim v2.1 future climate” product explodes into <strong>~52,300 records</strong>, roughly <strong>90% of the entire catalogue</strong>.</p>
-<p>So the number to quote depends on the audience:</p>
-<ul>
-<li><em>“How many raster layers are stored?”</em> → <strong>58,424</strong>.</li>
-<li><em>“How many distinct data products / collections do we offer?”</em> → <strong>~54 collections</strong>.</li>
-</ul>
-<p>For a data audit, the collection-level view is the meaningful “what do we have” answer; the raw record count is dominated by the combinatorial expansion of one climate product.</p>
-<hr>
-</section>
-<section id="deliverables" class="level1">
-<h1>Deliverables</h1>
-<p>The extraction produces two artefacts, both checked into the audit repository under <code>prod_dataset_catalogue/</code>:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">File</th>
-<th style="text-align: left;">Contents</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><code>prod_dataset_list_full.csv</code></td>
-<td style="text-align: left;">One row per dataset — the flat, layer-level list (58,424 rows).</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>EcoCommons_prod_dataset_catalogue.xlsx</code></td>
-<td style="text-align: left;">Grouped workbook: <strong>Summary</strong>, <strong>By Collection</strong>, <strong>By Subcategory</strong>, and the full list.</td>
-</tr>
-</tbody>
-</table>
-<p>A single script, <code>extract_prod_datasets.py</code>, regenerates both and works against any environment:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv .venv <span class="kw">&amp;&amp;</span> <span class="bu">source</span> .venv/bin/activate</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> .secrets.env.prod.example .secrets.env.prod   <span class="co"># add KEYCLOAK_CLIENT_SECRET_KEY</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> extract_prod_datasets.py <span class="at">--env</span> prod        <span class="co"># or --env test / --env dev</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="findings-against-the-earlier-audit" class="level1">
-<h1>Findings against the earlier audit</h1>
-<p>The earlier curated audit checked 43 datasets from support article 6000261884 against this same index. Of those:</p>
-<ul>
-<li><strong>38 present</strong>, <strong>2 present under a renamed title</strong>, <strong>3 missing</strong>.</li>
-<li>The missing items (e.g.&nbsp;an <em>ANUClim</em> monthly climate set) returned empty on both title and keyword search — genuinely absent from prod, not merely re-titled.</li>
-</ul>
-<p>Cross-referencing that curated list against the full catalogue pulled here lets us confirm which “critical datasets” are truly missing versus simply hard to find in the data explorer.</p>
-</section>
-<section id="takeaways" class="level1">
-<h1>Takeaways</h1>
-<ul>
-<li>The data-ingester exposes <strong>no list endpoint</strong> — enumeration goes through <code>POST /api/es/search/dataset</code>.</li>
-<li>Paginate with <code>search_after</code> on <strong><code>uuid</code></strong>; <code>_id</code> and <code>uuid.keyword</code> do not work as sort keys on this index.</li>
-<li>Prod holds <strong>58,424 layer records across ~54 collections</strong>, and is <strong>~90% WorldClim future-climate layers</strong> — always distinguish “records” from “products” when reporting.</li>
-<li>The whole audit is now a one-command, reproducible pull.</li>
-</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

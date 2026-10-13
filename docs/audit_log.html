@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles/ec_html_template.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -122,18 +122,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#purpose" id="toc-purpose" class="nav-link active" data-scroll-target="#purpose">Purpose</a></li>
-  <li><a href="#log" id="toc-log" class="nav-link" data-scroll-target="#log">Log</a></li>
-  <li><a href="#open-findings" id="toc-open-findings" class="nav-link" data-scroll-target="#open-findings">Open findings</a></li>
-  <li><a href="#how-to-add-an-entry" id="toc-how-to-add-an-entry" class="nav-link" data-scroll-target="#how-to-add-an-entry">How to add an entry</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -168,123 +157,18 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="purpose" class="level1">
-<h1>Purpose</h1>
-<p><em>A living, append-only record of what has changed in the EcoCommons data audit — each catalogue update, rule change and data-quality finding, with the date, the reason and who made it. New entries go at the top.</em></p>
-<p>This is the audit’s <strong>memory</strong>: the <a href="./prod_dataset_catalogue.html">Data Catalogue</a>, <a href="./dataset_list.html">Dataset List</a> and <a href="./rule_book.html">Rule Book</a> always show the <em>current</em> state, while this log explains <em>how it got there</em>. For how the underlying data is extracted, see the <a href="./ecocommons_prod_data_audit.html">production catalogue audit</a>.</p>
-<hr>
-</section>
-<section id="log" class="level1">
-<h1>Log</h1>
-<p>Most recent first.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 11%">
-<col style="width: 17%">
-<col style="width: 31%">
-<col style="width: 28%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Date</th>
-<th style="text-align: left;">Area</th>
-<th style="text-align: left;">Change</th>
-<th style="text-align: left;">Why</th>
-<th style="text-align: left;">By</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">2026-10-13</td>
-<td style="text-align: left;">Data Catalogue</td>
-<td style="text-align: left;">Added a <strong>#</strong> rank column to the <em>By collection</em> table; trialled a <em>Views</em> column from the <code>event_view</code> usage export, then removed it.</td>
-<td style="text-align: left;">The export duplicated the record count (identical on 50 of 51 collections), so it carried no independent signal. See the open finding below.</td>
-<td style="text-align: left;">Zhao Xiang</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2026-10-13</td>
-<td style="text-align: left;">Site</td>
-<td style="text-align: left;">Set navbar text to white and enlarged it; removed the boilerplate “questions or suggestions” contact line from all pages; trimmed the <em>Dataset List</em> header (heading, contact line and “records are not products” note).</td>
-<td style="text-align: left;">Readability on the teal banner and general de-cluttering.</td>
-<td style="text-align: left;">Zhao Xiang</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2026-10-06</td>
-<td style="text-align: left;">Data Catalogue</td>
-<td style="text-align: left;">Published the full production inventory — <strong>58,424 records across 54 collections</strong> — profiled by category, time domain, resolution, spatial domain, type, years and downloadability.</td>
-<td style="text-align: left;">First complete, plain-language “what data do we have” view.</td>
-<td style="text-align: left;">Zhao Xiang</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2026-10-06</td>
-<td style="text-align: left;">Dataset List</td>
-<td style="text-align: left;">Added the interactive, searchable, sortable record-level table of all 58,424 records.</td>
-<td style="text-align: left;">Lets users filter and inspect the raw layer-level list directly.</td>
-<td style="text-align: left;">Zhao Xiang</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2026-10-06</td>
-<td style="text-align: left;">Rule Book</td>
-<td style="text-align: left;">Expanded with audit-grounded metadata (<code>MD-xxx</code>) and dataset (<code>DS-xxx</code>) rules, mapped onto the DCAT-AP obligation model.</td>
-<td style="text-align: left;">Turn each expectation into a stated, justified, checkable rule.</td>
-<td style="text-align: left;">Zhao Xiang</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2026-09-18</td>
-<td style="text-align: left;">Audit</td>
-<td style="text-align: left;">Established the EcoCommons Data Audit; production extraction via <code>POST /api/es/search/dataset</code>, paginated on <code>uuid</code>.</td>
-<td style="text-align: left;">Make the audit a one-command, reproducible pull.</td>
-<td style="text-align: left;">Zhao Xiang</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="open-findings" class="level1">
-<h1>Open findings</h1>
-<p>Items surfaced by the audit that are not yet resolved.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Opened</th>
-<th style="text-align: left;">Area</th>
-<th style="text-align: left;">Finding</th>
-<th style="text-align: left;">Status</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">2026-10-13</td>
-<td style="text-align: left;">Data Catalogue</td>
-<td style="text-align: left;"><em>Soil and Landscape Grid National Soil Attribute Maps - Release 2</em> holds <strong>8 records</strong>, but the <code>event_view</code> usage export counted only <strong>7</strong> — one layer appears to have been missed in that export.</td>
-<td style="text-align: left;">Open — confirm which count is correct.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2026-10-06</td>
-<td style="text-align: left;">Catalogue</td>
-<td style="text-align: left;"><strong>289 records sit in no collection</strong> (the <code>None</code> orphan bucket); many products exist as a single layer. Flagged by <a href="./rule_book.html#ds-002"><code>DS-002</code></a>.</td>
-<td style="text-align: left;">Open — triage orphans.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2026-10-06</td>
-<td style="text-align: left;">Catalogue</td>
-<td style="text-align: left;"><strong>45 records are uncategorised</strong> (≈0.08%), against the controlled vocabulary in <a href="./rule_book.html#md-001"><code>MD-001</code></a>.</td>
-<td style="text-align: left;">Open — assign categories.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2026-10-06</td>
-<td style="text-align: left;">Access</td>
-<td style="text-align: left;">The non-downloadable set (<code>downloadable: No</code>) is concentrated in <strong>WorldClim-v2.1</strong> and <strong>eBird</strong> — the two biggest products. Flagged by <a href="./rule_book.html#ds-004"><code>DS-004</code></a>.</td>
-<td style="text-align: left;">Open — explicit access decision needed.</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="how-to-add-an-entry" class="level1">
-<h1>How to add an entry</h1>
-<p>Append a new row to the top of the <strong>Log</strong> table (newest first) with the date (<code>YYYY-MM-DD</code>), the area affected, a one-line description of the change, the reason, and who made it. When a change resolves an item in <strong>Open findings</strong>, update that item’s status and reference the log entry.</p>
+<style>
+/* This page: hide the title block (title / subtitle / description / date)
+   so the page opens directly on the log. The page title is still used for
+   the navbar tab and the browser tab via the YAML `title`. */
+#title-block-header { display: none; }
+</style>
+<p><em>An audit diary — newest entries first.</em></p>
+<section id="october-2026" class="level2">
+<h2 class="anchored" data-anchor-id="october-2026">13 October 2026</h2>
+<p><strong>Author:</strong> Zhao</p>
+<p>There are three levels of UUID — <strong>collection</strong>, <strong>dataset</strong>, and <strong>layer</strong> (the individual variables within one dataset). We need to be very specific about which level of UUID we mean when we run a search.</p>
+<p>Total views per collection is only a surrogate for popularity: while it shows the general trend, there are some mismatches. For example, the eBird collection has 40,988 views, which is surprisingly high.</p>
 
 
 </section>

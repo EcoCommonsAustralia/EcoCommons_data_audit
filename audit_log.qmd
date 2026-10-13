@@ -4,44 +4,24 @@ subtitle: "A running record of audit activity, catalogue changes and data-qualit
 description: "A dated, append-only log of changes to the EcoCommons data audit — what was checked or changed, why, and by whom — maintained across each audit pass."
 date: "2026-10-13"
 code-tools: false
+toc: false
 ---
 
-# Purpose
+```{=html}
+<style>
+/* This page: hide the title block (title / subtitle / description / date)
+   so the page opens directly on the log. The page title is still used for
+   the navbar tab and the browser tab via the YAML `title`. */
+#title-block-header { display: none; }
+</style>
+```
 
-*A living, append-only record of what has changed in the EcoCommons data audit — each catalogue update, rule change and data-quality finding, with the date, the reason and who made it. New entries go at the top.*
+*An audit diary — newest entries first.*
 
-This is the audit's **memory**: the [Data Catalogue](prod_dataset_catalogue.qmd), [Dataset List](dataset_list.qmd) and [Rule Book](rule_book.qmd) always show the *current* state, while this log explains *how it got there*. For how the underlying data is extracted, see the [production catalogue audit](ecocommons_prod_data_audit.qmd).
+## 13 October 2026
 
-------------------------------------------------------------------------
+**Author:** Zhao
 
-# Log
+There are three levels of UUID — **collection**, **dataset**, and **layer** (the individual variables within one dataset). We need to be very specific about which level of UUID we mean when we run a search.
 
-Most recent first.
-
-| Date | Area | Change | Why | By |
-|:-----------|:-----------------|:--------------------------------|:-----------------------------|:-----------|
-| 2026-10-13 | Data Catalogue | Added a **#** rank column to the *By collection* table; trialled a *Views* column from the `event_view` usage export, then removed it. | The export duplicated the record count (identical on 50 of 51 collections), so it carried no independent signal. See the open finding below. | Zhao Xiang |
-| 2026-10-13 | Site | Set navbar text to white and enlarged it; removed the boilerplate "questions or suggestions" contact line from all pages; trimmed the *Dataset List* header (heading, contact line and "records are not products" note). | Readability on the teal banner and general de-cluttering. | Zhao Xiang |
-| 2026-10-06 | Data Catalogue | Published the full production inventory — **58,424 records across 54 collections** — profiled by category, time domain, resolution, spatial domain, type, years and downloadability. | First complete, plain-language "what data do we have" view. | Zhao Xiang |
-| 2026-10-06 | Dataset List | Added the interactive, searchable, sortable record-level table of all 58,424 records. | Lets users filter and inspect the raw layer-level list directly. | Zhao Xiang |
-| 2026-10-06 | Rule Book | Expanded with audit-grounded metadata (`MD-xxx`) and dataset (`DS-xxx`) rules, mapped onto the DCAT-AP obligation model. | Turn each expectation into a stated, justified, checkable rule. | Zhao Xiang |
-| 2026-09-18 | Audit | Established the EcoCommons Data Audit; production extraction via `POST /api/es/search/dataset`, paginated on `uuid`. | Make the audit a one-command, reproducible pull. | Zhao Xiang |
-
-------------------------------------------------------------------------
-
-# Open findings
-
-Items surfaced by the audit that are not yet resolved.
-
-| Opened | Area | Finding | Status |
-|:-----------|:-----------------|:------------------------------------------------|:-----------|
-| 2026-10-13 | Data Catalogue | *Soil and Landscape Grid National Soil Attribute Maps - Release 2* holds **8 records**, but the `event_view` usage export counted only **7** — one layer appears to have been missed in that export. | Open — confirm which count is correct. |
-| 2026-10-06 | Catalogue | **289 records sit in no collection** (the `None` orphan bucket); many products exist as a single layer. Flagged by [`DS-002`](rule_book.qmd#ds-002). | Open — triage orphans. |
-| 2026-10-06 | Catalogue | **45 records are uncategorised** (≈0.08%), against the controlled vocabulary in [`MD-001`](rule_book.qmd#md-001). | Open — assign categories. |
-| 2026-10-06 | Access | The non-downloadable set (`downloadable: No`) is concentrated in **WorldClim-v2.1** and **eBird** — the two biggest products. Flagged by [`DS-004`](rule_book.qmd#ds-004). | Open — explicit access decision needed. |
-
-------------------------------------------------------------------------
-
-# How to add an entry
-
-Append a new row to the top of the **Log** table (newest first) with the date (`YYYY-MM-DD`), the area affected, a one-line description of the change, the reason, and who made it. When a change resolves an item in **Open findings**, update that item's status and reference the log entry.
+Total views per collection is only a surrogate for popularity: while it shows the general trend, there are some mismatches. For example, the eBird collection has 40,988 views, which is surprisingly high.
