@@ -1,7 +1,7 @@
 ---
 title: "Rule Book"
-subtitle: "Checkable metadata & data-quality rules, mapped to the DCAT-AP obligation model"
-description: "The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples."
+subtitle: "Data standards & publishing handbook, with checkable metadata rules mapped to DCAT-AP"
+description: "A handbook and style guide for publishing data to EcoCommons — the data model, attributes, formats and representation — together with the checkable metadata & data-quality rules that datasets are expected to satisfy."
 date: "2026-09-18"
 code-tools: false
 ---
@@ -10,9 +10,9 @@ Contact details: support\@ecocommons.org.au
 
 # Purpose
 
-*The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples.*
+*A single place that explains **how EcoCommons data is modelled and published** — the data model, attributes, formats and representation — and **what good looks like**, as a set of explicit, checkable rules.*
 
-This page is the **living rule book** for EcoCommons data. It turns loose expectations — "titles should be consistent", "every dataset needs a category" — into **explicit, checkable rules**, so that a dataset can be audited against them objectively rather than by opinion.
+The first part is a **handbook and style guide** for anyone publishing data to the platform or developing the data architecture and integrations. The second part is the **living rule book**: it turns loose expectations — "titles should be consistent", "every dataset needs a category" — into **explicit, checkable rules**, so that a dataset can be audited objectively rather than by opinion.
 
 Each rule ties back to the metadata fields exposed by the data-ingester index (the same fields we pulled in the [production catalogue audit](ecocommons_prod_data_audit.qmd)):
 
@@ -21,6 +21,277 @@ Each rule ties back to the metadata fields exposed by the data-ingester index (t
 ::: callout-note
 This is a **proposed rule set**, grounded in the [production catalogue audit](ecocommons_prod_data_audit.qmd) of all 58,424 records. Obligations, controlled vocabularies, and the **Current status** figures are offered for EcoCommons / Biosecurity Commons review — confirm and ratify them before any rule is enforced.
 :::
+
+------------------------------------------------------------------------
+
+# Data standards & publishing handbook
+
+::: callout-important
+**Draft.** This handbook is an early draft adapted from the platform's internal data handbook. Sections marked *to be documented* are still being written. It is offered for review and will evolve.
+:::
+
+This is a handbook and style guide for data import operations in the platform. It covers the key concepts and conventions for importing a **Dataset** and ensuring its correct representation in the data catalogue and its function with platform models. The intended audience is anyone publishing data to the platform, or developing the data architecture or integrations.
+
+**Further reading.** Full technical description — *EcoCommons / BSC Data Architecture*; *Platform API Reference* (internal references).
+
+## Glossary of terms
+
+| Term | Description |
+|------|-------------|
+| CRS | Coordinate Reference System (e.g. an EPSG code). |
+| Dataset | A structured collection of related information treated as a single unit for analysis, reporting, or computing. |
+
+## Document conventions
+
+This document uses the common technical convention of *Must, Should, May* to convey requirements. Terms such as **Dataset** are bold and capitalised when they refer to the platform model, to distinguish them from general use.
+
+## Overview of the data model
+
+### Dataset
+
+A **Dataset** is a structured collection of related information. In the platform, a Dataset consists of one or more layers, each of which references a physical data file (e.g. a GeoTIFF or CSV).
+
+A Dataset:
+
+-   *May* be spatial, spatiotemporal or aspatial.
+-   *May* contain a single layer or multiple layers.
+-   *May* be created in series to describe different temporal or spatial variants.
+-   *Must* be accompanied by the minimum set of attributes required by the data-catalogue interface.
+
+### Collection
+
+A **Collection** is the highest level of data classification. It represents a group of datasets of common origin. The exact rules of a Collection are not strictly formalised in the platform, but typically a Collection represents related datasets from the same source. Publishers often organise data in terms of a collection, and these relationships should be reflected in the catalogue where possible.
+
+A Collection:
+
+-   *Must* contain datasets from the same publisher or source.
+-   *Must* avoid duplication, redundancy or ambiguity with other collections.
+-   *Should* not be created for each individual dataset.
+-   *May* represent an updated series of publications of the same dataset.
+-   *May* represent an informal grouping where no formal one exists.
+
+### Data layers
+
+A **Dataset** consists of one or more **Data Layers**, following common geospatial terminology. For climate and environmental data, layers often map to a structured vocabulary of "variables" (e.g. Mean Temperature → `bioclim_01`). Layers can also be unstructured, using the publisher's own labels or labels adapted to improve readability.
+
+Model inputs such as **SDM** and **Climate Change** *predictors* expect Datasets to follow a structured vocabulary, but many other model inputs do not consider variable names when processing data.
+
+A multi-layer / multi-variable Dataset:
+
+-   *Must* contain layers with consistent spatial properties: resolution, CRS and extent.
+-   *May* contain different data types, e.g. `continuous`, `categorical`.
+-   *May* contain different data encodings, e.g. `Float32`, `UInt8`.
+-   *May* encode variable labels using structured vocabularies or unstructured labels.
+
+#### Layers, variables and parameters
+
+The terms ***layer***, ***variable*** and ***parameter*** are often used interchangeably depending on context, but they all typically refer to a **Data Layer** within the platform model.
+
+| Term | Context |
+|------|---------|
+| layer | A general term for multi-layer geospatial data. |
+| variable | A structured set of terms often used in climate and environmental data to describe specific variables within a system, e.g. "temperature". |
+| parameter | The terminology used by CoverageJSON when representing a Data Layer. |
+
+::: callout-note
+Variable names can be used as a hint to preselect styles in the platform visualiser.
+:::
+
+### Temporal datasets
+
+Generally, climate and environmental Datasets represent a single time interval or aggregate period for all layers (e.g. 2020–2025). This is appropriate for the current EcoCommons models, e.g. SDM and Climate Change.
+
+A Dataset can also represent a temporal series of layers (e.g. `Jan`, `Feb`) where this is supported for a modelling use case. This should not be considered a supported pattern for EcoCommons models to date; however, it is used by Biosecurity Commons models that share the same catalogue.
+
+Temporal data is an area of development that requires further planning at the catalogue and model level.
+
+## Attributes
+
+The data catalogue derives its functionality and value from a set of metadata attributes that accompany the data itself. The platform defines a formal set of attributes for a Dataset; these must be set when publishing data. Not all attributes are required, but applicable attributes should be included to improve the quality and integrity of the data catalogue.
+
+### Sourcing attributes
+
+The publication (e.g. `license`) or domain (e.g. `scientific_name`) attributes of a dataset should typically be transcribed from the publisher source. Other attributes, such as spatial properties, ranges and encoding, are determined automatically during the import process and do not need to be explicitly provided.
+
+The table below illustrates where attributes may be sourced:
+
+| Attribute class | Example | Potential source |
+|------|------|------|
+| Publication | year | The publisher landing page, or metadata included with data. |
+| Domain | taxonomy | The publisher landing page, or metadata included with data. |
+| DataType | categorical | Metadata included with data (e.g. an auxiliary XML or other manifest). |
+| Spatial | CRS | Extracted from spatial data directly, or provided as metadata. |
+| Category | Vegetation | Determined, choosing the most appropriate value, when importing. |
+
+### Style guide
+
+The Dataset `title` and `description` attributes are the most visible part of the catalogue, so a consistent style should be applied.
+
+#### Title
+
+*To be documented* — baseline style with example and variants, based on existing conventions.
+
+#### Description
+
+*To be documented* — baseline style with example and do's / don'ts.
+
+### Categorisation
+
+::: callout-note
+Data categorisation as described here should not be confused with **"categorical data"**, which is a particular spatial data type describing discrete classes of data.
+:::
+
+The broadest classification for a Dataset is the `data_category` attribute.
+
+| Category | Examples |
+|------|------|
+| Topography | DEM data |
+| Soil | % Sand, % Silt, % Clay |
+| Vegetation | NVIS, BIOMES, NDVI, fractional vegetation cover |
+| Freshwater | Streams, lakes |
+| Marine | Ocean |
+| Human activity | Human population, roads, cities, land use |
+| Climate | WorldClim, CliMond, average monthly climate data |
+| Biodiversity | Species occurrence data |
+| Boundary data | LGAs, countries, NRMs, land parcels |
+
+A secondary classification attribute, `data_subcategories`, allows a list of sub-categories to be assigned to a Dataset. To date this list is not formalised and contains a number of variants — it is closer to an arbitrary tagging system than a formal vocabulary. Data subcategories are presented in the data catalogue for each item; however, they are not currently searchable or browsable. This is a development area to be considered for the catalogue.
+
+### All attributes
+
+The authoritative source of attributes is the Platform Data API reference.
+
+#### General
+
+| Field | Type | Description | Required | Default | Maps to |
+|------|------|------|------|------|------|
+| `title` | string | Dataset short description | Yes | — | `dct:title` |
+| `description` | string | Dataset long description | Yes | — | `dct:description` |
+| `data_category` | string | Primary data category | Yes | — | *see category table above* |
+| `data_subcategories` | array | Optional secondary data-category labels | No | `[]` | *any* |
+| `time_domain` | string | Temporal classification | — | `Current` | `Current`, `Future` |
+| `year` | integer | Dataset year | No | `null` | |
+| `year_range` | array | Alternative year range in the form `[2000, 2010]` | No | `[]` | |
+| `mimetype` | string | Data mimetype | No | `""` | |
+| `crs` | string | Coordinate Reference System, e.g. `EPSG:4326` (required for tabular data only) | No | `""` | |
+| `resolution` | string | Optional resolution label (e.g. `3 arcmin (~5km)`) | No | `""` | |
+| `genre` | string | An internal vocabulary representing scientific / domain detail | No | — | |
+
+#### Publisher
+
+| Field | Type | Description | Required | Default | Maps to |
+|------|------|------|------|------|------|
+| `license` | string | License short description | Yes | — | `dct:license` |
+| `rights` | string | Rights-holder description | Yes | — | `dct:rights` |
+| `downloadable` | boolean | Can be directly downloaded | — | `true` | |
+| `acknowledgement` | string | Optional additional acknowledgement | No | `""` | |
+| `doi` | string | Digital Object Identifier | No | `""` | |
+| `source_url` | string | Publisher data source URL | No | `""` | |
+| `landing_page` | string | Optional publisher landing page | No | `""` | |
+| `attributions` | array of objects | Individual attributions | No | `[]` | |
+
+#### Species
+
+| Field | Type | Description | Required | Default |
+|------|------|------|------|------|
+| `scientific_name` | string | Scientific name for species data | No | `""` |
+
+#### Climate
+
+| Field | Type | Description | Required | Default |
+|------|------|------|------|------|
+| `emsc` | string | Emissions scenario (e.g. SSP / RCP) | No | `""` |
+| `gcm` | string | Global Circulation Model | No | `""` |
+
+::: callout-note
+These attributes should be mapped to [standard terms](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/). For more information see [Darwin Core & Dublin Core](#darwin-core-dublin-core-dcmi) below.
+:::
+
+### Data layer / variable attributes
+
+The attributes described so far represent a Dataset as a whole; however, individual layers have their own attributes.
+
+-   A Data Layer *should* provide a human-readable label.
+-   A Data Layer *should* provide units where appropriate (e.g. `mean_temperature` → `degC`).
+-   A categorical Data Layer *must* provide a table of values that maps values to readable classes.
+
+## Data import
+
+### Supported data formats
+
+| Format | Extension | Supported domain types |
+|------|------|------|
+| GeoTIFF | `.tif` | Grid |
+| GeoPackage | `.gpkg` | Polygon, MultiPolygon |
+| CSV | `.csv` | Point |
+
+::: callout-note
+The platform can import almost any file format (using the opaque `file` import method). However, this is only useful for specific model cases and has very limited value in the catalogue.
+:::
+
+#### GeoTIFF
+
+Single or stacked rasters for either continuous or discrete gridded data. A stacked GeoTIFF is automatically unpacked by the platform during import, so it presents as a multi-layer Dataset.
+
+Cloud-Optimised GeoTIFF (COG) is a compatible variant optimised for use in web environments. The platform does not currently take advantage of this format; however, this may change, so COG is a valid choice when importing data. See [GeoTIFF](https://en.wikipedia.org/wiki/GeoTIFF).
+
+#### GeoPackage
+
+GeoPackage (GPKG) is an open, non-proprietary, platform-independent and standards-based data format for geographic information systems, built as a set of conventions over a SQLite database. The standard describes conventions for storing vector features, tile matrix sets of imagery, raster maps at various scales, schema and metadata.
+
+The platform does not support all variants of GPKG data. The primary implementation is for polygon data (features); this may be multi-polygon and multi-layer. Additional attributes are imported, but they are currently opaque to the platform in terms of visualisation, and models do not formally use or expect any. See [GeoPackage](https://en.wikipedia.org/wiki/GeoPackage).
+
+::: callout-note
+ESRI Shapefile is also supported; however, it is deprecated and should be avoided for curated data.
+:::
+
+#### CSV
+
+CSV files can be imported to represent point data. The basic conventions are described in the platform's data-import interfaces, generally requiring a minimum of a `lat` and `lon` column. Additional fields can be included, but their use is model-specific.
+
+::: callout-note
+A spatial CSV file has no standard way of encoding its CRS. It must therefore be provided as an attribute (`crs`) during import, or it will be assumed to be *WGS-84*.
+:::
+
+### Import methods
+
+*To be documented* — the API data-import methods.
+
+## Data representation
+
+So far this handbook has described how data is published and presented in the platform catalogue. However, Datasets are also consumed by modelling workflows and other contexts, such as visualisation dashboards. This requires a Dataset and its attributes to be represented in a consistent, portable format. The main representation provided by the platform APIs is **CoverageJSON**.
+
+### CoverageJSON
+
+A coverage is simply a structure that associates positions in space and time with data values. CoverageJSON is designed to encode this information in a form easily consumed by web services. See the [CoverageJSON cookbook](https://covjson.org/cookbook/) and the [OGC Coverage Implementation Schema](https://docs.ogc.org/cs/21-069r2/21-069r2.html).
+
+The platform implements a subset of Coverage domain types:
+
+-   Grid
+-   Polygon, MultiPolygon
+-   Point
+
+Additionally, a coverage:
+
+-   Describes the spatial domain of the data (resolution, extent, CRS).
+-   Represents class information for categorical data.
+-   Represents Data Layers as coverage "Parameters", including labels and units.
+-   Describes the data encoding and basic metadata, e.g. `min`, `max`, `stddev`.
+-   Provides pointers (`rangeAlternates`) for accessing raw data, e.g. `.tif`.
+
+### Darwin Core & Dublin Core (DCMI) {#darwin-core-dublin-core-dcmi}
+
+::: callout-note
+This is in early development and has only a minimal implementation at present. Darwin Core in particular currently has no implementation, but is included here for reference.
+:::
+
+Coverage provides a standard for spatial data, but says nothing about other data attributes, so another way of representing non-spatial information is required.
+
+**Dublin Core (DCMI)** is a general-purpose, lightweight metadata standard designed to describe any type of digital or physical resource. In practical terms the platform uses it for basic identifiers, e.g. `identifier`, `title`, `description`, `license`, `rights`. The standard uses the namespace prefix `dct:`. This is a machine-readable pattern and allows CoverageJSON and DCMI to coexist in the same document without conflict. Dataset attributes described earlier in the handbook are mapped to appropriate DCMI terms.
+
+**Darwin Core** is an extension of Dublin Core providing a standard for biodiversity data. It includes a conceptual model, specifications and schemas for sharing via various data formats, and a glossary of terms (elsewhere these might be called properties, elements, fields, columns, attributes or concepts) by providing identifiers, labels and definitions.
+
+See [Dublin Core terms](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/) and [Darwin Core](https://dwc.tdwg.org/).
 
 ------------------------------------------------------------------------
 

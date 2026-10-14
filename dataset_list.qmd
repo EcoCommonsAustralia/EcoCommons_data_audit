@@ -34,7 +34,7 @@ toc: false
 
 This is the **full, layer-level list** of every record in the EcoCommons production catalogue — all **58,424** of them. Use the search box to filter across every column, and click a column header to sort.
 
-The table below loads from [`ecocommons_datasets_full.csv`](data/ecocommons_datasets_full.csv) (also available to [download](data/ecocommons_datasets_full.csv)) — the complete export with **all 34 fields** per record, including `uuid`, usage counts (`event_view`, `event_download`, …), GCM/scenario, licence, source URL and more. Scroll the table horizontally to see every column.
+The table below shows the complete export with **all 34 fields** per record, including `uuid`, usage counts (`event_view`, `event_download`, …), GCM/scenario, licence, source URL and more. Scroll the table horizontally to see every column.
 
 ```{ojs}
 //| echo: false

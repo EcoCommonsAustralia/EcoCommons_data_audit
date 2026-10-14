@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-09-18">
-<meta name="description" content="The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples.">
+<meta name="description" content="A handbook and style guide for publishing data to EcoCommons — the data model, attributes, formats and representation — together with the checkable metadata &amp; data-quality rules that datasets are expected to satisfy.">
 
 <title>Rule Book – EcoCommons Data Audit</title>
 <style>
@@ -104,10 +104,6 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Dataset List</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./rule_book.html" aria-current="page"> 
-<span class="menu-text">Rule Book</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="./audit_log.html"> 
 <span class="menu-text">Audit Log</span></a>
   </li>  
@@ -129,12 +125,12 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Rule Book</h1>
-<p class="subtitle lead">Checkable metadata &amp; data-quality rules, mapped to the DCAT-AP obligation model</p>
+<p class="subtitle lead">Data standards &amp; publishing handbook, with checkable metadata rules mapped to DCAT-AP</p>
 </div>
 
 <div>
   <div class="description">
-    The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples.
+    A handbook and style guide for publishing data to EcoCommons — the data model, attributes, formats and representation — together with the checkable metadata &amp; data-quality rules that datasets are expected to satisfy.
   </div>
 </div>
 
@@ -160,8 +156,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Contact details: support@ecocommons.org.au</p>
 <section id="purpose" class="level1">
 <h1>Purpose</h1>
-<p><em>The metadata rules and data standards that EcoCommons datasets are expected to satisfy — each rule stated, justified, and made checkable, with pass/fail examples.</em></p>
-<p>This page is the <strong>living rule book</strong> for EcoCommons data. It turns loose expectations — “titles should be consistent”, “every dataset needs a category” — into <strong>explicit, checkable rules</strong>, so that a dataset can be audited against them objectively rather than by opinion.</p>
+<p><em>A single place that explains <strong>how EcoCommons data is modelled and published</strong> — the data model, attributes, formats and representation — and <strong>what good looks like</strong>, as a set of explicit, checkable rules.</em></p>
+<p>The first part is a <strong>handbook and style guide</strong> for anyone publishing data to the platform or developing the data architecture and integrations. The second part is the <strong>living rule book</strong>: it turns loose expectations — “titles should be consistent”, “every dataset needs a category” — into <strong>explicit, checkable rules</strong>, so that a dataset can be audited objectively rather than by opinion.</p>
 <p>Each rule ties back to the metadata fields exposed by the data-ingester index (the same fields we pulled in the <a href="./ecocommons_prod_data_audit.html">production catalogue audit</a>):</p>
 <p><code>title</code> · <code>uuid</code> · <code>data_category</code> · <code>data_subcategories</code> · <code>time_domain</code> · <code>year</code> · <code>resolution</code> · <code>spatial_domain</code> · <code>spatial_data_type</code> · <code>collection_names</code> · <code>downloadable</code> · <code>created</code></p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -178,6 +174,686 @@ Note
 </div>
 </div>
 <hr>
+</section>
+<section id="data-standards-publishing-handbook" class="level1">
+<h1>Data standards &amp; publishing handbook</h1>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Draft.</strong> This handbook is an early draft adapted from the platform’s internal data handbook. Sections marked <em>to be documented</em> are still being written. It is offered for review and will evolve.</p>
+</div>
+</div>
+<p>This is a handbook and style guide for data import operations in the platform. It covers the key concepts and conventions for importing a <strong>Dataset</strong> and ensuring its correct representation in the data catalogue and its function with platform models. The intended audience is anyone publishing data to the platform, or developing the data architecture or integrations.</p>
+<p><strong>Further reading.</strong> Full technical description — <em>EcoCommons / BSC Data Architecture</em>; <em>Platform API Reference</em> (internal references).</p>
+<section id="glossary-of-terms" class="level2">
+<h2 class="anchored" data-anchor-id="glossary-of-terms">Glossary of terms</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CRS</td>
+<td>Coordinate Reference System (e.g.&nbsp;an EPSG code).</td>
+</tr>
+<tr class="even">
+<td>Dataset</td>
+<td>A structured collection of related information treated as a single unit for analysis, reporting, or computing.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="document-conventions" class="level2">
+<h2 class="anchored" data-anchor-id="document-conventions">Document conventions</h2>
+<p>This document uses the common technical convention of <em>Must, Should, May</em> to convey requirements. Terms such as <strong>Dataset</strong> are bold and capitalised when they refer to the platform model, to distinguish them from general use.</p>
+</section>
+<section id="overview-of-the-data-model" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-the-data-model">Overview of the data model</h2>
+<section id="dataset" class="level3">
+<h3 class="anchored" data-anchor-id="dataset">Dataset</h3>
+<p>A <strong>Dataset</strong> is a structured collection of related information. In the platform, a Dataset consists of one or more layers, each of which references a physical data file (e.g.&nbsp;a GeoTIFF or CSV).</p>
+<p>A Dataset:</p>
+<ul>
+<li><em>May</em> be spatial, spatiotemporal or aspatial.</li>
+<li><em>May</em> contain a single layer or multiple layers.</li>
+<li><em>May</em> be created in series to describe different temporal or spatial variants.</li>
+<li><em>Must</em> be accompanied by the minimum set of attributes required by the data-catalogue interface.</li>
+</ul>
+</section>
+<section id="collection" class="level3">
+<h3 class="anchored" data-anchor-id="collection">Collection</h3>
+<p>A <strong>Collection</strong> is the highest level of data classification. It represents a group of datasets of common origin. The exact rules of a Collection are not strictly formalised in the platform, but typically a Collection represents related datasets from the same source. Publishers often organise data in terms of a collection, and these relationships should be reflected in the catalogue where possible.</p>
+<p>A Collection:</p>
+<ul>
+<li><em>Must</em> contain datasets from the same publisher or source.</li>
+<li><em>Must</em> avoid duplication, redundancy or ambiguity with other collections.</li>
+<li><em>Should</em> not be created for each individual dataset.</li>
+<li><em>May</em> represent an updated series of publications of the same dataset.</li>
+<li><em>May</em> represent an informal grouping where no formal one exists.</li>
+</ul>
+</section>
+<section id="data-layers" class="level3">
+<h3 class="anchored" data-anchor-id="data-layers">Data layers</h3>
+<p>A <strong>Dataset</strong> consists of one or more <strong>Data Layers</strong>, following common geospatial terminology. For climate and environmental data, layers often map to a structured vocabulary of “variables” (e.g.&nbsp;Mean Temperature → <code>bioclim_01</code>). Layers can also be unstructured, using the publisher’s own labels or labels adapted to improve readability.</p>
+<p>Model inputs such as <strong>SDM</strong> and <strong>Climate Change</strong> <em>predictors</em> expect Datasets to follow a structured vocabulary, but many other model inputs do not consider variable names when processing data.</p>
+<p>A multi-layer / multi-variable Dataset:</p>
+<ul>
+<li><em>Must</em> contain layers with consistent spatial properties: resolution, CRS and extent.</li>
+<li><em>May</em> contain different data types, e.g.&nbsp;<code>continuous</code>, <code>categorical</code>.</li>
+<li><em>May</em> contain different data encodings, e.g.&nbsp;<code>Float32</code>, <code>UInt8</code>.</li>
+<li><em>May</em> encode variable labels using structured vocabularies or unstructured labels.</li>
+</ul>
+<section id="layers-variables-and-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="layers-variables-and-parameters">Layers, variables and parameters</h4>
+<p>The terms <strong><em>layer</em></strong>, <strong><em>variable</em></strong> and <strong><em>parameter</em></strong> are often used interchangeably depending on context, but they all typically refer to a <strong>Data Layer</strong> within the platform model.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>layer</td>
+<td>A general term for multi-layer geospatial data.</td>
+</tr>
+<tr class="even">
+<td>variable</td>
+<td>A structured set of terms often used in climate and environmental data to describe specific variables within a system, e.g.&nbsp;“temperature”.</td>
+</tr>
+<tr class="odd">
+<td>parameter</td>
+<td>The terminology used by CoverageJSON when representing a Data Layer.</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Variable names can be used as a hint to preselect styles in the platform visualiser.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="temporal-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="temporal-datasets">Temporal datasets</h3>
+<p>Generally, climate and environmental Datasets represent a single time interval or aggregate period for all layers (e.g.&nbsp;2020–2025). This is appropriate for the current EcoCommons models, e.g.&nbsp;SDM and Climate Change.</p>
+<p>A Dataset can also represent a temporal series of layers (e.g.&nbsp;<code>Jan</code>, <code>Feb</code>) where this is supported for a modelling use case. This should not be considered a supported pattern for EcoCommons models to date; however, it is used by Biosecurity Commons models that share the same catalogue.</p>
+<p>Temporal data is an area of development that requires further planning at the catalogue and model level.</p>
+</section>
+</section>
+<section id="attributes" class="level2">
+<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
+<p>The data catalogue derives its functionality and value from a set of metadata attributes that accompany the data itself. The platform defines a formal set of attributes for a Dataset; these must be set when publishing data. Not all attributes are required, but applicable attributes should be included to improve the quality and integrity of the data catalogue.</p>
+<section id="sourcing-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="sourcing-attributes">Sourcing attributes</h3>
+<p>The publication (e.g.&nbsp;<code>license</code>) or domain (e.g.&nbsp;<code>scientific_name</code>) attributes of a dataset should typically be transcribed from the publisher source. Other attributes, such as spatial properties, ranges and encoding, are determined automatically during the import process and do not need to be explicitly provided.</p>
+<p>The table below illustrates where attributes may be sourced:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Attribute class</th>
+<th>Example</th>
+<th>Potential source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Publication</td>
+<td>year</td>
+<td>The publisher landing page, or metadata included with data.</td>
+</tr>
+<tr class="even">
+<td>Domain</td>
+<td>taxonomy</td>
+<td>The publisher landing page, or metadata included with data.</td>
+</tr>
+<tr class="odd">
+<td>DataType</td>
+<td>categorical</td>
+<td>Metadata included with data (e.g.&nbsp;an auxiliary XML or other manifest).</td>
+</tr>
+<tr class="even">
+<td>Spatial</td>
+<td>CRS</td>
+<td>Extracted from spatial data directly, or provided as metadata.</td>
+</tr>
+<tr class="odd">
+<td>Category</td>
+<td>Vegetation</td>
+<td>Determined, choosing the most appropriate value, when importing.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="style-guide" class="level3">
+<h3 class="anchored" data-anchor-id="style-guide">Style guide</h3>
+<p>The Dataset <code>title</code> and <code>description</code> attributes are the most visible part of the catalogue, so a consistent style should be applied.</p>
+<section id="title" class="level4">
+<h4 class="anchored" data-anchor-id="title">Title</h4>
+<p><em>To be documented</em> — baseline style with example and variants, based on existing conventions.</p>
+</section>
+<section id="description" class="level4">
+<h4 class="anchored" data-anchor-id="description">Description</h4>
+<p><em>To be documented</em> — baseline style with example and do’s / don’ts.</p>
+</section>
+</section>
+<section id="categorisation" class="level3">
+<h3 class="anchored" data-anchor-id="categorisation">Categorisation</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Data categorisation as described here should not be confused with <strong>“categorical data”</strong>, which is a particular spatial data type describing discrete classes of data.</p>
+</div>
+</div>
+<p>The broadest classification for a Dataset is the <code>data_category</code> attribute.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Topography</td>
+<td>DEM data</td>
+</tr>
+<tr class="even">
+<td>Soil</td>
+<td>% Sand, % Silt, % Clay</td>
+</tr>
+<tr class="odd">
+<td>Vegetation</td>
+<td>NVIS, BIOMES, NDVI, fractional vegetation cover</td>
+</tr>
+<tr class="even">
+<td>Freshwater</td>
+<td>Streams, lakes</td>
+</tr>
+<tr class="odd">
+<td>Marine</td>
+<td>Ocean</td>
+</tr>
+<tr class="even">
+<td>Human activity</td>
+<td>Human population, roads, cities, land use</td>
+</tr>
+<tr class="odd">
+<td>Climate</td>
+<td>WorldClim, CliMond, average monthly climate data</td>
+</tr>
+<tr class="even">
+<td>Biodiversity</td>
+<td>Species occurrence data</td>
+</tr>
+<tr class="odd">
+<td>Boundary data</td>
+<td>LGAs, countries, NRMs, land parcels</td>
+</tr>
+</tbody>
+</table>
+<p>A secondary classification attribute, <code>data_subcategories</code>, allows a list of sub-categories to be assigned to a Dataset. To date this list is not formalised and contains a number of variants — it is closer to an arbitrary tagging system than a formal vocabulary. Data subcategories are presented in the data catalogue for each item; however, they are not currently searchable or browsable. This is a development area to be considered for the catalogue.</p>
+</section>
+<section id="all-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="all-attributes">All attributes</h3>
+<p>The authoritative source of attributes is the Platform Data API reference.</p>
+<section id="general" class="level4">
+<h4 class="anchored" data-anchor-id="general">General</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+<th>Default</th>
+<th>Maps to</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>title</code></td>
+<td>string</td>
+<td>Dataset short description</td>
+<td>Yes</td>
+<td>—</td>
+<td><code>dct:title</code></td>
+</tr>
+<tr class="even">
+<td><code>description</code></td>
+<td>string</td>
+<td>Dataset long description</td>
+<td>Yes</td>
+<td>—</td>
+<td><code>dct:description</code></td>
+</tr>
+<tr class="odd">
+<td><code>data_category</code></td>
+<td>string</td>
+<td>Primary data category</td>
+<td>Yes</td>
+<td>—</td>
+<td><em>see category table above</em></td>
+</tr>
+<tr class="even">
+<td><code>data_subcategories</code></td>
+<td>array</td>
+<td>Optional secondary data-category labels</td>
+<td>No</td>
+<td><code>[]</code></td>
+<td><em>any</em></td>
+</tr>
+<tr class="odd">
+<td><code>time_domain</code></td>
+<td>string</td>
+<td>Temporal classification</td>
+<td>—</td>
+<td><code>Current</code></td>
+<td><code>Current</code>, <code>Future</code></td>
+</tr>
+<tr class="even">
+<td><code>year</code></td>
+<td>integer</td>
+<td>Dataset year</td>
+<td>No</td>
+<td><code>null</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>year_range</code></td>
+<td>array</td>
+<td>Alternative year range in the form <code>[2000, 2010]</code></td>
+<td>No</td>
+<td><code>[]</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>mimetype</code></td>
+<td>string</td>
+<td>Data mimetype</td>
+<td>No</td>
+<td><code>""</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>crs</code></td>
+<td>string</td>
+<td>Coordinate Reference System, e.g.&nbsp;<code>EPSG:4326</code> (required for tabular data only)</td>
+<td>No</td>
+<td><code>""</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>resolution</code></td>
+<td>string</td>
+<td>Optional resolution label (e.g.&nbsp;<code>3 arcmin (~5km)</code>)</td>
+<td>No</td>
+<td><code>""</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>genre</code></td>
+<td>string</td>
+<td>An internal vocabulary representing scientific / domain detail</td>
+<td>No</td>
+<td>—</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="publisher" class="level4">
+<h4 class="anchored" data-anchor-id="publisher">Publisher</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+<th>Default</th>
+<th>Maps to</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>license</code></td>
+<td>string</td>
+<td>License short description</td>
+<td>Yes</td>
+<td>—</td>
+<td><code>dct:license</code></td>
+</tr>
+<tr class="even">
+<td><code>rights</code></td>
+<td>string</td>
+<td>Rights-holder description</td>
+<td>Yes</td>
+<td>—</td>
+<td><code>dct:rights</code></td>
+</tr>
+<tr class="odd">
+<td><code>downloadable</code></td>
+<td>boolean</td>
+<td>Can be directly downloaded</td>
+<td>—</td>
+<td><code>true</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>acknowledgement</code></td>
+<td>string</td>
+<td>Optional additional acknowledgement</td>
+<td>No</td>
+<td><code>""</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>doi</code></td>
+<td>string</td>
+<td>Digital Object Identifier</td>
+<td>No</td>
+<td><code>""</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>source_url</code></td>
+<td>string</td>
+<td>Publisher data source URL</td>
+<td>No</td>
+<td><code>""</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>landing_page</code></td>
+<td>string</td>
+<td>Optional publisher landing page</td>
+<td>No</td>
+<td><code>""</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>attributions</code></td>
+<td>array of objects</td>
+<td>Individual attributions</td>
+<td>No</td>
+<td><code>[]</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="species" class="level4">
+<h4 class="anchored" data-anchor-id="species">Species</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>scientific_name</code></td>
+<td>string</td>
+<td>Scientific name for species data</td>
+<td>No</td>
+<td><code>""</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="climate" class="level4">
+<h4 class="anchored" data-anchor-id="climate">Climate</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>emsc</code></td>
+<td>string</td>
+<td>Emissions scenario (e.g.&nbsp;SSP / RCP)</td>
+<td>No</td>
+<td><code>""</code></td>
+</tr>
+<tr class="even">
+<td><code>gcm</code></td>
+<td>string</td>
+<td>Global Circulation Model</td>
+<td>No</td>
+<td><code>""</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These attributes should be mapped to <a href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/">standard terms</a>. For more information see <a href="#darwin-core-dublin-core-dcmi">Darwin Core &amp; Dublin Core</a> below.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="data-layer-variable-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="data-layer-variable-attributes">Data layer / variable attributes</h3>
+<p>The attributes described so far represent a Dataset as a whole; however, individual layers have their own attributes.</p>
+<ul>
+<li>A Data Layer <em>should</em> provide a human-readable label.</li>
+<li>A Data Layer <em>should</em> provide units where appropriate (e.g.&nbsp;<code>mean_temperature</code> → <code>degC</code>).</li>
+<li>A categorical Data Layer <em>must</em> provide a table of values that maps values to readable classes.</li>
+</ul>
+</section>
+</section>
+<section id="data-import" class="level2">
+<h2 class="anchored" data-anchor-id="data-import">Data import</h2>
+<section id="supported-data-formats" class="level3">
+<h3 class="anchored" data-anchor-id="supported-data-formats">Supported data formats</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Format</th>
+<th>Extension</th>
+<th>Supported domain types</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GeoTIFF</td>
+<td><code>.tif</code></td>
+<td>Grid</td>
+</tr>
+<tr class="even">
+<td>GeoPackage</td>
+<td><code>.gpkg</code></td>
+<td>Polygon, MultiPolygon</td>
+</tr>
+<tr class="odd">
+<td>CSV</td>
+<td><code>.csv</code></td>
+<td>Point</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The platform can import almost any file format (using the opaque <code>file</code> import method). However, this is only useful for specific model cases and has very limited value in the catalogue.</p>
+</div>
+</div>
+<section id="geotiff" class="level4">
+<h4 class="anchored" data-anchor-id="geotiff">GeoTIFF</h4>
+<p>Single or stacked rasters for either continuous or discrete gridded data. A stacked GeoTIFF is automatically unpacked by the platform during import, so it presents as a multi-layer Dataset.</p>
+<p>Cloud-Optimised GeoTIFF (COG) is a compatible variant optimised for use in web environments. The platform does not currently take advantage of this format; however, this may change, so COG is a valid choice when importing data. See <a href="https://en.wikipedia.org/wiki/GeoTIFF">GeoTIFF</a>.</p>
+</section>
+<section id="geopackage" class="level4">
+<h4 class="anchored" data-anchor-id="geopackage">GeoPackage</h4>
+<p>GeoPackage (GPKG) is an open, non-proprietary, platform-independent and standards-based data format for geographic information systems, built as a set of conventions over a SQLite database. The standard describes conventions for storing vector features, tile matrix sets of imagery, raster maps at various scales, schema and metadata.</p>
+<p>The platform does not support all variants of GPKG data. The primary implementation is for polygon data (features); this may be multi-polygon and multi-layer. Additional attributes are imported, but they are currently opaque to the platform in terms of visualisation, and models do not formally use or expect any. See <a href="https://en.wikipedia.org/wiki/GeoPackage">GeoPackage</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ESRI Shapefile is also supported; however, it is deprecated and should be avoided for curated data.</p>
+</div>
+</div>
+</section>
+<section id="csv" class="level4">
+<h4 class="anchored" data-anchor-id="csv">CSV</h4>
+<p>CSV files can be imported to represent point data. The basic conventions are described in the platform’s data-import interfaces, generally requiring a minimum of a <code>lat</code> and <code>lon</code> column. Additional fields can be included, but their use is model-specific.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A spatial CSV file has no standard way of encoding its CRS. It must therefore be provided as an attribute (<code>crs</code>) during import, or it will be assumed to be <em>WGS-84</em>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="import-methods" class="level3">
+<h3 class="anchored" data-anchor-id="import-methods">Import methods</h3>
+<p><em>To be documented</em> — the API data-import methods.</p>
+</section>
+</section>
+<section id="data-representation" class="level2">
+<h2 class="anchored" data-anchor-id="data-representation">Data representation</h2>
+<p>So far this handbook has described how data is published and presented in the platform catalogue. However, Datasets are also consumed by modelling workflows and other contexts, such as visualisation dashboards. This requires a Dataset and its attributes to be represented in a consistent, portable format. The main representation provided by the platform APIs is <strong>CoverageJSON</strong>.</p>
+<section id="coveragejson" class="level3">
+<h3 class="anchored" data-anchor-id="coveragejson">CoverageJSON</h3>
+<p>A coverage is simply a structure that associates positions in space and time with data values. CoverageJSON is designed to encode this information in a form easily consumed by web services. See the <a href="https://covjson.org/cookbook/">CoverageJSON cookbook</a> and the <a href="https://docs.ogc.org/cs/21-069r2/21-069r2.html">OGC Coverage Implementation Schema</a>.</p>
+<p>The platform implements a subset of Coverage domain types:</p>
+<ul>
+<li>Grid</li>
+<li>Polygon, MultiPolygon</li>
+<li>Point</li>
+</ul>
+<p>Additionally, a coverage:</p>
+<ul>
+<li>Describes the spatial domain of the data (resolution, extent, CRS).</li>
+<li>Represents class information for categorical data.</li>
+<li>Represents Data Layers as coverage “Parameters”, including labels and units.</li>
+<li>Describes the data encoding and basic metadata, e.g.&nbsp;<code>min</code>, <code>max</code>, <code>stddev</code>.</li>
+<li>Provides pointers (<code>rangeAlternates</code>) for accessing raw data, e.g.&nbsp;<code>.tif</code>.</li>
+</ul>
+</section>
+<section id="darwin-core-dublin-core-dcmi" class="level3">
+<h3 class="anchored" data-anchor-id="darwin-core-dublin-core-dcmi">Darwin Core &amp; Dublin Core (DCMI)</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is in early development and has only a minimal implementation at present. Darwin Core in particular currently has no implementation, but is included here for reference.</p>
+</div>
+</div>
+<p>Coverage provides a standard for spatial data, but says nothing about other data attributes, so another way of representing non-spatial information is required.</p>
+<p><strong>Dublin Core (DCMI)</strong> is a general-purpose, lightweight metadata standard designed to describe any type of digital or physical resource. In practical terms the platform uses it for basic identifiers, e.g.&nbsp;<code>identifier</code>, <code>title</code>, <code>description</code>, <code>license</code>, <code>rights</code>. The standard uses the namespace prefix <code>dct:</code>. This is a machine-readable pattern and allows CoverageJSON and DCMI to coexist in the same document without conflict. Dataset attributes described earlier in the handbook are mapped to appropriate DCMI terms.</p>
+<p><strong>Darwin Core</strong> is an extension of Dublin Core providing a standard for biodiversity data. It includes a conceptual model, specifications and schemas for sharing via various data formats, and a glossary of terms (elsewhere these might be called properties, elements, fields, columns, attributes or concepts) by providing identifiers, labels and definitions.</p>
+<p>See <a href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/">Dublin Core terms</a> and <a href="https://dwc.tdwg.org/">Darwin Core</a>.</p>
+<hr>
+</section>
+</section>
 </section>
 <section id="how-to-read-a-rule" class="level1">
 <h1>How to read a rule</h1>

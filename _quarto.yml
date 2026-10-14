@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: docs
+  # Render only the site's .qmd pages; loose .md files (README, the merged
+  # data_handbook source) are kept in the repo but not published as pages.
+  render:
+    - "*.qmd"
   resources:
     - data/
   # Re-create the Jekyll opt-out after each render (render cleans docs/).
@@ -18,8 +22,9 @@ website:
         text: "Data Catalogue"
       - href: dataset_list.qmd
         text: "Dataset List"
-      - href: rule_book.qmd
-        text: "Rule Book"
+      # Rule Book hidden from the navbar for now (page still builds; links to it still work).
+      # - href: rule_book.qmd
+      #   text: "Rule Book"
       - href: audit_log.qmd
         text: "Audit Log"
 
